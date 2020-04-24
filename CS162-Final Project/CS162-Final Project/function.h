@@ -53,9 +53,9 @@ struct Student {
 void Login(char* userid, char* userpwd);
 bool LoadDataStaff(ifstream& fi, LinkedListSta& lst);
 bool LoadDataStudent(ifstream& fi, LinkedListStu& lst);
-bool SaveDataStaff(ofstream& fo, int& nstaff, Staff* arr);
-bool SaveDataStudent(ofstream& fo, int& nstudent, Student* arr);
-void ViewProfileStaff();
+bool SaveDataStaff(ofstream& fo, int& nstaff, LinkedListSta& lst);
+bool SaveDataStudent(ofstream& fo, int& nstudent, LinkedListStu& lst);
+void ViewProfileStaff(LinkedListSta& lst);
 void MenuStaff();///type menu =1
 void MenuStudent();//type menu=3
 void ImportStudentScv();
