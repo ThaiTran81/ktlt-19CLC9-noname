@@ -51,8 +51,8 @@ struct Student {
 
 
 void Login(char* userid, char* userpwd);
-bool LoadDataStaff(ifstream& fi, Staff*& arr);
-bool LoadDataStudent(ifstream& fi, Student*& arr);
+bool LoadDataStaff(ifstream& fi, LinkedListSta& lst);
+bool LoadDataStudent(ifstream& fi, LinkedListStu& lst);
 bool SaveDataStaff(ofstream& fo, int& nstaff, Staff* arr);
 bool SaveDataStudent(ofstream& fo, int& nstudent, Student* arr);
 void ViewProfileStaff();

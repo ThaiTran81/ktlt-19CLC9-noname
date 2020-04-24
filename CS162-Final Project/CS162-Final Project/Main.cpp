@@ -5,8 +5,8 @@ int main()
 	ifstream fi;
 	ofstream fo;
 	int nstudent, nstaff;
-	Student* arrStu;
-	Staff* arrSta;
+	LinkedListSta lstSta;
+	LinkedListStu lstStu;
 	char* userid;
 	char* userpwd;
 
