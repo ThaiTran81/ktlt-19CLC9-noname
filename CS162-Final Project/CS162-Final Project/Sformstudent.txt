@@ -1,0 +1,8 @@
+//so luong
+//id
+//password
+//ho ten
+//ngay thang nam sinh
+//lop
+//gioi tinh
+//loai menu

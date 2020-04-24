@@ -1,0 +1,6 @@
+//so luong
+//id
+//password
+//ho ten
+//gioi tinh
+//loai menu
