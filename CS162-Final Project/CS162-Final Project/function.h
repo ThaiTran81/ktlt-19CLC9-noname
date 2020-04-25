@@ -50,7 +50,7 @@ struct Student {
 };
 
 
-void Login(char* userid, char* userpwd);
+void Login(char* userid, char* userpwd, LinkedListSta& lstSta, LinkedListStu& lstStu);
 bool LoadDataStaff(ifstream& fi, LinkedListSta& lst);
 bool LoadDataStudent(ifstream& fi, LinkedListStu& lst);
 bool SaveDataStaff(ofstream& fo, int& nstaff, LinkedListSta& lst);
