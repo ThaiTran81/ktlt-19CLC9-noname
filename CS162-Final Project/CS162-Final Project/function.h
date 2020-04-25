@@ -40,9 +40,9 @@ struct Student {
 	char* fullname;
 	char* classId;
 
-	int day;
-	int month;
-	int year;
+	char day[3];
+	char month[3];
+	char year[5];
 
 	int typeMenu;
 	bool status;
