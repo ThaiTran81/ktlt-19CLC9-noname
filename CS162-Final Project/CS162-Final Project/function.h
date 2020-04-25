@@ -6,34 +6,13 @@
 #include<cstring>
 #include<string>
 using namespace std;
-
-
-struct nodeStu {
-	Student data;
-	nodeStu* next;
-};
-
-struct LinkedListStu {
-	nodeStu* head;
-};
-
-struct nodeSta {
-	Staff data;
-	nodeSta* next;
-};
-
-struct LinkedListSta {
-	nodeSta* head;
-};
-
 struct Staff {
-	char* id;
-	char* password;
-	char* fullname;
+	string id;
+	string password;
+	string fullname;
 	int typeMenu;
 	bool sex;
 };
-
 struct Student {
 	char id[10];
 	char* password;
@@ -48,12 +27,29 @@ struct Student {
 	bool status;
 	bool sex;
 };
+struct nodeStu {
+	Student data;
+	nodeStu* next;
+};
 
+struct LinkedListStu {
+	nodeStu* head;
+};
 
+struct nodeSta {
+	Staff dataStaf;
+	nodeSta* next;
+};
+
+struct LinkedListSta {
+	int NumSta;
+	nodeSta* head;
+};
+nodeSta* createNodeStaff(Staff x); // Dung de tao Node cho staff <Done>
 void Login(char* userid, char* userpwd, LinkedListSta& lstSta, LinkedListStu& lstStu);
-bool LoadDataStaff(ifstream& fi, LinkedListSta& lst);
+bool LoadDataStaff(ifstream& fi, LinkedListSta& lst);// Load du lieu txt vao list staff <Done>
 bool LoadDataStudent(ifstream& fi, LinkedListStu& lst);
-bool SaveDataStaff(ofstream& fo, int& nstaff, LinkedListSta& lst);
+bool SaveDataStaff(ofstream& fo, LinkedListSta& lst); // Save du lieu tu list staff ra txt <Done>
 bool SaveDataStudent(ofstream& fo, int& nstudent, LinkedListStu& lst);
 void ViewProfileStaff(LinkedListSta& lst);
 void MenuStaff();///type menu =1
