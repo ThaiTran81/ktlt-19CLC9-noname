@@ -14,25 +14,26 @@ struct Staff {
 	bool sex;
 };
 struct Student {
-	char id[10];
-	char* password;
-	char* fullname;
-	char* classId;
+	string id;
+	string password;
+	string fullname;
+	string classId;
 
-	char day[3];
-	char month[3];
-	char year[5];
+	string day;
+	string month;
+	string year;
 
 	int typeMenu;
 	bool status;
 	bool sex;
 };
 struct nodeStu {
-	Student data;
+	Student dataStud;
 	nodeStu* next;
 };
 
 struct LinkedListStu {
+	int NumStu;
 	nodeStu* head;
 };
 
@@ -46,11 +47,12 @@ struct LinkedListSta {
 	nodeSta* head;
 };
 nodeSta* createNodeStaff(Staff x); // Dung de tao Node cho staff <Done>
+nodeStu* createNodeStudent(Student x); // Dung de tao Node cho student <Done>
 void Login(char* userid, char* userpwd, LinkedListSta& lstSta, LinkedListStu& lstStu);
 bool LoadDataStaff(ifstream& fi, LinkedListSta& lst);// Load du lieu txt vao list staff <Done>
-bool LoadDataStudent(ifstream& fi, LinkedListStu& lst);
+bool LoadDataStudent(ifstream& fi, LinkedListStu& lst);// Load du lieu txt vao list student <Done>
 bool SaveDataStaff(ofstream& fo, LinkedListSta& lst); // Save du lieu tu list staff ra txt <Done>
-bool SaveDataStudent(ofstream& fo, int& nstudent, LinkedListStu& lst);
+bool SaveDataStudent(ofstream& fo, LinkedListStu& lst);
 void ViewProfileStaff(LinkedListSta& lst);
 void MenuStaff();///type menu =1
 void MenuStudent();//type menu=3
