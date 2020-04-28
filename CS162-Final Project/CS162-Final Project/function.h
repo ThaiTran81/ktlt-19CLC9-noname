@@ -10,7 +10,7 @@ struct Staff {
 	string id;
 	string password;
 	string fullname;
-	int typeMenu;
+	int typeMenu=1;
 	bool sex;
 };
 struct Student {
@@ -23,8 +23,8 @@ struct Student {
 	string month;
 	string year;
 
-	int typeMenu;
-	bool status;
+	int typeMenu=3;
+	bool status=1;
 	bool sex;
 };
 struct nodeStu {
@@ -33,7 +33,7 @@ struct nodeStu {
 };
 
 struct LinkedListStu {
-	int NumStu;
+	int NumStu=0;
 	nodeStu* head;
 };
 
@@ -48,15 +48,16 @@ struct LinkedListSta {
 };
 nodeSta* createNodeStaff(Staff x); // Dung de tao Node cho staff <Done>
 nodeStu* createNodeStudent(Student x); // Dung de tao Node cho student <Done>
-void Login(char* userid, char* userpwd, LinkedListSta& lstSta, LinkedListStu& lstStu);
+void Login(string& userid, string& userpwd, LinkedListSta lstSta, LinkedListStu lstStu);
 bool LoadDataStaff(ifstream& fi, LinkedListSta& lst);// Load du lieu txt vao list staff <Done>
 bool LoadDataStudent(ifstream& fi, LinkedListStu& lst);// Load du lieu txt vao list student <Done>
 bool SaveDataStaff(ofstream& fo, LinkedListSta& lst); // Save du lieu tu list staff ra txt <Done>
-bool SaveDataStudent(ofstream& fo, LinkedListStu& lst);
-void ViewProfileStaff(LinkedListSta& lst);
-void MenuStaff();///type menu =1
+bool SaveDataStudent(ofstream& fo, LinkedListStu& lst);//done
+void ViewProfileStaff(LinkedListSta& lst, string userid);//done
+void MenuStaff_class();///menu->class
+string CreatePwdStu(string year, string month, string day);// tao mat khau cho sinh vien
 void MenuStudent();//type menu=3
-void ImportStudentScv();
+void ImportStudentCsv(LinkedListStu& lst);//import file csv
 void EditStudent();
 void RemoveStudent();
 #endif // !_FUNCTION_H_
