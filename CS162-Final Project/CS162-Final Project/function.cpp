@@ -26,7 +26,6 @@ bool LoadDataStaff(ifstream& fi, LinkedListSta& lst)
 		fi >> staf.password;
 		getline(fi, staf.fullname);
 		getline(fi, staf.fullname);
-		//fi >> staf.typeMenu;
 		fi >> staf.sex;
 		nodeSta* p = createNodeStaff(staf);
 		lst.head = p;
@@ -37,7 +36,6 @@ bool LoadDataStaff(ifstream& fi, LinkedListSta& lst)
 			fi >> staf.password;
 			getline(fi, staf.fullname);
 			getline(fi, staf.fullname);
-			//fi >> staf.typeMenu;
 			fi >> staf.sex;
 			p = createNodeStaff(staf);
 			cur->next = p;
@@ -59,7 +57,6 @@ bool SaveDataStaff(ofstream& fo, LinkedListSta& lst)
 		fo << cur->dataStaf.id << endl;
 		fo << cur->dataStaf.password << endl;
 		fo << cur->dataStaf.fullname << endl;
-		//fo << cur->dataStaf.typeMenu << endl;
 		fo << cur->dataStaf.sex << endl;
 		cur = cur->next;
 	}
@@ -77,7 +74,6 @@ nodeStu* createNodeStudent(Student stud) {
 	p->dataStud.day = stud.day;
 	p->dataStud.classId = stud.classId;
 	p->dataStud.sex = stud.sex;
-	//p->dataStud.typeMenu = stud.typeMenu;
 	p->next = NULL;
 	return p;
 }
@@ -95,7 +91,6 @@ bool LoadDataStudent(ifstream& fi, LinkedListStu& lst) {
 	fi >> stud.year >> stud.month >> stud.day;
 	fi >> stud.classId;
 	fi >> stud.sex;
-	//fi >> stud.typeMenu;
 	nodeStu* p = createNodeStudent(stud);
 	lst.head = p;
 	nodeStu* cur = lst.head;
@@ -108,7 +103,6 @@ bool LoadDataStudent(ifstream& fi, LinkedListStu& lst) {
 		fi >> stud.classId;
 		fi >> stud.sex;
 		fi >> stud.status;
-		//fi >> stud.typeMenu;
 		nodeStu* p = createNodeStudent(stud);
 		cur->next = p;
 		cur = cur->next;
@@ -129,7 +123,6 @@ bool SaveDataStudent(ofstream& fo, LinkedListStu& lst) {
 		fo << cur->dataStud.classId << endl;
 		fo << cur->dataStud.sex << endl;
 		fo << cur->dataStud.status << endl;
-		//fo << cur->dataStud.typeMenu << endl;
 		cur = cur->next;
 	}
 	return true;
@@ -166,7 +159,7 @@ void Login(string& userid, string& userpwd, LinkedListSta lstSta, LinkedListStu 
 	cout << "Invalid login, please try again" << endl;
 }
 
-void ViewProfileStaff(LinkedListSta& lst, string userid)
+void ViewProfileStaff(const LinkedListSta& lst, string userid)
 {
 	cout << "id: " << userid << endl;
 	cout << "Full name: ";

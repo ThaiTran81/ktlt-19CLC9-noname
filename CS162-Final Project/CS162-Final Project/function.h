@@ -48,16 +48,23 @@ struct LinkedListSta {
 };
 nodeSta* createNodeStaff(Staff x); // Dung de tao Node cho staff <Done>
 nodeStu* createNodeStudent(Student x); // Dung de tao Node cho student <Done>
+
+
+
 void Login(string& userid, string& userpwd, LinkedListSta lstSta, LinkedListStu lstStu);
 bool LoadDataStaff(ifstream& fi, LinkedListSta& lst);// Load du lieu txt vao list staff <Done>
 bool LoadDataStudent(ifstream& fi, LinkedListStu& lst);// Load du lieu txt vao list student <Done>
 bool SaveDataStaff(ofstream& fo, LinkedListSta& lst); // Save du lieu tu list staff ra txt <Done>
 bool SaveDataStudent(ofstream& fo, LinkedListStu& lst);//done
-void ViewProfileStaff(LinkedListSta& lst, string userid);//done
+void ViewProfileStaff(const LinkedListSta& lst, string userid);//done
 void MenuStaff_class();///menu->class
 string CreatePwdStu(string year, string month, string day);// tao mat khau cho sinh vien
+void ViewListOfClass();//@Gia Huy (lay du lieu tu file class.txt va cout ra man hinh)
+void ViewStuOfClass();
+void ChangePasswordStaff(LinkedListSta& lst, string userid);//@Anh Tuan (doi mat khau cho user staff)
+void ViewProfileStudent(const LinkedListStu& lst, string userid);//@Mac Tin
 void MenuStudent();//type menu=3
-void ImportStudentCsv(LinkedListStu& lst);//import file csv
+void ImportStudentCsv(LinkedListStu& lst);//import file csv <Done>
 void EditStudent();
 void RemoveStudent();
 #endif // !_FUNCTION_H_
