@@ -250,3 +250,44 @@ void ImportStudentCsv(LinkedListStu& lst)
 		cout << "Done!" << endl;
 	}
 }
+//-------------------Doi mat khau---------------------------
+void ChangePasswordStaff(LinkedListSta& lst, string userid)
+{
+	int choice;
+	string curPass;
+	string newPass1,newPass2;
+	nodeSta* cur = lst.head;
+	bool condition = false;
+	while (cur != NULL)
+	{
+		if (cur->dataStaf.id == userid)
+		{
+			while (condition==false)
+			{
+				cout << "Current Password: ";
+				getline(cin, curPass);
+				cout << "New Password: ";
+				getline(cin, newPass1);
+				cout << "Type again: ";
+				getline(cin, newPass2);
+				if ((curPass == cur->dataStaf.password) && (newPass1 == newPass2))
+				{
+					cur->dataStaf.password = newPass1;
+					cout << "--Success--" << endl;
+					condition == true;
+				}
+				else
+				{
+					cout << "Failed, Try Again" << endl;
+					cout << "Press <0> to stop" << endl;
+					cout << "Press <1> to continue " << endl;
+					cout << "Your Choice: ";
+					cin >> choice;
+					if (choice == 0)
+						return;
+				}
+			}
+		}
+		cur = cur->next;
+	}
+}
