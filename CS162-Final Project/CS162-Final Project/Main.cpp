@@ -6,6 +6,7 @@ int main()
 	ofstream fo;
 	LinkedListSta lstSta;
 	LinkedListStu lstStu;
+	string* Class;
 	string userid;
 	string userpwd;
 	int choice;
