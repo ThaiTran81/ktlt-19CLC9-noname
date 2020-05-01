@@ -61,7 +61,8 @@ void MenuStaff_class();///menu->class
 string CreatePwdStu(string year, string month, string day);// tao mat khau cho sinh vien
 void ViewListOfClass();//@Gia Huy (lay du lieu tu file class.txt va cout ra man hinh)
 void ViewStuOfClass();
-void ChangePasswordStaff(LinkedListSta& lst, string userid);//@Anh Tuan (doi mat khau cho user staff)
+void ChangePasswordStaff(LinkedListSta& lst, string userid);//Doi mat khau cho staff <Done>
+void ChangePasswordStudent(LinkedListStu& lst, string userid);//Doi mat khau cho student <Done>
 void ViewProfileStudent(const LinkedListStu& lst, string userid);//@Mac Tin
 void MenuStudent();//type menu=3
 void ImportStudentCsv(LinkedListStu& lst);//import file csv <Done>
