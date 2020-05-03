@@ -86,7 +86,7 @@ bool LoadDataStudent(ifstream& fi, LinkedListStu& lst) {
 	}
 	fi >> stud.id;
 	fi >> stud.password;
-	fi.ignore();
+	getline(fi, stud.fullname);
 	getline(fi, stud.fullname);
 	fi >> stud.year >> stud.month >> stud.day;
 	fi >> stud.classId;
@@ -334,3 +334,33 @@ void ChangePasswordStudent(LinkedListStu& lst, string userid)
 	}
 }
 //------------------------------------------------------------------------
+//ViewListOfClass
+nodeCla* createNodeCLass(Class cla) {
+	nodeCla* temp = new nodeCla();
+	temp->dataClas.classID = cla.classID;
+	temp->next = NULL;
+	return temp;
+}
+void ViewListOfClass(ifstream& fi, LinkedListCla& lst) {
+	lst.head = NULL;
+	Class clas;
+	fi >> lst.NumCla;
+	getline(fi, clas.classID);
+	getline(fi, clas.classID);
+	nodeCla*temp=createNodeCLass(clas);
+	lst.head = temp;
+	nodeCla* cur = lst.head;
+	for (int i = 0; i < lst.NumCla - 1; i++) {
+		getline(fi, clas.classID);
+		getline(fi, clas.classID);
+		temp = createNodeCLass(clas);
+		cur->next = temp;
+		cur = cur->next;
+	}
+	cout<<lst.NumCla << endl;
+	cur = lst.head;
+	while (cur != NULL) {
+		cout<< cur->dataClas.classID << endl;
+		cur = cur->next;
+	}
+}

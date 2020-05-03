@@ -27,6 +27,17 @@ struct Student {
 	bool status=1;
 	bool sex;
 };
+struct Class {
+	string classID;
+};
+struct nodeCla {
+	Class dataClas;
+	nodeCla* next;
+};
+struct LinkedListCla {
+	int NumCla;
+	nodeCla* head;
+};
 struct nodeStu {
 	Student dataStud;
 	nodeStu* next;
@@ -46,6 +57,9 @@ struct LinkedListSta {
 	int NumSta;
 	nodeSta* head;
 };
+struct nodeClass {
+
+};
 nodeSta* createNodeStaff(Staff x); // Dung de tao Node cho staff <Done>
 nodeStu* createNodeStudent(Student x); // Dung de tao Node cho student <Done>
 
@@ -59,7 +73,7 @@ bool SaveDataStudent(ofstream& fo, LinkedListStu& lst);//done
 void ViewProfileStaff(const LinkedListSta& lst, string userid);//done
 void MenuStaff_class();///menu->class
 string CreatePwdStu(string year, string month, string day);// tao mat khau cho sinh vien
-void ViewListOfClass();//@Gia Huy (lay du lieu tu file class.txt va cout ra man hinh)
+void ViewListOfClass(ifstream&fi,ofstream&fo,LinkedListStu&cla);//Lay du lieu tu file class.txt va cout ra man hinh<done>
 void ViewStuOfClass();
 void ChangePasswordStaff(LinkedListSta& lst, string userid);//Doi mat khau cho staff <Done>
 void ChangePasswordStudent(LinkedListStu& lst, string userid);//Doi mat khau cho student <Done>
