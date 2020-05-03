@@ -275,7 +275,7 @@ void ChangePasswordStaff(LinkedListSta& lst, string userid)
 				{
 					cur->dataStaf.password = newPass1;
 					cout << "--Success--" << endl;
-					condition == true;
+					condition = true;
 				}
 				else
 				{
@@ -316,7 +316,7 @@ void ChangePasswordStudent(LinkedListStu& lst, string userid)
 				{
 					cur->dataStud.password = newPass1;
 					cout << "--Success--" << endl;
-					condition == true;
+					condition = true;
 				}
 				else
 				{
@@ -341,7 +341,9 @@ nodeCla* createNodeCLass(Class cla) {
 	temp->next = NULL;
 	return temp;
 }
-void ViewListOfClass(ifstream& fi, LinkedListCla& lst) {
+void ViewListOfClass(LinkedListCla& lst) 
+{
+	ifstream fi("Class.txt");
 	lst.head = NULL;
 	Class clas;
 	fi >> lst.NumCla;
@@ -357,10 +359,207 @@ void ViewListOfClass(ifstream& fi, LinkedListCla& lst) {
 		cur->next = temp;
 		cur = cur->next;
 	}
-	cout<<lst.NumCla << endl;
+	cout << "Class: " << lst.NumCla << endl;
 	cur = lst.head;
 	while (cur != NULL) {
 		cout<< cur->dataClas.classID << endl;
 		cur = cur->next;
 	}
 }
+
+//----------------------load and save class file--------------------------
+bool LoadDataStudentFromClassFile(Class& cla)
+{
+	string pathfile = "Students-";
+	ifstream fi;
+	nodeStu* p;
+	nodeStu* cur = cla.stu.head;
+	Student stu;
+	pathfile += cla.classID;
+	fi.open(pathfile.c_str());
+	if (!fi.is_open())
+	{
+		cout << "Can't open data file of class " << cla.classID << "!!!" << endl;
+		return 0;
+	}
+	else
+	{
+		fi >> cla.stu.NumStu;
+		getline(fi, stu.id);
+		getline(fi, stu.password);
+		getline(fi, stu.fullname);
+		fi >> stu.year >> stu.month >> stu.day;
+		fi >> stu.sex;
+		fi >> stu.status;
+		p = createNodeStudent(stu);
+		cla.stu.head = p;
+		for (int i = 0; i < cla.stu.NumStu - 1; i++)
+		{
+			getline(fi, stu.id);
+			getline(fi, stu.password);
+			getline(fi, stu.fullname);
+			fi >> stu.year >> stu.month >> stu.day;
+			fi >> stu.sex;
+			fi >> stu.status;
+			p = createNodeStudent(stu);
+			cur->next = p;
+			cur = cur->next;
+		}
+		fi.close();
+		return 1;
+	}
+
+}
+
+bool SaveDataClassFile(Class cla)
+{
+	ofstream fo;
+	string pathfile = "Students-";
+	nodeStu* cur = cla.stu.head;
+	pathfile += cla.classID;
+	fo.open(pathfile.c_str());
+	if (!fo.is_open())
+	{
+		cout << "can't not open file to save!!" << endl;
+		return 0;
+	}
+	else
+	{
+		fo << cla.stu.NumStu << endl;
+		while (cur != NULL) {
+			fo << cur->dataStud.id << endl;
+			fo << cur->dataStud.password << endl;
+			fo << cur->dataStud.fullname << endl;
+			fo << cur->dataStud.year << " " << cur->dataStud.month << " " << cur->dataStud.day << endl;
+			fo << cur->dataStud.classId << endl;
+			fo << cur->dataStud.sex << endl;
+			fo << cur->dataStud.status << endl;
+			cur = cur->next;
+		}
+		fo.close();
+	}
+}
+//----------------------Edit student from a class-----------------------------
+void EditStudent(LinkedListCla& cla, LinkedListStu& stu)
+{
+	int choice;
+	string newname, newmonth, newyear, newday;
+	nodeStu* student;
+	nodeStu* student2;//to update linked list from student.txt
+	student = FindStuInClass(cla);
+	if (student == NULL)
+	{
+		//back to main menu
+	}
+	else
+	{
+		//ViewProfileStudent;
+		cout << "Do you want to edit this student?[Yes(1)/No(0)] :" << endl;
+		cin >> choice;
+		if (choice == 0)
+		{
+			//back to main menu
+		}
+		else
+		{
+			student2 = FindStu(stu, student->dataStud.id);
+			cout << "Enter new name:";
+			getline(cin, newname);
+			cout << "Enter new date of birth[yy mm dd]" << endl;
+			cin >> newyear >> newmonth >> newday;
+			//update data linked list for Students-Idclass.txt
+			student->dataStud.fullname = newname;
+			student->dataStud.year = newyear;
+			student->dataStud.month = newmonth;
+			student->dataStud.day = newday;
+			student->dataStud.password = CreatePwdStu(newyear, newmonth, newday);
+			SaveDataClassFile(cla.head->dataClas);
+
+			//update data linked list for Students.txt
+			student2->dataStud.fullname = newname;
+			student2->dataStud.year = newyear;
+			student2->dataStud.month = newmonth;
+			student2->dataStud.day = newday;
+			student2->dataStud.password = student->dataStud.password;
+			cout << "Successfull !!!(password has been reset)" << endl;
+
+		}
+
+
+	}
+}
+
+nodeStu* FindStuInClass(LinkedListCla& lst)
+{
+	int choice;
+	string idstu;
+	nodeCla* cur_cla = lst.head;
+	ViewListOfClass(lst);
+	do
+	{
+		cout << "Which class is student in?" << endl;
+		cout << "Enter your choice: ";
+		cin >> choice;
+		if (choice > lst.NumCla || choice < 0)
+		{
+			cout << "Error!!! please enter again!" << endl;
+			cout << "Press <0> to back" << endl;
+		}
+	} while (choice< lst.NumCla && choice !=0);
+	if (choice ==0)
+	{
+		return NULL;
+	}
+	else
+	{
+		while (choice--)
+		{
+			if (choice == 0) break;
+			cur_cla = cur_cla->next;
+		}
+		if (!LoadDataStudentFromClassFile(cur_cla->dataClas))
+		{
+			cout << "not found data from class " << cur_cla->dataClas.classID << endl;
+			return NULL;
+		}
+		else
+		{
+			cout << "Enter id student:";
+			cin >> idstu;
+			nodeStu* cur_stu = cur_cla->dataClas.stu.head;
+			while (cur_stu != NULL)
+			{
+				if (cur_stu->dataStud.id == idstu)
+				{
+					break;
+				}
+				cur_stu = cur_stu->next;
+			}
+			if (cur_stu == NULL)
+			{
+				cout << "Not found id student!!!" << endl;
+				return NULL;
+			}
+			else
+			{
+				return cur_stu;
+			}
+		}
+
+
+	}
+}
+
+nodeStu* FindStu(LinkedListStu lst, string id)
+{
+	nodeStu* cur = lst.head;
+	while (cur!=NULL)
+	{
+		if (cur->dataStud.id == id)
+			return cur;
+		cur = cur->next;
+	}
+	if (cur == NULL) return NULL;
+}
+
+//----------------------Remove Student from a class---------------------------
