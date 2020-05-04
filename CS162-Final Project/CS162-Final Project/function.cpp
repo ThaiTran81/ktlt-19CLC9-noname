@@ -333,6 +333,30 @@ void ChangePasswordStudent(LinkedListStu& lst, string userid)
 		cur = cur->next;
 	}
 }
+void ViewProfileStudent(const LinkedListStu& lst, string userid)
+{
+	cout << "id " << userid << endl;
+	cout << "Full name: ";
+	nodestu* cur = lst.head;
+	while (cur != NULL)
+	{
+		if (cur->dataStu.id == userid)
+		{
+			cout << "Full name: " << cur->dataStu.fullname << endl;
+			cout << " Gender:";
+			if (cur->dataStu.sex == 1)
+			{
+				cout << "Female" << endl;
+			}
+			else
+			{
+				cout << "Male" << endl;
+			}
+			cout << "DoB:" << cur->dataStu.Dob << endl;
+			cout << "Class: " << cur->dataStu.Class << endl;
+		}
+	}
+}
 //------------------------------------------------------------------------
 //ViewListOfClass
 nodeCla* createNodeCLass(Class cla) {
