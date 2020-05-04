@@ -10,7 +10,7 @@ struct Staff {
 	string id;
 	string password;
 	string fullname;
-	int typeMenu=1;
+	int typeMenu=100;
 	bool sex;
 };
 struct Student {
@@ -23,7 +23,7 @@ struct Student {
 	string month;
 	string year;
 
-	int typeMenu=3;
+	int typeMenu=300;
 	bool status=1;
 	bool sex;
 };

@@ -6,9 +6,9 @@ int main()
 	ofstream fo;
 	LinkedListSta lstSta;
 	LinkedListStu lstStu;
-	string* Class;
 	string userid;
 	string userpwd;
+	int user_menu=10;
 	int choice;
 	cout << "1. Login" << endl;
 	cout << "2. Exit" << endl;

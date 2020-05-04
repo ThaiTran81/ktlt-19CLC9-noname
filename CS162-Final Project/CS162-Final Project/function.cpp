@@ -337,14 +337,14 @@ void ViewProfileStudent(const LinkedListStu& lst, string userid)
 {
 	cout << "id " << userid << endl;
 	cout << "Full name: ";
-	nodestu* cur = lst.head;
+	nodeStu* cur = lst.head;
 	while (cur != NULL)
 	{
-		if (cur->dataStu.id == userid)
+		if (cur->dataStud.id == userid)
 		{
-			cout << "Full name: " << cur->dataStu.fullname << endl;
+			cout << "Full name: " << cur->dataStud.fullname << endl;
 			cout << " Gender:";
-			if (cur->dataStu.sex == 1)
+			if (cur->dataStud.sex == 1)
 			{
 				cout << "Female" << endl;
 			}
@@ -352,8 +352,8 @@ void ViewProfileStudent(const LinkedListStu& lst, string userid)
 			{
 				cout << "Male" << endl;
 			}
-			cout << "DoB:" << cur->dataStu.Dob << endl;
-			cout << "Class: " << cur->dataStu.Class << endl;
+			cout << "DoB:" << cur->dataStud.year << " " << cur->dataStud.month << " " << cur->dataStud.day << endl;
+			cout << "Class: " << cur->dataStud.classId << endl;
 		}
 	}
 }
