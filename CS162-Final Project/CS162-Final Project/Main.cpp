@@ -4,6 +4,7 @@ int main()
 {
 	ifstream fi;
 	ofstream fo;
+	LinkedListCla lstCla;
 	LinkedListSta lstSta;
 	LinkedListStu lstStu;
 	string userid;
@@ -14,6 +15,7 @@ int main()
 	cout << "2. Exit" << endl;
 	cout << "---------------------------" << endl;
 	cout << "Your choice:";
+	LoadListOfClass(lstCla);
 	/*LoadDataStudent(fi, lstStu);
 	fi.close();
 	ImportStudentCsv(lstStu);
