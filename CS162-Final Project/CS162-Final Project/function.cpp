@@ -6,7 +6,6 @@ nodeSta* createNodeStaff(Staff staf)
 	p->dataStaf.id = staf.id;
 	p->dataStaf.password = staf.password;
 	p->dataStaf.fullname = staf.fullname;
-	//p->dataStaf.typeMenu = staf.typeMenu;
 	p->dataStaf.sex = staf.sex;
 	p->next = NULL;
 	return p;
@@ -79,23 +78,20 @@ nodeStu* createNodeStudent(Student stud) {
 }
 
 bool LoadDataStudent(ifstream& fi, LinkedListStu& lst) {
-	lst.head = NULL;
-	Student stud;
-	fi >> lst.NumStu;
-	if (lst.NumStu == 0) {
-		return false;
+	
+	if (!fi.is_open())
+	{
+		cout << "Can't open data file " << endl;
+		return 0;
 	}
-	fi >> stud.id;
-	fi >> stud.password;
-	getline(fi, stud.fullname);
-	getline(fi, stud.fullname);
-	fi >> stud.year >> stud.month >> stud.day;
-	fi >> stud.classId;
-	fi >> stud.sex;
-	nodeStu* p = createNodeStudent(stud);
-	lst.head = p;
-	nodeStu* cur = lst.head;
-	for (int i = 0; i < lst.NumStu - 1; i++) {
+	else
+	{
+		lst.head = NULL;
+		Student stud;
+		fi >> lst.NumStu;
+		if (lst.NumStu == 0) {
+			return false;
+		}
 		fi >> stud.id;
 		fi >> stud.password;
 		getline(fi, stud.fullname);
@@ -105,10 +101,23 @@ bool LoadDataStudent(ifstream& fi, LinkedListStu& lst) {
 		fi >> stud.sex;
 		fi >> stud.status;
 		nodeStu* p = createNodeStudent(stud);
-		cur->next = p;
-		cur = cur->next;
+		lst.head = p;
+		nodeStu* cur = lst.head;
+		for (int i = 0; i < lst.NumStu - 1; i++) {
+			fi.ignore();
+			getline(fi, stud.id);
+			getline(fi, stud.password);
+			getline(fi, stud.fullname);
+			fi >> stud.year >> stud.month >> stud.day;
+			fi >> stud.classId;
+			fi >> stud.sex;
+			fi >> stud.status;
+			nodeStu* p = createNodeStudent(stud);
+			cur->next = p;
+			cur = cur->next;
+		}
+		return true;
 	}
-	return true;
 }
 bool SaveDataStudent(ofstream& fo, LinkedListStu& lst) {
 	if (lst.head == NULL) {
@@ -134,7 +143,7 @@ bool SaveDataClassFile(Class cla)
 	ofstream fo;
 	string pathfile = "Students-";
 	nodeStu* cur = cla.stu.head;
-	pathfile += cla.classID;
+	pathfile += cla.classID+".txt";
 	fo.open(pathfile.c_str());
 	if (!fo.is_open())
 	{
@@ -281,6 +290,7 @@ void ImportStudentCsv(LinkedListStu& lst)
 			lst.NumStu++;
 		}
 		flag = flag->next;
+		cla.classID = flag->dataStud.classId;
 		//update student in class file
 		if (FileClass_Exist(flag->dataStud.classId))
 		{
@@ -432,13 +442,12 @@ void LoadListOfClass(LinkedListCla& lst)
 	lst.head = NULL;
 	Class clas;
 	fi >> lst.NumCla;
-	getline(fi, clas.classID);
+	fi.ignore();
 	getline(fi, clas.classID);
 	nodeCla* temp = createNodeCLass(clas);
 	lst.head = temp;
 	nodeCla* cur = lst.head;
 	for (int i = 0; i < lst.NumCla - 1; i++) {
-		getline(fi, clas.classID);
 		getline(fi, clas.classID);
 		temp = createNodeCLass(clas);
 		cur->next = temp;
@@ -453,8 +462,7 @@ void ViewListOfClass(LinkedListCla& lst)
 	int i = 1;
 	cout << "Class: " << lst.NumCla << endl;
 	while (cur != NULL) {
-		cout << i++ << ". ";
-		cout<< cur->dataClas.classID << endl;
+		cout << setw(3) << i++ << "." << cur->dataClas.classID << endl;
 		cur = cur->next;
 	}
 }
@@ -464,10 +472,8 @@ bool LoadDataStudentFromClassFile(Class& cla)
 {
 	string pathfile = "Students-";
 	ifstream fi;
-	nodeStu* p;
-	nodeStu* cur = cla.stu.head;
 	Student stu;
-	pathfile += cla.classID;
+	pathfile += cla.classID+".txt";
 	fi.open(pathfile.c_str());
 	if (!fi.is_open())
 	{
@@ -476,31 +482,24 @@ bool LoadDataStudentFromClassFile(Class& cla)
 	}
 	else
 	{
+		cla.stu.head = NULL;
 		fi >> cla.stu.NumStu;
-		getline(fi, stu.id);
-		getline(fi, stu.password);
-		getline(fi, stu.fullname);
-		fi >> stu.year >> stu.month >> stu.day;
-		fi >> stu.sex;
-		fi >> stu.status;
-		p = createNodeStudent(stu);
-		cla.stu.head = p;
-		for (int i = 0; i < cla.stu.NumStu - 1; i++)
+		for (int i = 0; i < cla.stu.NumStu; i++)
 		{
+			fi.ignore();
 			getline(fi, stu.id);
 			getline(fi, stu.password);
 			getline(fi, stu.fullname);
 			fi >> stu.year >> stu.month >> stu.day;
+			fi.ignore();
+			getline(fi, stu.classId);
 			fi >> stu.sex;
 			fi >> stu.status;
-			p = createNodeStudent(stu);
-			cur->next = p;
-			cur = cur->next;
+			PushStuClassNode(cla.stu.head, stu);
 		}
 		fi.close();
 		return 1;
 	}
-
 }
 
 
@@ -508,7 +507,7 @@ bool FileClass_Exist(string idclass)
 {
 	ifstream fi;
 	string pathfile = "Students-";
-	pathfile += idclass;
+	pathfile += idclass+".txt";
 	fi.open(pathfile.c_str());
 	if (fi.is_open())
 	{
@@ -750,31 +749,31 @@ void ChangeClassStudent(LinkedListStu& lst, LinkedListCla lstCla)
 void ViewStuOfClass(string classid)
 {
 	Class cla;
-	string pathfile = "classid";
-	pathfile += classid;
+	string pathfile = "Students-";
+	pathfile += classid+".txt";
 	if (FileClass_Exist(classid))
 	{
 		int i = 1;
+		cla.classID = classid;
 		LoadDataStudentFromClassFile(cla);
 		nodeStu* cur = cla.stu.head;
 		cout << "Class " << classid << " :" << endl;
 		cout << setw(5) << "NO.";
-		cout <<setw(25)<< "Full name";
-		cout << setw(10) << "Gender";
-		cout << setw(15) << "Date of birth";
+		cout <<setw(18)<< "Full name |";
+		cout << setw(8) << "Gender|";
+		cout << setw(15) << "Date of birth|";
 		cout << setw(8) << "Status" << endl;
-		cout << "=======================================================================================================================================================" << endl;
+		cout << "=================================================================" << endl;
 		while (cur!=NULL)
 		{
 			cout << setw(5) << i++;
-			cout << setw(25) << cur->dataStud.fullname;
-			cout << setw(10);
-			if (cur->dataStud.sex == 0) cout << "Male";
-			else cout << "Female";
-			cout << setw(15) << cur->dataStud.day<<"-"<< cur->dataStud.month << "-" << cur->dataStud.year;
-			cout << setw(8);
-			if (cur->dataStud.status == 0) cout << "Dropped";
-			else cout << "Active";
+			cout << setw(18) << cur->dataStud.fullname;
+			if (cur->dataStud.sex == 0) cout << setw(8) << "Male";
+			else cout << setw(8) << "Female";
+			cout << setw(5) << cur->dataStud.day << "-" << cur->dataStud.month << "-" << cur->dataStud.year;
+			if (cur->dataStud.status == 0) cout << setw(8) << "Dropped";
+			else cout << setw(10) << "Active" << endl;
+			cur = cur->next;
 		}
 	}
 	else

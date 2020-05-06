@@ -2,7 +2,7 @@
 
 int main()
 {
-	ifstream fi;
+	ifstream fi("Student.txt");
 	ofstream fo;
 	LinkedListCla lstCla;
 	LinkedListSta lstSta;
@@ -16,11 +16,13 @@ int main()
 	cout << "---------------------------" << endl;
 	cout << "Your choice:";
 	LoadListOfClass(lstCla);
-	/*LoadDataStudent(fi, lstStu);
+	LoadDataStudent(fi, lstStu);
 	fi.close();
-	ImportStudentCsv(lstStu);
+	//ImportStudentCsv(lstStu);
+	ViewListOfClass(lstCla);
+	ViewStuOfClass("19CLC10");
 	fo.open("Student.txt");
-	SaveDataStudent(fo, lstStu);*/
+	SaveDataStudent(fo, lstStu);
 	/*cin >> choice;
 	if (choice == 1) {
 		Login(userid, userpwd, lstSta, lstStu);
