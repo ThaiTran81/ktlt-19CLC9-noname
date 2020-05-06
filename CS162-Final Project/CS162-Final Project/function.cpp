@@ -808,7 +808,9 @@ void AddAStu(LinkedListStu& lst, LinkedListCla cla)
 		cout << "Enter date of birth(2001 01 28,...):";
 		cin >> student.year >> student.month >> student.day;
 		student.password=CreatePwdStu(student.year, student.month, student.day);
+		class_.stu.NumStu++;
 		PushStuClassNode(class_.stu.head,student);
+		lst.NumStu++;
 		PushStuClassNode(lst.head, student);
 		SaveDataClassFile(class_);
 		cout << "Sucessful!!!" << endl;

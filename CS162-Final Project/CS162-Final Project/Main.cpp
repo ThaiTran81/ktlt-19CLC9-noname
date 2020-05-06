@@ -21,6 +21,8 @@ int main()
 	//ImportStudentCsv(lstStu);
 	ViewListOfClass(lstCla);
 	ViewStuOfClass("19CLC10");
+	SaveDataStudent(fo, lstStu);
+	//AddAStu(lstStu, lstCla);
 	fo.open("Student.txt");
 	SaveDataStudent(fo, lstStu);
 	/*cin >> choice;
