@@ -23,7 +23,7 @@ bool LoadDataStaff(ifstream& fi, LinkedListSta& lst)
 	{
 		fi >> staf.id;
 		fi >> staf.password;
-		getline(fi, staf.fullname);
+		fi.ignore();
 		getline(fi, staf.fullname);
 		fi >> staf.sex;
 		nodeSta* p = createNodeStaff(staf);
@@ -33,13 +33,14 @@ bool LoadDataStaff(ifstream& fi, LinkedListSta& lst)
 		{
 			fi >> staf.id;
 			fi >> staf.password;
-			getline(fi, staf.fullname);
+			fi.ignore();
 			getline(fi, staf.fullname);
 			fi >> staf.sex;
 			p = createNodeStaff(staf);
 			cur->next = p;
 			cur = cur->next;
 		}
+		fi.close();
 		return true;
 	}
 }
@@ -59,6 +60,7 @@ bool SaveDataStaff(ofstream& fo, LinkedListSta& lst)
 		fo << cur->dataStaf.sex << endl;
 		cur = cur->next;
 	}
+	fo.close();
 	return true;
 }
 //________________________________________________________//
@@ -116,6 +118,7 @@ bool LoadDataStudent(ifstream& fi, LinkedListStu& lst) {
 			cur->next = p;
 			cur = cur->next;
 		}
+		fi.close();
 		return true;
 	}
 }
@@ -135,6 +138,7 @@ bool SaveDataStudent(ofstream& fo, LinkedListStu& lst) {
 		fo << cur->dataStud.status << endl;
 		cur = cur->next;
 	}
+	fo.close();
 	return true;
 }
 
@@ -322,7 +326,7 @@ void ChangePasswordStaff(LinkedListSta& lst, string userid)
 	string newPass1,newPass2;
 	nodeSta* cur = lst.head;
 	bool condition = false;
-	while (cur != NULL)
+	while (cur != NULL && condition!=true)
 	{
 		if (cur->dataStaf.id == userid)
 		{
@@ -349,6 +353,7 @@ void ChangePasswordStaff(LinkedListSta& lst, string userid)
 					cin >> choice;
 					if (choice == 0)
 						return;
+					cin.ignore();
 				}
 			}
 		}
@@ -364,10 +369,11 @@ void ChangePasswordStudent(LinkedListStu& lst, string userid)
 	string newPass1, newPass2;
 	nodeStu* cur = lst.head;
 	bool condition = false;
-	while (cur != NULL)
+	while (cur != NULL && condition==false)
 	{
 		if (cur->dataStud.id == userid)
 		{
+			cla.classID = cur->dataStud.classId;
 			while (condition == false)
 			{
 				cout << "Current Password: ";
@@ -397,6 +403,7 @@ void ChangePasswordStudent(LinkedListStu& lst, string userid)
 					cin >> choice;
 					if (choice == 0)
 						return;
+					cin.ignore();
 				}
 			}
 		}
@@ -405,15 +412,15 @@ void ChangePasswordStudent(LinkedListStu& lst, string userid)
 }
 void ViewProfileStudent(const LinkedListStu& lst, string userid)
 {
-	cout << "id " << userid << endl;
-	cout << "Full name: ";
+	cout << ">Profile of student:" << endl;
+	cout << ">>>>Id " << userid << endl;
 	nodeStu* cur = lst.head;
 	while (cur != NULL)
 	{
 		if (cur->dataStud.id == userid)
 		{
-			cout << "Full name: " << cur->dataStud.fullname << endl;
-			cout << " Gender:";
+			cout << ">>>>Full name: " << cur->dataStud.fullname << endl;
+			cout << ">>>>Gender:";
 			if (cur->dataStud.sex == 1)
 			{
 				cout << "Female" << endl;
@@ -422,10 +429,12 @@ void ViewProfileStudent(const LinkedListStu& lst, string userid)
 			{
 				cout << "Male" << endl;
 			}
-			cout << "DoB:" << cur->dataStud.year << " " << cur->dataStud.month << " " << cur->dataStud.day << endl;
-			cout << "Class: " << cur->dataStud.classId << endl;
+			cout << ">>>>DoB:" << cur->dataStud.year << " " << cur->dataStud.month << " " << cur->dataStud.day << endl;
+			cout << ">>>>Class: " << cur->dataStud.classId << endl;
 		}
+		cur = cur->next;
 	}
+	cout << "_________________________________________" << endl;
 }
 //------------------------------------------------------------------------
 //ViewListOfClass
@@ -531,7 +540,7 @@ void EditStudent(LinkedListCla& cla, LinkedListStu& stu)
 	}
 	else
 	{
-		//ViewProfileStudent;
+		ViewProfileStudent(cur_cla->dataClas.stu,student->dataStud.id);
 		cout << "Do you want to edit this student?[Yes(1)/No(0)] :" << endl;
 		cin >> choice;
 		if (choice == 0)
@@ -540,8 +549,9 @@ void EditStudent(LinkedListCla& cla, LinkedListStu& stu)
 		}
 		else
 		{
-			student2 = FindStu(stu, student->dataStud.id);
+			student2 = FindStu(stu, student->dataStud.id);//update data student.txt
 			cout << "Enter new name:";
+			cin.ignore();
 			getline(cin, newname);
 			cout << "Enter new date of birth[yy mm dd]" << endl;
 			cin >> newyear >> newmonth >> newday;
@@ -551,7 +561,6 @@ void EditStudent(LinkedListCla& cla, LinkedListStu& stu)
 			student->dataStud.month = newmonth;
 			student->dataStud.day = newday;
 			student->dataStud.password = CreatePwdStu(newyear, newmonth, newday);
-			SaveDataClassFile(cla.head->dataClas);
 
 			//update data linked list for Students.txt
 			student2->dataStud.fullname = newname;
@@ -582,7 +591,7 @@ nodeStu* FindStuInClass(LinkedListCla& lst, nodeCla*& cur_cla)
 			cout << "Error!!! please enter again!" << endl;
 			cout << "Press <0> to back" << endl;
 		}
-	} while (choice< lst.NumCla && choice !=0);
+	} while (choice > lst.NumCla && choice != 0 && choice < 0);
 	if (choice ==0)
 	{
 		return NULL;
@@ -705,7 +714,7 @@ void DeleteNode(nodeStu*& head, string idstu)
 
 void ChangeClassStudent(LinkedListStu& lst, LinkedListCla lstCla)
 {
-	Class cla1, cla2;
+	Class cla2;
 	nodeCla* cur_cla;
 	nodeStu* student, * student_lst;
 	string new_class;
@@ -717,9 +726,11 @@ void ChangeClassStudent(LinkedListStu& lst, LinkedListCla lstCla)
 	else
 	{
 		student_lst = FindStu(lst, student->dataStud.id);//find in linkedlist student.txt
-		cla1.classID = student->dataStud.classId;
-		LoadDataStudentFromClassFile(cla1);
+		cur_cla->dataClas.classID = student->dataStud.classId;
+		LoadDataStudentFromClassFile(cur_cla->dataClas);
+		ViewProfileStudent(cur_cla->dataClas.stu, student->dataStud.id);
 		cout << "Enter new class you want move student to: ";
+		cin.ignore();
 		getline(cin,new_class);
 		if (FileClass_Exist(new_class) == 0)
 		{
@@ -729,17 +740,18 @@ void ChangeClassStudent(LinkedListStu& lst, LinkedListCla lstCla)
 		else
 		{
 			student_lst->dataStud.classId = new_class;
+			cla2.classID = new_class;
 			//update class file B
 			LoadDataStudentFromClassFile(cla2);
 			student->dataStud.classId = new_class;
 			PushStuClassNode(cla2.stu.head, student->dataStud);
 			cla2.stu.NumStu++;
 			//update class file A
-			DeleteNode(cla1.stu.head, student->dataStud.id);
-			cla1.stu.NumStu--;
+			DeleteNode(cur_cla->dataClas.stu.head, student->dataStud.id);
+			cur_cla->dataClas.stu.NumStu--;
 
 			//save all file
-			SaveDataClassFile(cla1);
+			SaveDataClassFile(cur_cla->dataClas);
 			SaveDataClassFile(cla2);
 		}
 	}
