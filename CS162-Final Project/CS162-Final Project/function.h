@@ -66,10 +66,122 @@ struct LinkedListSta {
 	nodeSta* head;
 };
 
+struct Lecturer {
+	string id;
+	string password;
+	string name;
+	string degree;
+	bool sex;
+};
+
+struct nodeLec {
+	Lecturer dataLec;
+	nodeLec* next;
+};
+
+struct LinkedListLec {
+	int numLec;
+	nodeLec* head;
+};
+
+struct Date {
+	string year;
+	string month;
+	string day;
+	string hour, minute;
+	int checking=-1;
+};
+
+struct nodeDat {
+	Date dataDat;
+	nodeDat* next;
+};
+
+struct LinkedListDat {
+	int numDat;
+	nodeDat* head;
+};
+
+struct Participant {
+	string id;
+	string fullname;
+	string classId;
+	bool status;// in university
+	bool status_course;// in course
+	float mid, final, bonus, total;
+	LinkedListDat timeCheck;
+};
+
+struct nodePar {
+	Participant dataPar;
+	nodePar* next;
+};
+
+struct LinkedListPar {
+	int numPar;
+	nodePar* head;
+};
+
+struct Schedule {
+	string year, month, day;
+};
+
+struct nodeSche {
+	Schedule data;
+	nodeSche* next;
+};
+
+struct LinkedListSche {
+	int numSche;
+	nodeSche* head;
+};
+
+struct Course {
+	string id;
+	string name;
+	string classId;
+	Lecturer lec;
+	string hour_start, minute_start, hour_end, minute_end;
+	int day_week;
+	string year_start, month_start, day_start;
+	string year_end, month_end, day_end;
+	LinkedListPar participant;
+	LinkedListSche schedule;
+	string room;
+};
+
+struct nodeCourse {
+	Course data;
+	nodeCourse* next;
+};
+
+struct LinkedListCourse {
+	int numCourse;
+	nodeCourse* head;
+};
+
+struct Semester {
+	string name;
+	string yearBeg;
+	string yearEnd;
+	LinkedListCourse course;
+};
+
+struct nodeSemes {
+	Semester data;
+	nodeSemes* next;
+};
+
+struct LinkedListSemes {
+	int numSemes;
+	nodeSemes* head;
+};
+
+
+
+
 nodeSta* createNodeStaff(Staff x); // Dung de tao Node cho staff <Done>
 nodeStu* createNodeStudent(Student x); // Dung de tao Node cho student <Done>
-
-
 
 void Login(string& userid, string& userpwd, LinkedListSta lstSta, LinkedListStu lstStu);
 bool LoadDataStaff(ifstream& fi, LinkedListSta& lst);// Load du lieu txt vao list staff <Done>
@@ -81,7 +193,7 @@ void MenuStaff_class();///menu->class
 string CreatePwdStu(string year, string month, string day);// tao mat khau cho sinh vien
 void LoadListOfClass(LinkedListCla& lst);//Lay du lieu tu file class.txt
 void ViewListOfClass(LinkedListCla& lst);//cout ra man hinh du lieu lay tu file class.txt<done>
-void ViewStuOfClass(string classid);
+void ViewStuOfClass(string classid);// cout students of a specific class <Done>
 void ChangePasswordStaff(LinkedListSta& lst, string userid);//Doi mat khau cho staff <Done>
 void ChangePasswordStudent(LinkedListStu& lst, string userid);//Doi mat khau cho student <Done>
 void ViewProfileStudent(const LinkedListStu& lst, string userid);//@Mac Tin
@@ -96,6 +208,7 @@ void PushStuClassNode(nodeStu*&head,Student new_data);// creat a linkedlist stud
 bool FileClass_Exist(string idclass);//check the existance of class file
 void ChangeClassStudent(LinkedListStu& lst, LinkedListCla lstCla);// move student from class A to B<Done>
 void DeleteNode(nodeStu*& head, string idstu);//delete a specific student
-void AddAStu(LinkedListStu& lst, LinkedListCla cla);
+void AddAStu(LinkedListStu& lst, LinkedListCla cla);// add a student to a class <Done>
+void LoadDataLecturer(LinkedListLec& lst);
+void SaveDataLecturer(LinkedListLec lst);
 #endif // !_FUNCTION_H_
-

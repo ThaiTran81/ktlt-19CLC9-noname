@@ -145,6 +145,7 @@
     <ClInclude Include="function.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Lecturer.txt" />
     <Text Include="Staff.txt" />
     <Text Include="Student.txt" />
   </ItemGroup>
