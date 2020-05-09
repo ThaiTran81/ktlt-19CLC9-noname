@@ -15,33 +15,41 @@ bool LoadDataStaff(ifstream& fi, LinkedListSta& lst)
 	lst.head = NULL;
 	Staff staf;
 	fi >> lst.NumSta;
-	if (lst.NumSta == 0)
+	if (!fi.is_open())
 	{
+		cout << "can't open staff file " << endl;
 		return false;
 	}
 	else
 	{
-		fi >> staf.id;
-		fi >> staf.password;
-		fi.ignore();
-		getline(fi, staf.fullname);
-		fi >> staf.sex;
-		nodeSta* p = createNodeStaff(staf);
-		lst.head = p;
-		nodeSta* cur = lst.head;
-		for (int i = 0; i < lst.NumSta - 1; i++)
+		if (lst.NumSta == 0)
+		{
+			return false;
+		}
+		else
 		{
 			fi >> staf.id;
 			fi >> staf.password;
 			fi.ignore();
 			getline(fi, staf.fullname);
 			fi >> staf.sex;
-			p = createNodeStaff(staf);
-			cur->next = p;
-			cur = cur->next;
+			nodeSta* p = createNodeStaff(staf);
+			lst.head = p;
+			nodeSta* cur = lst.head;
+			for (int i = 0; i < lst.NumSta - 1; i++)
+			{
+				fi >> staf.id;
+				fi >> staf.password;
+				fi.ignore();
+				getline(fi, staf.fullname);
+				fi >> staf.sex;
+				p = createNodeStaff(staf);
+				cur->next = p;
+				cur = cur->next;
+			}
+			fi.close();
+			return true;
 		}
-		fi.close();
-		return true;
 	}
 }
 bool SaveDataStaff(ofstream& fo, LinkedListSta& lst)
@@ -413,7 +421,6 @@ void ChangePasswordStudent(LinkedListStu& lst, string userid)
 void ViewProfileStudent(const LinkedListStu& lst, string userid)
 {
 	cout << ">Profile of student:" << endl;
-	cout << ">>>>Id " << userid << endl;
 	nodeStu* cur = lst.head;
 	while (cur != NULL)
 	{
@@ -431,6 +438,7 @@ void ViewProfileStudent(const LinkedListStu& lst, string userid)
 			}
 			cout << ">>>>DoB:" << cur->dataStud.year << " " << cur->dataStud.month << " " << cur->dataStud.day << endl;
 			cout << ">>>>Class: " << cur->dataStud.classId << endl;
+			return;
 		}
 		cur = cur->next;
 	}
@@ -690,7 +698,7 @@ void PushStuClassNode(nodeStu*& head, Student new_data)
 }
 //change student from class A to class B
 
-void DeleteNode(nodeStu*& head, string idstu)
+void DeleteNodeStu(nodeStu*& head, string idstu)
 {
 	nodeStu* temp = head;
 	nodeStu* prev = NULL;
@@ -747,7 +755,7 @@ void ChangeClassStudent(LinkedListStu& lst, LinkedListCla lstCla)
 			PushStuClassNode(cla2.stu.head, student->dataStud);
 			cla2.stu.NumStu++;
 			//update class file A
-			DeleteNode(cur_cla->dataClas.stu.head, student->dataStud.id);
+			DeleteNodeStu(cur_cla->dataClas.stu.head, student->dataStud.id);
 			cur_cla->dataClas.stu.NumStu--;
 
 			//save all file
@@ -828,4 +836,14 @@ void AddAStu(LinkedListStu& lst, LinkedListCla cla)
 		cout << "Sucessful!!!" << endl;
 		//back to main menu
 	}
+}
+
+//Creat Linked list lecturer
+void PushNodeLecturer(nodeLec*& head, Lecturer new_data)
+{
+	nodeLec* new_node = new nodeLec;
+
+	new_node->dataLec = new_data;
+	new_node->next = head;
+	head = new_node;
 }

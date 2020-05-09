@@ -7,6 +7,7 @@ int main()
 	ofstream fo_stu,fo_sta;
 	LinkedListCla lstCla;
 	LinkedListSta lstSta;
+	LinkedListLec lstLec;
 	LinkedListStu lstStu;
 	string userid;
 	string userpwd;
