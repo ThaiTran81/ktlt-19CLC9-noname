@@ -7,6 +7,14 @@
 #include<string>
 #include<iomanip>
 using namespace std;
+
+struct User {
+	string id;
+	string password;
+	bool sex;
+	string name;
+};
+
 struct Staff {
 	string id;
 	string password;
@@ -183,7 +191,7 @@ struct LinkedListSemes {
 nodeSta* createNodeStaff(Staff x); // Dung de tao Node cho staff <Done>
 nodeStu* createNodeStudent(Student x); // Dung de tao Node cho student <Done>
 
-void Login(string& userid, string& userpwd, LinkedListSta lstSta, LinkedListStu lstStu);
+bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec lstLec);
 bool LoadDataStaff(ifstream& fi, LinkedListSta& lst);// Load du lieu txt vao list staff <Done>
 bool LoadDataStudent(ifstream& fi, LinkedListStu& lst);// Load du lieu txt vao list student <Done>
 bool SaveDataStaff(ofstream& fo, LinkedListSta& lst); // Save du lieu tu list staff ra txt <Done>

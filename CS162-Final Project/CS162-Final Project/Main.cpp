@@ -9,8 +9,7 @@ int main()
 	LinkedListSta lstSta;
 	LinkedListLec lstLec;
 	LinkedListStu lstStu;
-	string userid;
-	string userpwd;
+	User user;
 	int user_menu=10;
 	int choice;
 	cout << "1. Login" << endl;

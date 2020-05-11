@@ -180,34 +180,50 @@ bool SaveDataClassFile(Class cla)
 	return 1;
 }
 // Login
-void Login(string& userid, string& userpwd, LinkedListSta lstSta, LinkedListStu lstStu)
+bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec lstLec)
 {
 	cout << "-------------LOGIN-------------" << endl;
 	cout << "Id: ";
-	cin >> userid;
+	cin >> user.id;
 	cout << "Password: ";
-	cin >> userpwd;
+	cin >> user.password;
 	nodeSta* curSta = lstSta.head;
 	nodeStu* curStu = lstStu.head;
+	nodeLec* curLec = lstLec.head;
 	while (curSta!=NULL)
 	{
-		if (curSta->dataStaf.id == userid && curSta->dataStaf.password==userpwd)
+		if (curSta->dataStaf.id == user.id && curSta->dataStaf.password==user.password)
 		{
+			user.name = curSta->dataStaf.fullname;
+			user.sex = curSta->dataStaf.sex;
 			cout << "SUCCESSFUL!!!!" << endl;
-			return;
+			return 1;
 		}
 		curSta = curSta->next;
 	}
 	while (curStu != NULL)
 	{
-		if (curStu->dataStud.id == userid && curStu->dataStud.password == userpwd)
+		if (curStu->dataStud.id == user.id && curStu->dataStud.password == user.password)
 		{
+			user.name = curStu->dataStud.fullname;
+			user.sex = curStu->dataStud.sex;
 			cout << "SUCCESSFUL!!!!" << endl;
-			return;
+			return 1;
 		}
 		curStu = curStu->next;
 	}
+	while (curLec!=NULL)
+	{
+		if (curLec->dataLec.id == user.id && curLec->dataLec.password == user.password)
+		{
+			user.name = curLec->dataLec.name;
+			user.sex = curLec->dataLec.sex;
+			cout << "SUCCESSFUL!!!!" << endl;
+			return 1;
+		}
+	}
 	cout << "Invalid login, please try again" << endl;
+	return 0;
 }
 
 void ViewProfileStaff(const LinkedListSta& lst, string userid)
