@@ -863,3 +863,25 @@ void PushNodeLecturer(nodeLec*& head, Lecturer new_data)
 	new_node->next = head;
 	head = new_node;
 }
+//Delete node Lecture
+void DeleteNodeLec(nodeLec*& head, string idLec)
+{
+	nodeLec* temp = head;
+	nodeLec* prev = NULL;
+	
+	if (temp != NULL && temp->dataLec.id == idlec)
+	{
+		head = temp->next;   
+		delete temp;               
+		return;
+	}
+	while (temp != NULL && temp->dataLec.id != idlec)
+	{
+		prev = temp;
+		temp = temp->next;
+	}
+	if (temp == NULL) return;
+	else prev->next = temp->next;
+	
+	delete temp;  
+}
