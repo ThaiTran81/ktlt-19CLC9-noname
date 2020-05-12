@@ -88,13 +88,13 @@ void DeleteNodeCourse(nodeCourse*& head, string idCourse)
 	nodeCourse* temp = head;
 	nodeCourse* prev = NULL;
 	
-	if (temp != NULL && temp->dataCourse.id == idCourse)
+	if (temp != NULL && temp->data.id == idCourse)
 	{
 		head = temp->next;   
 		delete temp;               
 		return;
 	}
-	while (temp != NULL && temp->dataCourse.id != idCourse)
+	while (temp != NULL && temp->data.id != idCourse)
 	{
 		prev = temp;
 		temp = temp->next;
