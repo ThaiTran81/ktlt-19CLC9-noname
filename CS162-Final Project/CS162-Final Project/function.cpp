@@ -856,7 +856,6 @@ void AddAStu(LinkedListStu& lst, LinkedListCla cla)
 //Create linkedlist of participant
 void PushNodeParticipant(nodePar*& head, Participant new_data) {
 	nodePar* new_node = new nodePar();
-
 	new_node->dataPar = new_data;
 	new_node->next = head;
 	head = new_node;
@@ -864,7 +863,13 @@ void PushNodeParticipant(nodePar*& head, Participant new_data) {
 //Create linkedlist of semester
 void PushNodeSemester(nodeSemes*& head, Semester new_data) {
 	nodeSemes* new_node = new nodeSemes();
-
+	new_node->data = new_data;
+	new_node->next = head;
+	head = new_node;
+}
+//Create linkedlist of course
+void PushNodeCourse(nodeCourse*& head, Course new_data) {
+	nodeCourse* new_node = new nodeCourse();
 	new_node->data = new_data;
 	new_node->next = head;
 	head = new_node;

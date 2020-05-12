@@ -222,7 +222,7 @@ void DeleteNodeCourse(nodeCourse*& head, string id_course);//Mac Tin
 void DeleteNodeLecturer(nodeLec*& head, string id_lec);//Mac Tin<done>
 void PushNodeParticipant(nodePar*& head, Participant new_data);//Gia Huy<done>
 void PushNodeSemester(nodeSemes*& head, Semester new_data);//Gia Huy<done>
-void PushNodeCourse(nodeCourse*& head, Course new_data);//Gia Huy
+void PushNodeCourse(nodeCourse*& head, Course new_data);//Gia Huy<done>
 void PushNodeLecturer(nodeLec*& head, Lecturer new_data);// creat linked list lecturer <Done>
 void LoadDataLecturer(LinkedListLec& lst);//Anh Tuan<done>
 void SaveDataLecturer(LinkedListLec lst);//Anh Tuan<done>
