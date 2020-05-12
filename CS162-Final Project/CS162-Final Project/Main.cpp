@@ -21,7 +21,7 @@ int main()
 	LoadDataStaff(fi_sta,lstSta);
 	//ImportStudentCsv(lstStu);
 	ViewListOfClass(lstCla);
-	ViewStuOfClass("19CLC10");
+	ViewStuOfClass("19CLC9");
 	//RemoveStudent(lstCla, lstStu);
 	//AddAStu(lstStu, lstCla);
 	//EditStudent(lstCla, lstStu);
