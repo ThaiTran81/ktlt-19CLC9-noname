@@ -204,7 +204,7 @@ void ViewListOfClass(LinkedListCla& lst);//cout ra man hinh du lieu lay tu file 
 void ViewStuOfClass(string classid);// cout students of a specific class <Done>
 void ChangePasswordStaff(LinkedListSta& lst, string userid);//Doi mat khau cho staff <Done>
 void ChangePasswordStudent(LinkedListStu& lst, string userid);//Doi mat khau cho student <Done>
-void ViewProfileStudent(const LinkedListStu& lst, string userid);//@Mac Tin
+void ViewProfileStudent(const LinkedListStu& lst, string userid);//@Mac Tin <done>
 void MenuStudent();//type menu=3
 void ImportStudentCsv(LinkedListStu& lst);//import file csv <Done>
 bool LoadDataStudentFromClassFile(Class& cla);
