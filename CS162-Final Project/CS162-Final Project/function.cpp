@@ -874,3 +874,25 @@ void PushNodeCourse(nodeCourse*& head, Course new_data) {
 	new_node->next = head;
 	head = new_node;
 }
+//deleteNodeCourse
+void DeleteNodeCour(nodeCour*& head, string idCour)
+{
+	nodeCour* temp = head;
+	nodeCour* prev = NULL;
+	
+	if (temp != NULL && temp->dataCour.id == idCour)
+	{
+		head = temp->next;   
+		delete temp;               
+		return;
+	}
+	while (temp != NULL && temp->dataCour.id != idCour)
+	{
+		prev = temp;
+		temp = temp->next;
+	}
+	if (temp == NULL) return;
+	else prev->next = temp->next;
+	
+	delete temp;  
+}
