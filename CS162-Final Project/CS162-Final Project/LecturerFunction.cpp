@@ -81,24 +81,24 @@ void SaveDataLecturer(LinkedListLec lst)
 		text.close();
 	}
 }
+//Delete Node Lecturer
 void DeleteNodeLec(nodeLec*& head, string idLec)
 {
 	nodeLec* temp = head;
 	nodeLec* prev = NULL;
 	
-	if (temp != NULL && temp->dataLec.id == idlec)
+	if (temp != NULL && temp->dataLec.id == idLec)
 	{
 		head = temp->next;   
 		delete temp;               
 		return;
 	}
-	while (temp != NULL && temp->dataLec.id != idlec)
+	while (temp != NULL && temp->dataLec.id != idLec)
 	{
 		prev = temp;
 		temp = temp->next;
 	}
 	if (temp == NULL) return;
 	else prev->next = temp->next;
-	
 	delete temp;  
 }
