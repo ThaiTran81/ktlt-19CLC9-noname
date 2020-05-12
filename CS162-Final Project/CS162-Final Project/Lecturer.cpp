@@ -28,23 +28,12 @@ void LoadDataLecturer(LinkedListLec& lst)
 		}
 		else
 		{
-			text >> lec.id;
-			text >> lec.password;
-			text.ignore();
-			getline(text, lec.name);
-			getline(text, lec.name);
-			getline(text, lec.degree);
-			getline(text, lec.degree);
-			text >> lec.sex;
-			PushNodeLecturer(lst.head, lec);
-			for (int i = 0; i < lst.numLec - 1; i++)
+			for (int i = 0; i < lst.numLec; i++)
 			{
 				text >> lec.id;
 				text >> lec.password;
 				text.ignore();
 				getline(text, lec.name);
-				getline(text, lec.name);
-				getline(text, lec.degree);
 				getline(text, lec.degree);
 				text >> lec.sex;
 				PushNodeLecturer(lst.head, lec);
@@ -55,7 +44,6 @@ void LoadDataLecturer(LinkedListLec& lst)
 }
 void SaveDataLecturer(LinkedListLec lst)
 {
-	lst.head = NULL;
 	ofstream text;
 	text.open("Lecturer.txt");
 	if (!text.is_open())
@@ -77,6 +65,7 @@ void SaveDataLecturer(LinkedListLec lst)
 			text << cur->dataLec.name << endl;
 			text << cur->dataLec.degree << endl;
 			text << cur->dataLec.sex << endl;
+			cur = cur->next;
 		}
 		text.close();
 	}
