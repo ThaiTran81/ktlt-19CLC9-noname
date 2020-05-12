@@ -703,7 +703,7 @@ void RemoveStudent(LinkedListCla& cla, LinkedListStu& stu)
 	}
 }
 
-//creat linked list student in a class
+//create linked list student in a class
 void PushStuClassNode(nodeStu*& head, Student new_data)
 {
 	nodeStu* new_node = new nodeStu;
@@ -853,13 +853,19 @@ void AddAStu(LinkedListStu& lst, LinkedListCla cla)
 		//back to main menu
 	}
 }
-//Create Linkedlist Participant
+//Create linkedlist of participant
 void PushNodeParticipant(nodePar*& head, Participant new_data) {
-	nodePar* new_node = new nodePar;
+	nodePar* new_node = new nodePar();
 
 	new_node->dataPar = new_data;
 	new_node->next = head;
 	head = new_node;
 }
+//Create linkedlist of semester
+void PushNodeSemester(nodeSemes*& head, Semester new_data) {
+	nodeSemes* new_node = new nodeSemes();
 
-
+	new_node->data = new_data;
+	new_node->next = head;
+	head = new_node;
+}
