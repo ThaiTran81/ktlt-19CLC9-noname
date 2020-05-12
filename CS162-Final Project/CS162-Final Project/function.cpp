@@ -853,4 +853,13 @@ void AddAStu(LinkedListStu& lst, LinkedListCla cla)
 		//back to main menu
 	}
 }
+//Create Linkedlist Participant
+void PushNodeParticipant(nodePar*& head, Participant new_data) {
+	nodePar* new_node = new nodePar;
+
+	new_node->dataPar = new_data;
+	new_node->next = head;
+	head = new_node;
+}
+
 
