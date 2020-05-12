@@ -854,12 +854,3 @@ void AddAStu(LinkedListStu& lst, LinkedListCla cla)
 	}
 }
 
-//Creat Linked list lecturer
-void PushNodeLecturer(nodeLec*& head, Lecturer new_data)
-{
-	nodeLec* new_node = new nodeLec;
-
-	new_node->dataLec = new_data;
-	new_node->next = head;
-	head = new_node;
-}
