@@ -31,6 +31,7 @@ void DeleteNodeLec(nodeLec*& head, string idLec);//Mac Tin<done>
 void PushNodeLecturer(nodeLec*& head, Lecturer new_data);// creat linked list lecturer <Done>
 void LoadDataLecturer(LinkedListLec& lst);//Anh Tuan<done>
 void SaveDataLecturer(LinkedListLec lst);//Anh Tuan<done>
-
+void ChangePasswordLecturer(LinkedListLec& lst, string userid);//Anh Tuan<Done>
+void ViewProfileLecturer(LinkedListLec& lst, string userid );//Anh Tuan <Done>
 #endif // !_LECTURER_H_
 
