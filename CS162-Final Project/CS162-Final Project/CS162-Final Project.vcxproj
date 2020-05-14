@@ -154,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Lecturer.txt" />
+    <Text Include="Semester.txt" />
     <Text Include="Staff.txt" />
     <Text Include="Student.txt" />
   </ItemGroup>

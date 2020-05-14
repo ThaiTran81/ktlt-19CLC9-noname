@@ -1,0 +1,27 @@
+2
+CM101
+Communications
+19CLC9
+dnvu
+Duong Nguyen Vu
+Giao su
+0
+2020 04 06
+2020 06 01
+7
+13 30
+17 30
+I23
+CS162
+Introduction to Programming
+19CLC9
+dbtien
+Dinh Ba Tien
+Tien si
+0
+2020 04 06
+2020 06 01
+2
+7 30
+11 30
+I42

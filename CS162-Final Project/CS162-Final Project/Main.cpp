@@ -9,6 +9,7 @@ int main()
 	LinkedListSta lstSta;
 	LinkedListLec lstLec;
 	LinkedListStu lstStu;
+	LinkedListSemes lstSem;
 	User user;
 	int user_menu=10;
 	int choice;
@@ -19,23 +20,13 @@ int main()
 	LoadListOfClass(lstCla);
 	LoadDataStudent(fi_stu, lstStu);
 	LoadDataStaff(fi_sta,lstSta);
-	//ImportStudentCsv(lstStu);
-	ViewListOfClass(lstCla);
-	ViewStuOfClass("19CLC9");
-	//RemoveStudent(lstCla, lstStu);
-	//AddAStu(lstStu, lstCla);
-	//EditStudent(lstCla, lstStu);
-	//ChangeClassStudent(lstStu, lstCla);
+	LoadSemester(lstSem);
+	CreateSemester(lstSem);
+	ImportCourse(lstSem);
+	SaveSemester(lstSem);
 	fo_stu.open("Student.txt");
 	SaveDataStudent(fo_stu, lstStu);
 	fo_sta.open("Staff.txt");
 	SaveDataStaff(fo_sta, lstSta);
-	/*cin >> choice;
-	if (choice == 1) {
-		Login(userid, userpwd, lstSta, lstStu);
-	}
-	if (choice == 0) {
-		return 0;
-	}*/
 	return 0;
 }

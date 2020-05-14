@@ -61,5 +61,8 @@
     <Text Include="Lecturer.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="Semester.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -34,8 +34,8 @@ struct nodeDat {
 };
 
 struct LinkedListDat {
-	int numDat;
-	nodeDat* head;
+	int numDat=0;
+	nodeDat* head=NULL;
 };
 
 struct Participant {
@@ -44,7 +44,7 @@ struct Participant {
 	string classId;
 	bool status;// in university
 	bool status_course;// in course
-	float mid, final, bonus, total;
+	float mid=-1, final=-1, bonus=-1, total=-1;
 	LinkedListDat timeCheck;
 };
 
@@ -54,8 +54,8 @@ struct nodePar {
 };
 
 struct LinkedListPar {
-	int numPar;
-	nodePar* head;
+	int numPar=0;
+	nodePar* head=NULL;
 };
 
 struct Schedule {
@@ -68,8 +68,8 @@ struct nodeSche {
 };
 
 struct LinkedListSche {
-	int numSche;
-	nodeSche* head;
+	int numSche=0;
+	nodeSche* head=NULL;
 };
 
 struct Course {
@@ -78,7 +78,7 @@ struct Course {
 	string classId;
 	Lecturer lec;
 	string hour_start, minute_start, hour_end, minute_end;
-	int day_week;
+	int firstday;
 	string year_start, month_start, day_start;
 	string year_end, month_end, day_end;
 	LinkedListPar participant;
@@ -92,8 +92,8 @@ struct nodeCourse {
 };
 
 struct LinkedListCourse {
-	int numCourse;
-	nodeCourse* head;
+	int numCourse=0;
+	nodeCourse* head=NULL;
 };
 
 struct Semester {
@@ -109,8 +109,8 @@ struct nodeSemes {
 };
 
 struct LinkedListSemes {
-	int numSemes;
-	nodeSemes* head;
+	int numSemes=0;
+	nodeSemes* head=NULL;
 };
 
 
@@ -119,5 +119,16 @@ void DeleteNodeCourse(nodeCourse*& head, string idCourse);//Mac Tin
 void PushNodeParticipant(nodePar*& head, Participant new_data);//Gia Huy<done>
 void PushNodeSemester(nodeSemes*& head, Semester new_data);//Gia Huy<done>
 void PushNodeCourse(nodeCourse*& head, Course new_data);//Gia Huy<done>
-
+nodeSemes* FindSemester(LinkedListSemes lst, string name, string yearbeg, string yearend);// find semester
+bool LoadSemester(LinkedListSemes& lst);//<done>
+bool SaveSemester(LinkedListSemes lst);//done
+void CreateSemester(LinkedListSemes& lst);//done
+bool SaveFileCourseClass(Semester data, string idclass);// save courses of a class in a semester
+void ScheduleCourse(Course& course);//schedule date for course base date start and date end
+bool EnrollStuClassToCourse(string idclass, Semester semester, Course course);// copy all students to imported courses.
+void ImportCourse(LinkedListSemes& lst);// import cousres of a class in a semester
+nodeSche* CreatNodeShe(Schedule data);
+void defineDate(int month, int year, int& daymax);
+int dayofweek(int d, int m, int y);
+void AnalysisDate(Schedule start, Schedule end, LinkedListSche& lst, int firstday);
 #endif // !_FUNCTION_H_
