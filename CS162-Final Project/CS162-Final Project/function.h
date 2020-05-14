@@ -42,6 +42,7 @@ struct Participant {
 	string id;
 	string fullname;
 	string classId;
+	string year, month, day;
 	bool status;// in university
 	bool status_course;// in course
 	float mid=-1, final=-1, bonus=-1, total=-1;
@@ -119,16 +120,21 @@ void DeleteNodeCourse(nodeCourse*& head, string idCourse);//Mac Tin
 void PushNodeParticipant(nodePar*& head, Participant new_data);//Gia Huy<done>
 void PushNodeSemester(nodeSemes*& head, Semester new_data);//Gia Huy<done>
 void PushNodeCourse(nodeCourse*& head, Course new_data);//Gia Huy<done>
-nodeSemes* FindSemester(LinkedListSemes lst, string name, string yearbeg, string yearend);// find semester
+nodeSemes* FindSemester(LinkedListSemes lst, string name, string yearbeg, string yearend);// find semester<done>
 bool LoadSemester(LinkedListSemes& lst);//<done>
 bool SaveSemester(LinkedListSemes lst);//done
 void CreateSemester(LinkedListSemes& lst);//done
-bool SaveFileCourseClass(Semester data, string idclass);// save courses of a class in a semester
-void ScheduleCourse(Course& course);//schedule date for course base date start and date end
-bool EnrollStuClassToCourse(string idclass, Semester semester, Course course);// copy all students to imported courses.
-void ImportCourse(LinkedListSemes& lst);// import cousres of a class in a semester
-nodeSche* CreatNodeShe(Schedule data);
+bool SaveFileCourseClass(Semester data, string idclass);// save courses of a class in a semester<done>
+void ScheduleCourse(Course& course);//schedule date for course <done>
+bool EnrollStuClassToCourse(string idclass, Semester semester, Course course);// copy all students to imported courses.<done>
+void ImportCourse(LinkedListSemes& lst);// import cousres of a class in a semester<done>
+bool LoadStuCourseClass(Semester semester,Course& course, string idclass);//load data student from a course file in a class
+bool LoadDataCourseClass(Semester& semester, string idclass);// load data courses in a class
+int ChoiceCourseClass(LinkedListSemes lst,Semester& semester, string& idclass);//=-1(failed)
+nodeSche* CreatNodeShe(Schedule data);//<done>
+nodeDat* CreateNodeDate(Date data);//create date checking for student
+void PrintListCourseOfClass(Semester& semester, string idclass);//cout list of courses of a class in a semester
 void defineDate(int month, int year, int& daymax);
 int dayofweek(int d, int m, int y);
-void AnalysisDate(Schedule start, Schedule end, LinkedListSche& lst, int firstday);
+void AnalysisDate(Schedule start, Schedule end, LinkedListSche& lst, int firstday);// creat linkedlist schedule<done>
 #endif // !_FUNCTION_H_

@@ -97,7 +97,7 @@ void ChangePasswordLecturer(LinkedListLec& lst, string userid)
 	int choice;
 	string curPass;
 	string newPass1, newPass2;
-    nodeLec* cur = lst.head;
+	nodeLec* cur = lst.head;
 	bool condition = false;
 	while (cur != NULL && condition != true)
 	{

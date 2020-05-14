@@ -412,40 +412,20 @@ void AnalysisDate(Schedule start, Schedule end, LinkedListSche& lst, int firstda
 	data.year = to_string(year);
 	lst.head = CreatNodeShe(data);
 	nodeSche* cur = lst.head;
-
-	while (month <= month_end && year == year_end || year < year_end)
+	for (int i = 0; i < 9; i++)
 	{
-		if (month == month_end && day + 7 == day_end)
+		day = day + 7;
+		if (day > daymax)
 		{
-			day += 7;
-			if (day < 10)data.day = '0' + to_string(day);
-			else data.day = to_string(day);
-			if (month < 10)data.month = '0' + to_string(month);
-			else data.month = to_string(month);
-			data.year = to_string(year);
-			cur->next = CreatNodeShe(data);
-			cur = cur->next;
-			break;
+			day = day - daymax;
+			month++;
+			defineDate(month, year, daymax);
 		}
-		else
+		if (month > 12)
 		{
-			day = day + 7;
-			if (day > daymax)
-			{
-				day = day - daymax;
-				month++;
-				defineDate(month, year, daymax);
-			}
-			if (month > 12)
-			{
-				month = 1;
-				year++;
-				defineDate(month, year, daymax);
-			}
-		}
-		if (month == month_end && day > day_end && year == year_end)
-		{
-			break;
+			month = 1;
+			year++;
+			defineDate(month, year, daymax);
 		}
 		if (day < 10)data.day = '0' + to_string(day);
 		else data.day = to_string(day);
@@ -455,6 +435,7 @@ void AnalysisDate(Schedule start, Schedule end, LinkedListSche& lst, int firstda
 		cur->next = CreatNodeShe(data);
 		cur = cur->next;
 	}
+
 }
 
 void ScheduleCourse(Course& course)
@@ -470,4 +451,129 @@ void ScheduleCourse(Course& course)
 	end.year = course.year_end;
 
 	AnalysisDate(start, end, course.schedule, course.firstday);
+}
+
+//Load courses of a class in a semester
+bool LoadDataCourseClass(Semester& semester, string idclass)
+{
+	ifstream fi;
+	string pathfile;
+	Course course;
+	pathfile = semester.yearBeg + "-" + semester.yearEnd + "-" + semester.name + "-" + idclass + "-Courses.txt";
+	fi.open(pathfile.c_str());
+	if (!fi.is_open()) return 0;
+	fi >> semester.course.numCourse;
+	fi.ignore();
+	for (int i = 0; i < semester.course.numCourse; i++)
+	{
+		getline(fi, course.id);
+		getline(fi, course.name);
+		getline(fi, course.classId);
+		getline(fi, course.lec.id);
+		getline(fi, course.lec.name);
+		getline(fi, course.lec.degree);
+		fi >> course.lec.sex;
+		fi >> course.year_start >> course.month_start >> course.day_start;
+		fi >> course.year_end >> course.month_end >> course.day_end;
+		fi >> course.firstday;
+		fi >> course.hour_start >> course.minute_start;
+		fi >> course.hour_end >> course.minute_end;
+		fi.ignore();
+		getline(fi, course.room);
+		PushNodeCourse(semester.course.head, course);
+	}
+	fi.close();
+	return 1;
+}
+
+//Create Date
+nodeDat* CreateNodeDate(Date data)
+{
+	nodeDat* p = new nodeDat;
+	p->dataDat = data;
+	p->next = NULL;
+	return p;
+}
+
+// load student in a course of a semester
+
+bool LoadStuCourseClass(Semester semester, Course& course, string idclass)
+{
+	ifstream fi;
+	string pathfile;
+	Participant participant;
+	Date date;
+	pathfile = semester.yearBeg + "-" + semester.yearEnd + "-" + semester.name + "-" + idclass + "-" + course.id + "-Students.txt";
+	fi.open(pathfile.c_str());
+	if (!fi.is_open()) return 0;
+	fi >> course.participant.numPar;
+	for (int i = 0; i < course.participant.numPar; i++)
+	{
+		fi.ignore();
+		getline(fi, participant.id);
+		getline(fi, participant.fullname);
+		fi >> participant.year >> participant.month >> participant.day;
+		fi.ignore();
+		getline(fi, participant.classId);
+		fi >> participant.status;//status in university
+		fi >> date.year >> date.month >> date.day >> date.checking;
+		participant.timeCheck.head = CreateNodeDate(date);
+		nodeDat* cur = participant.timeCheck.head;
+		for (int i = 0; i < 9; i++)
+		{
+			fi >> date.year >> date.month >> date.day >> date.checking;
+			cur->next = CreateNodeDate(date);
+			cur = cur->next;
+		}
+		fi >> participant.status_course;
+		PushNodeParticipant(course.participant.head, participant);
+	}
+	fi.close();
+	return 1;
+}
+
+//Menu choice semester
+int ChoiceCourseClass(LinkedListSemes lst, Semester& semester, string& idclass)
+{
+	int choice;
+	cout << "Enter years(ex: 2019 2020....):";
+	cin >> semester.yearBeg >> semester.yearEnd;
+	cout << "Enter semester:";
+	cin.ignore();
+	getline(cin, semester.name);
+	if (FindSemester(lst, semester.name, semester.yearBeg, semester.yearEnd)==NULL)
+	{
+		cout << "Not found Semester" << endl;
+		return -1;
+
+	}
+	cout << "Enter Class:";
+	getline(cin, idclass);
+	if (FileClass_Exist(idclass) == false)
+	{
+		cout << "not found data of class" << endl;
+		return -1;
+	}
+	PrintListCourseOfClass(semester, idclass);
+	cout << "Enter your choice:";
+	cin >> choice;
+	if (choice <= 0 || choice > semester.course.numCourse)
+	{
+		cout << "ERROR: please try later" << endl;
+		return -1;
+	}
+	return choice;
+}
+
+//view courses of class
+void PrintListCourseOfClass(Semester& semester, string idclass)
+{
+	LoadDataCourseClass(semester, idclass);
+	cout << "Semester " << semester.name << "(" << semester.yearBeg << "-" << semester.yearEnd << ")" << endl;
+	nodeCourse* cur = semester.course.head;
+	for (int i = 0; i < semester.course.numCourse; i++)
+	{
+		cout << i + 1 << ". " << cur->data.name << " (" << cur->data.id << ")" << endl;
+		cur = cur->next;
+	}
 }
