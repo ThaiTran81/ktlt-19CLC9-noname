@@ -28,23 +28,12 @@ void LoadDataLecturer(LinkedListLec& lst)
 		}
 		else
 		{
-			text >> lec.id;
-			text >> lec.password;
-			text.ignore();
-			getline(text, lec.name);
-			getline(text, lec.name);
-			getline(text, lec.degree);
-			getline(text, lec.degree);
-			text >> lec.sex;
-			PushNodeLecturer(lst.head, lec);
-			for (int i = 0; i < lst.numLec - 1; i++)
+			for (int i = 0; i < lst.numLec; i++)
 			{
 				text >> lec.id;
 				text >> lec.password;
 				text.ignore();
 				getline(text, lec.name);
-				getline(text, lec.name);
-				getline(text, lec.degree);
 				getline(text, lec.degree);
 				text >> lec.sex;
 				PushNodeLecturer(lst.head, lec);
@@ -55,7 +44,6 @@ void LoadDataLecturer(LinkedListLec& lst)
 }
 void SaveDataLecturer(LinkedListLec lst)
 {
-	lst.head = NULL;
 	ofstream text;
 	text.open("Lecturer.txt");
 	if (!text.is_open())
@@ -77,6 +65,7 @@ void SaveDataLecturer(LinkedListLec lst)
 			text << cur->dataLec.name << endl;
 			text << cur->dataLec.degree << endl;
 			text << cur->dataLec.sex << endl;
+			cur = cur->next;
 		}
 		text.close();
 	}
@@ -102,3 +91,73 @@ void DeleteNodeLec(nodeLec*& head, string idLec)
 	else prev->next = temp->next;
 	delete temp;  
 }
+//Change Password Lecturer
+void ChangePasswordLecturer(LinkedListLec& lst, string userid)
+{
+	int choice;
+	string curPass;
+	string newPass1, newPass2;
+    nodeLec* cur = lst.head;
+	bool condition = false;
+	while (cur != NULL && condition != true)
+	{
+		if (cur->dataLec.id == userid)
+		{
+			while (condition == false)
+			{
+				cout << "Current Password: ";
+				getline(cin, curPass);
+				cout << "New Password: ";
+				getline(cin, newPass1);
+				cout << "Type again: ";
+				getline(cin, newPass2);
+				if ((curPass == cur->dataLec.password) && (newPass1 == newPass2))
+				{
+					cur->dataLec.password = newPass1;
+					cout << "--Success--" << endl;
+					condition = true;
+				}
+				else
+				{
+					cout << "Failed, Try Again" << endl;
+					cout << "Press <0> to stop" << endl;
+					cout << "Press <1> to continue " << endl;
+					cout << "Your Choice: ";
+					cin >> choice;
+					if (choice == 0)
+						return;
+					cin.ignore();
+				}
+			}
+		}
+		cur = cur->next;
+	}
+}
+//View Profile Lecturer
+void ViewProfileLecturer(LinkedListLec& lst, string userid)
+{
+	cout << "ID : " << userid << endl;
+	nodeLec* cur = lst.head;
+	while (cur != NULL)
+	{
+		if (cur->dataLec.id == userid)
+		{
+			cout << "Fullname: " << cur->dataLec.name << endl;
+			cout << "Degree: " << cur->dataLec.degree << endl;
+			cout << "Gender: ";
+			if (cur->dataLec.sex == 1)
+			{
+				cout << "Female" << endl;
+			}
+			else
+			{
+				cout << "Male" << endl;
+			}
+			break;
+		}
+		cur = cur->next;
+	}
+	cout << "1. Back to Menu" << endl;
+	cout << "0. Exit" << endl;
+}
+

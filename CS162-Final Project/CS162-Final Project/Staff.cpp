@@ -76,7 +76,6 @@ bool SaveDataStaff(ofstream& fo, LinkedListSta& lst)
 void ViewProfileStaff(const LinkedListSta& lst, string userid)
 {
 	cout << "id: " << userid << endl;
-	cout << "Full name: ";
 	nodeSta* cur = lst.head;
 	while (cur != NULL)
 	{
