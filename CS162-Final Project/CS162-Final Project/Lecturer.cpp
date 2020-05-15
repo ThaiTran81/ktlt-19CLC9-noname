@@ -160,4 +160,32 @@ void ViewProfileLecturer(LinkedListLec& lst, string userid)
 	cout << "1. Back to Menu" << endl;
 	cout << "0. Exit" << endl;
 }
+// View all Lecturer
+void ViewAllLecturer(LinkedListLec lst)
+{
+	if (lst.head == NULL)
+	{
+		cout << "Data Not Found" << endl;
+		return;
+	}
+	int i = 1;
+	nodeLec* cur = lst.head;
+	cout << setw(33) << "|Lecturers List|" << endl;
+	cout << setw(5) << "NO.";
+	cout << setw(19) << "| Full name |";
+	cout << setw(17) << "| Gender |";
+	cout << setw(15) << "| Degree |" << endl;
+	cout << "=========================================================" << endl;
+	while (cur != NULL)
+	{
+		cout << setw(4) << i++<<".";
+		cout << setw(21) << cur->dataLec.name;
+		if (cur->dataLec.sex == 0)
+			cout << setw(13) << "Male";
+		else
+			cout << setw(13) << "Female";
+		cout << setw(15) << cur->dataLec.degree << endl;
+		cur = cur->next;
+	}
+}
 
