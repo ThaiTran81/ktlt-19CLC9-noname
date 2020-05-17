@@ -188,4 +188,34 @@ void ViewAllLecturer(LinkedListLec lst)
 		cur = cur->next;
 	}
 }
+// DeleteLecturer
+void DeleteLecturer(LinkedListLec& lst)
+{
+	string idlec;
+	cout << "Enter id of lecturer which you want to delete" << endl;
+	getline(cin, idlec);
+	nodeLec* temp1 = lst.head;
+	nodeLec* temp2 = temp1->next;
+	if (temp1->dataLec.id == idlec)
+	{
+		lst.head = temp1->next;
+		delete temp1;
+		return;
+	}
+	while (temp2 != NULL) 
+	{
+		if (temp2->dataLec.id == idlec)
+		{
+			temp1->next = temp2->next;
+			delete temp2;
+			return;
+		}
+		else {
+			temp1 = temp2;
+			temp2 = temp2->next;
+		}
+	}
+}
+
+
 
