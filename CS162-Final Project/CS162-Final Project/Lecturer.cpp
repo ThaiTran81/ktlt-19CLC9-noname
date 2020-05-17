@@ -192,6 +192,7 @@ void ViewAllLecturer(LinkedListLec lst)
 void DeleteLecturer(LinkedListLec& lst)
 {
 	string idlec;
+	lst.numLec--;
 	cout << "Enter id of lecturer which you want to delete" << endl;
 	getline(cin, idlec);
 	nodeLec* temp1 = lst.head;
@@ -202,7 +203,7 @@ void DeleteLecturer(LinkedListLec& lst)
 		delete temp1;
 		return;
 	}
-	while (temp2 != NULL) 
+	while (temp2 != NULL)
 	{
 		if (temp2->dataLec.id == idlec)
 		{
@@ -216,6 +217,36 @@ void DeleteLecturer(LinkedListLec& lst)
 		}
 	}
 }
+//Create new lecturer
+void CreateLecturer(LinkedListLec& lst)
+{
+	string id;
+	string password;
+	string name;
+	string degree;
+	bool sex;
+	lst.numLec++;
+	cout << "Enter id of lecturer" << endl;
+	getline(cin, id);
+	cout << "Enter password of lecturer" << endl;
+	getline(cin, password);
+	cout << "Enter name of lecturer" << endl;
+	getline(cin, name);
+	cout << "Enter degree of lecturer" << endl;
+	getline(cin, degree);
+	cin.ignore();
+	cout << "Enter sex of lecturer" << endl;
+	cin >> sex;
+	nodeLec* temp = new nodeLec();
+	temp->dataLec.id = id;
+	temp->dataLec.password = password;
+	temp->dataLec.name = name;
+	temp->dataLec.degree = degree;
+	temp->dataLec.sex = sex;
+	temp->next = lst.head;
+	lst.head = temp;
+}
+
 
 
 
