@@ -21,8 +21,9 @@ int main()
 	LoadDataStudent(fi_stu, lstStu);
 	LoadDataStaff(fi_sta,lstSta);
 	LoadSemester(lstSem);
-	CreateSemester(lstSem);
-	ImportCourse(lstSem);
+	//CreateSemester(lstSem);
+	//ImportCourse(lstSem);
+	ViewStuCourseClass(lstSem);
 	SaveSemester(lstSem);
 	fo_stu.open("Student.txt");
 	SaveDataStudent(fo_stu, lstStu);

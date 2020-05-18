@@ -128,13 +128,15 @@ bool SaveFileCourseClass(Semester data, string idclass);// save courses of a cla
 void ScheduleCourse(Course& course);//schedule date for course <done>
 bool EnrollStuClassToCourse(string idclass, Semester semester, Course course);// copy all students to imported courses.<done>
 void ImportCourse(LinkedListSemes& lst);// import cousres of a class in a semester<done>
-bool LoadStuCourseClass(Semester semester,Course& course, string idclass);//load data student from a course file in a class
-bool LoadDataCourseClass(Semester& semester, string idclass);// load data courses in a class
-int ChoiceCourseClass(LinkedListSemes lst,Semester& semester, string& idclass);//=-1(failed)
+bool LoadStuCourseClass(Semester semester,Course& course, string idclass);//load data student from a course file in a class<done>
+bool LoadDataCourseClass(Semester& semester, string idclass);// load data courses in a class <done>
+int ChoiceCourseClass(LinkedListSemes lst,Semester& semester, string& idclass);//=-1(failed)<done>
 nodeSche* CreatNodeShe(Schedule data);//<done>
-nodeDat* CreateNodeDate(Date data);//create date checking for student
-void PrintListCourseOfClass(Semester& semester, string idclass);//cout list of courses of a class in a semester
+nodeDat* CreateNodeDate(Date data);//create date checking for student<done>
+void ViewStuCourseClass(LinkedListSemes lst);// view students of a course in a class
+void PrintListCourseOfClass(Semester& semester, string idclass);//cout list of courses of a class in a semester<done>
 void defineDate(int month, int year, int& daymax);
 int dayofweek(int d, int m, int y);
 void AnalysisDate(Schedule start, Schedule end, LinkedListSche& lst, int firstday);// creat linkedlist schedule<done>
+void AddACourse(LinkedListSemes lst);
 #endif // !_FUNCTION_H_
