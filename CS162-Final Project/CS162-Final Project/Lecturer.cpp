@@ -160,4 +160,93 @@ void ViewProfileLecturer(LinkedListLec& lst, string userid)
 	cout << "1. Back to Menu" << endl;
 	cout << "0. Exit" << endl;
 }
+// View all Lecturer
+void ViewAllLecturer(LinkedListLec lst)
+{
+	if (lst.head == NULL)
+	{
+		cout << "Data Not Found" << endl;
+		return;
+	}
+	int i = 1;
+	nodeLec* cur = lst.head;
+	cout << setw(33) << "|Lecturers List|" << endl;
+	cout << setw(5) << "NO.";
+	cout << setw(19) << "| Full name |";
+	cout << setw(17) << "| Gender |";
+	cout << setw(15) << "| Degree |" << endl;
+	cout << "=========================================================" << endl;
+	while (cur != NULL)
+	{
+		cout << setw(4) << i++<<".";
+		cout << setw(21) << cur->dataLec.name;
+		if (cur->dataLec.sex == 0)
+			cout << setw(13) << "Male";
+		else
+			cout << setw(13) << "Female";
+		cout << setw(15) << cur->dataLec.degree << endl;
+		cur = cur->next;
+	}
+}
+// DeleteLecturer
+void DeleteLecturer(LinkedListLec& lst)
+{
+	string idlec;
+	lst.numLec--;
+	cout << "Enter id of lecturer which you want to delete" << endl;
+	getline(cin, idlec);
+	nodeLec* temp1 = lst.head;
+	nodeLec* temp2 = temp1->next;
+	if (temp1->dataLec.id == idlec)
+	{
+		lst.head = temp1->next;
+		delete temp1;
+		return;
+	}
+	while (temp2 != NULL)
+	{
+		if (temp2->dataLec.id == idlec)
+		{
+			temp1->next = temp2->next;
+			delete temp2;
+			return;
+		}
+		else {
+			temp1 = temp2;
+			temp2 = temp2->next;
+		}
+	}
+}
+//Create new lecturer
+void CreateLecturer(LinkedListLec& lst)
+{
+	string id;
+	string password;
+	string name;
+	string degree;
+	bool sex;
+	lst.numLec++;
+	cout << "Enter id of lecturer" << endl;
+	getline(cin, id);
+	cout << "Enter password of lecturer" << endl;
+	getline(cin, password);
+	cout << "Enter name of lecturer" << endl;
+	getline(cin, name);
+	cout << "Enter degree of lecturer" << endl;
+	getline(cin, degree);
+	cin.ignore();
+	cout << "Enter sex of lecturer" << endl;
+	cin >> sex;
+	nodeLec* temp = new nodeLec();
+	temp->dataLec.id = id;
+	temp->dataLec.password = password;
+	temp->dataLec.name = name;
+	temp->dataLec.degree = degree;
+	temp->dataLec.sex = sex;
+	temp->next = lst.head;
+	lst.head = temp;
+}
+
+
+
 

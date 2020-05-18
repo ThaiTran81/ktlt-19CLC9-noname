@@ -16,8 +16,7 @@ int main()
 	cout << "1. Login" << endl;
 	cout << "2. Exit" << endl;
 	cout << "---------------------------" << endl;
-	cout << "Your choice:";
-	LoadListOfClass(lstCla);
+	cout << "Your choice:"<<endl;
 	LoadDataStudent(fi_stu, lstStu);
 	LoadDataStaff(fi_sta,lstSta);
 	LoadSemester(lstSem);

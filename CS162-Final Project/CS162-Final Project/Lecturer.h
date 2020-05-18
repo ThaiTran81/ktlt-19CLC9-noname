@@ -33,8 +33,8 @@ void LoadDataLecturer(LinkedListLec& lst);//Anh Tuan<done>
 void SaveDataLecturer(LinkedListLec lst);//Anh Tuan<done>
 void ChangePasswordLecturer(LinkedListLec& lst, string userid);//Anh Tuan<Done>
 void ViewProfileLecturer(LinkedListLec& lst, string userid );//Anh Tuan <Done>
-void ViewAllLecturer(LinkedListLec lst);//Anh Tuan
-void CreatLecturer(LinkedListLec& lst);//Gia Huy
-void DeleteLecturer(LinkedListLec& lst);//Gia Huy
+void ViewAllLecturer(LinkedListLec lst);//Anh Tuan<Done>
+void CreateLecturer(LinkedListLec& lst);//Gia Huy
+void DeleteLecturer(LinkedListLec& lst);//Gia Huy<Done>
 #endif // !_LECTURER_H_
 

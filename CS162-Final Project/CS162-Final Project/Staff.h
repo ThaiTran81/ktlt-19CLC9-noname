@@ -29,6 +29,6 @@ bool LoadDataStaff(ifstream& fi, LinkedListSta& lst);// Load du lieu txt vao lis
 bool SaveDataStaff(ofstream& fo, LinkedListSta& lst); // Save du lieu tu list staff ra txt <Done>
 void ViewProfileStaff(const LinkedListSta& lst, string userid);//done
 void ChangePasswordStaff(LinkedListSta& lst, string userid);//Doi mat khau cho staff <Done>
-
+void ViewAllStaff(LinkedListSta lst);//<Done>
 #endif // !_STAFF_H_
 

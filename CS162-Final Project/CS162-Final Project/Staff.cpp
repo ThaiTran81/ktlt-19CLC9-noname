@@ -141,3 +141,30 @@ void ChangePasswordStaff(LinkedListSta& lst, string userid)
 		cur = cur->next;
 	}
 }
+//View All Staff
+void ViewAllStaff(LinkedListSta lst)
+{
+	if (lst.head == NULL)
+	{
+		cout << "Data Not Found" << endl;
+		return;
+	}
+	int i = 1;
+	nodeSta* cur = lst.head;
+	cout << setw(28) << "*Staff List*" << endl;
+	cout << setw(5) << "NO.";
+	cout << setw(20) << "| Full name |";
+	cout << setw(17) << "| Gender |" << endl;
+	cout << "=============================================" << endl;
+	while (cur != NULL)
+	{
+		cout << setw(4) << i++ << ".";
+		cout << setw(22) << cur->dataStaf.fullname;
+		if (cur->dataStaf.sex == 0)
+			cout << setw(13) << "Male";
+		else
+			cout << setw(13) << "Female";
+		cout << endl;
+		cur = cur->next;
+	}
+}
