@@ -112,6 +112,7 @@ void ChangePasswordStaff(LinkedListSta& lst, string userid)
 		{
 			while (condition == false)
 			{
+				cin.ignore();
 				cout << "Current Password: ";
 				getline(cin, curPass);
 				cout << "New Password: ";

@@ -19,6 +19,7 @@ int main()
 	LoadSemester(lstSem);
 	LoadDataLecturer(lstLec);
 	LoadListOfClass(lstCla);
+//lOGING------------------------------------------
 	cout << "1. Login" << endl;
 	cout << "0. Exit" << endl;
 	cout << "---------------------------" << endl;
@@ -41,6 +42,7 @@ int main()
 					return 0;
 			}
 		} while (log != true);
+//CHUC NANG-------------------------------------------------
 		if (level == 0)//Student
 		{
 			do
@@ -53,6 +55,12 @@ int main()
 				{
 					system("cls");
 					ViewProfileStudent(lstStu, user.id);
+					system("pause");
+				}
+				if (choice1 == 2)
+				{
+					system("cls");
+					ChangePasswordStudent(lstStu,user.id);
 					system("pause");
 				}
 			
@@ -72,6 +80,12 @@ int main()
 					ViewProfileLecturer(lstLec, user.id);
 					system("pause");
 				}
+				if (choice1 == 2)
+				{
+					system("cls");
+					ChangePasswordLecturer(lstLec, user.id);
+					system("pause");
+				}
 			} while (choice1 != 0);
 		}
 		if (level == 2)////Staff
@@ -86,6 +100,12 @@ int main()
 				{
 					system("cls");
 					ViewProfileStaff(lstSta, user.id);
+					system("pause");
+				}
+				if (choice1 == 2)
+				{
+					system("cls");
+					ChangePasswordStaff(lstSta, user.id);
 					system("pause");
 				}
 			} while (choice1 != 0);

@@ -105,6 +105,7 @@ void ChangePasswordLecturer(LinkedListLec& lst, string userid)
 		{
 			while (condition == false)
 			{
+				cin.ignore();
 				cout << "Current Password: ";
 				getline(cin, curPass);
 				cout << "New Password: ";
@@ -157,8 +158,7 @@ void ViewProfileLecturer(LinkedListLec& lst, string userid)
 		}
 		cur = cur->next;
 	}
-	cout << "1. Back to Menu" << endl;
-	cout << "0. Exit" << endl;
+	cout << "Press any key to back to Menu" << endl;
 }
 // View all Lecturer
 void ViewAllLecturer(LinkedListLec lst)

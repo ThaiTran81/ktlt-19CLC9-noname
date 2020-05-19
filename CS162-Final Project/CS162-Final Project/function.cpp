@@ -68,6 +68,7 @@ bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec
 				LoadingEffect();
 				return true;
 			}
+			curLec = curLec->next;
 		}
 	}
 	system("cls");
