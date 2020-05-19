@@ -5,50 +5,74 @@
 #define GREEN   "\033[32m"      /* Green */
 
 // Login
-bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec lstLec)
+bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec lstLec, int& level)
 {
 	cout << "-------------LOGIN-------------" << endl;
 	cout << "Id: ";
 	cin >> user.id;
 	cout << "Password: ";
 	cin >> user.password;
+	cout << "Level: ";
+	cin >> level;
 	nodeSta* curSta = lstSta.head;
 	nodeStu* curStu = lstStu.head;
 	nodeLec* curLec = lstLec.head;
-	while (curSta != NULL)
+	if (level == 2)
 	{
-		if (curSta->dataStaf.id == user.id && curSta->dataStaf.password == user.password)
+		while (curSta != NULL)
 		{
-			user.name = curSta->dataStaf.fullname;
-			user.sex = curSta->dataStaf.sex;
-			cout << "SUCCESSFUL!!!!" << endl;
-			return 1;
-		}
-		curSta = curSta->next;
-	}
-	while (curStu != NULL)
-	{
-		if (curStu->dataStud.id == user.id && curStu->dataStud.password == user.password)
-		{
-			user.name = curStu->dataStud.fullname;
-			user.sex = curStu->dataStud.sex;
-			cout << "SUCCESSFUL!!!!" << endl;
-			return 1;
-		}
-		curStu = curStu->next;
-	}
-	while (curLec != NULL)
-	{
-		if (curLec->dataLec.id == user.id && curLec->dataLec.password == user.password)
-		{
-			user.name = curLec->dataLec.name;
-			user.sex = curLec->dataLec.sex;
-			cout << "SUCCESSFUL!!!!" << endl;
-			return 1;
+			if (curSta->dataStaf.id == user.id && curSta->dataStaf.password == user.password)
+			{
+				user.name = curSta->dataStaf.fullname;
+				user.sex = curSta->dataStaf.sex;
+				Changecolor(4);
+				cout << "SUCCESSFUL!!!!" << endl;
+				cout << "WELCOME! " << user.name << "- Staff" << endl;
+				Changecolor(15);
+				LoadingEffect();
+				return true;
+			}
+			curSta = curSta->next;
 		}
 	}
+	if (level == 0)
+	{
+		while (curStu != NULL)
+		{
+			if (curStu->dataStud.id == user.id && curStu->dataStud.password == user.password)
+			{
+				user.name = curStu->dataStud.fullname;
+				user.sex = curStu->dataStud.sex;
+				Changecolor(4);
+				cout << "SUCCESSFUL!!!!" << endl;
+				cout << "WELCOME! " << user.name << "- Student" << endl;
+				Changecolor(15);
+				LoadingEffect();
+				return true;
+			}
+			curStu = curStu->next;
+		}
+	}
+	if (level == 1)
+	{
+		while (curLec != NULL)
+		{
+			if (curLec->dataLec.id == user.id && curLec->dataLec.password == user.password)
+			{
+				user.name = curLec->dataLec.name;
+				user.sex = curLec->dataLec.sex;
+				Changecolor(4);
+				cout << "SUCCESSFUL!!!!" << endl;
+				cout << "WELCOME! " << user.name << "- Lecturer" << endl;
+				Changecolor(15);
+				LoadingEffect();
+				return true;
+			}
+		}
+	}
+	system("cls");
 	cout << "Invalid login, please try again" << endl;
-	return 0;
+	return false;
 }
 
 //load-save semester

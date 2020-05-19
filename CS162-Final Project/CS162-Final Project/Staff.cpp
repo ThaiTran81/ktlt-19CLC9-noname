@@ -94,8 +94,7 @@ void ViewProfileStaff(const LinkedListSta& lst, string userid)
 		}
 		cur = cur->next;
 	}
-	cout << "1. Back to Menu" << endl;
-	cout << "0. Exit" << endl;
+	cout << "Press any key to back to Menu" << endl;
 }
 
 //-------------------Doi mat khau---------------------------
