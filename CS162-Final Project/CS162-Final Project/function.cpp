@@ -12,17 +12,14 @@ bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec
 	cin >> user.id;
 	cout << "Password: ";
 	cin >> user.password;
-	cout << "Level: ";
-	cin >> level;
 	nodeSta* curSta = lstSta.head;
 	nodeStu* curStu = lstStu.head;
 	nodeLec* curLec = lstLec.head;
-	if (level == 2)
-	{
-		while (curSta != NULL)
+	while (curSta != NULL)
 		{
 			if (curSta->dataStaf.id == user.id && curSta->dataStaf.password == user.password)
 			{
+				level = 2;
 				user.name = curSta->dataStaf.fullname;
 				user.sex = curSta->dataStaf.sex;
 				Changecolor(4);
@@ -34,13 +31,12 @@ bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec
 			}
 			curSta = curSta->next;
 		}
-	}
-	if (level == 0)
-	{
+	
 		while (curStu != NULL)
 		{
 			if (curStu->dataStud.id == user.id && curStu->dataStud.password == user.password)
 			{
+				level = 0;
 				user.name = curStu->dataStud.fullname;
 				user.sex = curStu->dataStud.sex;
 				Changecolor(4);
@@ -52,13 +48,12 @@ bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec
 			}
 			curStu = curStu->next;
 		}
-	}
-	if (level == 1)
-	{
+	
 		while (curLec != NULL)
 		{
 			if (curLec->dataLec.id == user.id && curLec->dataLec.password == user.password)
 			{
+				level = 1;
 				user.name = curLec->dataLec.name;
 				user.sex = curLec->dataLec.sex;
 				Changecolor(4);
@@ -70,7 +65,7 @@ bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec
 			}
 			curLec = curLec->next;
 		}
-	}
+	
 	system("cls");
 	cout << "Invalid login, please try again" << endl;
 	return false;

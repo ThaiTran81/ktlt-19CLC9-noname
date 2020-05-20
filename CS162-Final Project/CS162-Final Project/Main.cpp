@@ -19,19 +19,11 @@ int main()
 	LoadListOfClass(lstCla);
 	LoadDataLecturer(lstLec);
 	LoadSemester(lstSem);
-	/*ImportCourse(lstSem,lstLec);
-	ViewStuCourseClass(lstSem);*/
-	AddACourse(lstSem, lstLec);
 	
 	
 
 	
-	fo_stu.open("Student.txt");
-	SaveDataStudent(fo_stu, lstStu);
-	fo_sta.open("Staff.txt");
-	SaveDataStaff(fo_sta, lstSta);
-	SaveDataLecturer(lstLec);
-	SaveSemester(lstSem);
+	
 //lOGING------------------------------------------
 	cout << "1. Login" << endl;
 	cout << "0. Exit" << endl;
@@ -128,5 +120,11 @@ int main()
 	Changecolor(4);
 	cout <<setw(60) <<"SeeYa!" << endl;
 	Changecolor(15);
+	fo_stu.open("Student.txt");
+	SaveDataStudent(fo_stu, lstStu);
+	fo_sta.open("Staff.txt");
+	SaveDataStaff(fo_sta, lstSta);
+	SaveDataLecturer(lstLec);
+	SaveSemester(lstSem);
 	return 0;
 }
