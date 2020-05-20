@@ -7,5 +7,8 @@ using namespace std;
 void Main_menu();// in ra man hinh chuc nang 2->5(1.view....,2....,3....)
 void ShowMenu_Staff();// in ra man hinh chuc nang 6->25(1.view....,2....,3....)
 void ShowMenu_Lecturer();//in ra man hinh chuc nang 28->34
+void ShowMenu_Student();
+void Changecolor(int n);//Doi mau chu<done>
+void LoadingEffect();
 #endif // !_MENU_H_
 

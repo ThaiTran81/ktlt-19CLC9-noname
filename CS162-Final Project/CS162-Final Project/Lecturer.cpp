@@ -105,6 +105,7 @@ void ChangePasswordLecturer(LinkedListLec& lst, string userid)
 		{
 			while (condition == false)
 			{
+				cin.ignore();
 				cout << "Current Password: ";
 				getline(cin, curPass);
 				cout << "New Password: ";
@@ -157,8 +158,7 @@ void ViewProfileLecturer(LinkedListLec& lst, string userid)
 		}
 		cur = cur->next;
 	}
-	cout << "1. Back to Menu" << endl;
-	cout << "0. Exit" << endl;
+	cout << "Press any key to back to Menu" << endl;
 }
 // View all Lecturer
 void ViewAllLecturer(LinkedListLec lst)
@@ -192,13 +192,13 @@ void ViewAllLecturer(LinkedListLec lst)
 void DeleteLecturer(LinkedListLec& lst)
 {
 	string idlec;
-	lst.numLec--;
-	cout << "Enter id of lecturer which you want to delete" << endl;
+	cout << "Enter id of lecturer which you want to delete:" << endl;
 	getline(cin, idlec);
 	nodeLec* temp1 = lst.head;
 	nodeLec* temp2 = temp1->next;
 	if (temp1->dataLec.id == idlec)
 	{
+		lst.numLec--;
 		lst.head = temp1->next;
 		delete temp1;
 		return;
@@ -207,6 +207,7 @@ void DeleteLecturer(LinkedListLec& lst)
 	{
 		if (temp2->dataLec.id == idlec)
 		{
+			lst.numLec--;
 			temp1->next = temp2->next;
 			delete temp2;
 			return;
@@ -247,6 +248,17 @@ void CreateLecturer(LinkedListLec& lst)
 	lst.head = temp;
 }
 
-
+//Find lecturer in linked list
+nodeLec* FindLecturer(LinkedListLec lst, string id)
+{
+	nodeLec* cur = lst.head;
+	while (cur!=NULL)
+	{
+		if (cur->dataLec.id == id)
+			return cur;
+		cur = cur->next;
+	}
+	return NULL;
+}
 
 

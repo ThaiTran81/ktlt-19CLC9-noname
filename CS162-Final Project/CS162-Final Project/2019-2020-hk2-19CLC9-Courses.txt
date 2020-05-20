@@ -1,22 +1,9 @@
-3
-CS100
-course 1
-19CLC9
-dbtien
-Dinh Ba Tien
-Tien si
-0
-2020 04 06
-2020 06 01
-3
-13 30
-16 30
-I33
+2
 CS162
 Introduction to Programming
 19CLC9
-dbtien
-Dinh Ba Tien
+ltr1
+lecturer 1
 Tien si
 0
 2020 04 06

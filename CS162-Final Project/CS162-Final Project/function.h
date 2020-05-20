@@ -2,6 +2,8 @@
 #define _FUNCTION_H_
 
 #include<iostream>
+#include<stdlib.h>
+#include <windows.h>
 #include<fstream>
 #include<cstring>
 #include<string>
@@ -115,7 +117,7 @@ struct LinkedListSemes {
 };
 
 
-bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec lstLec);
+bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec lstLec,int &level);
 void DeleteNodeCourse(nodeCourse*& head, string idCourse);//Mac Tin
 void PushNodeParticipant(nodePar*& head, Participant new_data);//Gia Huy<done>
 void PushNodeSemester(nodeSemes*& head, Semester new_data);//Gia Huy<done>
@@ -127,7 +129,7 @@ void CreateSemester(LinkedListSemes& lst);//done
 bool SaveFileCourseClass(Semester data, string idclass);// save courses of a class in a semester<done>
 void ScheduleCourse(Course& course);//schedule date for course <done>
 bool EnrollStuClassToCourse(string idclass, Semester semester, Course course);// copy all students to imported courses.<done>
-void ImportCourse(LinkedListSemes& lst);// import cousres of a class in a semester<done>
+void ImportCourse(LinkedListSemes& lstSem, LinkedListLec& lstLec);// import cousres of a class in a semester<done>
 bool LoadStuCourseClass(Semester semester,Course& course, string idclass);//load data student from a course file in a class<done>
 bool LoadDataCourseClass(Semester& semester, string idclass);// load data courses in a class <done>
 int ChoiceCourseClass(LinkedListSemes lst,Semester& semester, string& idclass);//=-1(failed)<done>
@@ -138,5 +140,24 @@ void PrintListCourseOfClass(Semester& semester, string idclass);//cout list of c
 void defineDate(int month, int year, int& daymax);
 int dayofweek(int d, int m, int y);
 void AnalysisDate(Schedule start, Schedule end, LinkedListSche& lst, int firstday);// creat linkedlist schedule<done>
-void AddACourse(LinkedListSemes lst);
+void AddACourse(LinkedListSemes lstSemes, LinkedListLec& lstLec);//add a course to a class in a specific semester<done>
+bool LoadCourseSemes(Semester semester,LinkedListCourse& lstCourse);//load courses of a specific semester
+bool SaveCourseSemes(Semester semester, LinkedListCourse lstCourse);// save courses of a specific semester
+void RemoveACourse(LinkedListSemes lst);
+void ViewListAttendence(LinkedListSemes lst);
+void Viewsemester(LinkedListSemes lst);
+void RemoveStuCourse(LinkedListSemes lst);
+void AddStuCourse(LinkedListSemes lst);
+void ViewListCourseSemes(LinkedListSemes lst);
+void ViewAttendence(LinkedListSemes lst);
+void ViewScoreCourse(LinkedListSemes lst);
+
+//for lecturer<lecturer.cpp>
+void ViewStuCourseClassLec(LinkedListSemes lst);
+void ViewAttendenceLec(LinkedListSemes lst);
+void ImportScore(LinkedListSemes lst);
+void EditGradeStu(LinkedListSemes lst);
+void ViewScoreBoard(LinkedListSemes lst);
+void EditAttendence(LinkedListSemes lst);
+
 #endif // !_FUNCTION_H_

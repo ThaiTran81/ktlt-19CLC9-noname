@@ -167,12 +167,12 @@ string CreatePwdStu(string year, string month, string day)
 
 //Import file of students of a class
 
-void ImportStudentCsv(LinkedListStu& lst)
+void ImportStudentCsv(LinkedListStu& lstStu)
 {
 	ifstream fi;
 	string pathfile;
 	Class cla;
-	nodeStu* cur = lst.head;
+	nodeStu* cur = lstStu.head;
 	nodeStu* flag;
 	Student stu;
 	cout << "Enter the local path to your Csv file:" << endl;
@@ -184,7 +184,7 @@ void ImportStudentCsv(LinkedListStu& lst)
 	}
 	else
 	{
-		while (cur->next != NULL && lst.head!=NULL)
+		while (cur->next != NULL && lstStu.head!=NULL)
 		{
 			cur = cur->next;
 		}
@@ -202,18 +202,18 @@ void ImportStudentCsv(LinkedListStu& lst)
 			getline(fi, stu.day, ',');
 			getline(fi, stu.classId, '\n');
 			if (fi.eof()) break;
-			if (lst.head == NULL)
+			if (lstStu.head == NULL)
 			{
-				lst.head = createNodeStudent(stu);
-				lst.NumStu++;
-				cur = lst.head;
+				lstStu.head = createNodeStudent(stu);
+				lstStu.NumStu++;
+				cur = lstStu.head;
 				flag = cur;
 				continue;
 			}
 			stu.password = CreatePwdStu(stu.year, stu.month, stu.day);
 			cur->next = createNodeStudent(stu);
 			cur = cur->next;
-			lst.NumStu++;
+			lstStu.NumStu++;
 		}
 		if(flag!=NULL) flag = flag->next;
 		cla.classID = flag->dataStud.classId;
@@ -256,6 +256,7 @@ void ChangePasswordStudent(LinkedListStu& lst, string userid)
 			cla.classID = cur->dataStud.classId;
 			while (condition == false)
 			{
+				cin.ignore();
 				cout << "Current Password: ";
 				getline(cin, curPass);
 				cout << "New Password: ";
@@ -469,7 +470,7 @@ nodeStu* FindStuInClass(LinkedListCla& lst, nodeCla*& cur_cla)
 	}
 }
 // find student in linked list lstStu
-nodeStu* FindStu(LinkedListStu lst, string id)
+nodeStu* FindStu(LinkedListStu& lst, string id)
 {
 	nodeStu* cur = lst.head;
 	while (cur != NULL)
@@ -500,7 +501,7 @@ void RemoveStudent(LinkedListCla& cla, LinkedListStu& stu)
 		cin >> choice;
 		if (choice == 0)
 		{
-			//back to main menu
+			return;
 		}
 		else
 		{
