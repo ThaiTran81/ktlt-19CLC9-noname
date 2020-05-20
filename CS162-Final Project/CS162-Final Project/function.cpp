@@ -644,12 +644,14 @@ void ViewStuCourseClass(LinkedListSemes lst)
 		return;
 	}
 	nodeCourse* cur = semester.course.head;
+
+	//tim course tuong ung
 	while (--choice)
 	{
 		if (cur <= 0) break;
 		cur = cur->next;
 	}
-	LoadStuCourseClass(semester, cur->data, idclass);
+	LoadStuCourseClass(semester, cur->data, idclass);//load data student
 	nodePar* cur_par = cur->data.participant.head;
 	cout << BOLDGREEN << ">>>>>" << cur->data.name << " (" << cur->data.id << ")" << RESET << endl;
 	cout << "No. |";
@@ -802,4 +804,40 @@ bool SaveCourseSemes(Semester semester, LinkedListCourse lstCourse)
 	return 1;
 }
 
-
+//save data student in a course
+bool SaveStuCourse(Semester semester, Course& course, string idclass)
+{
+	ofstream fo;
+	string pathfile;
+	pathfile = semester.yearBeg + "-" + semester.yearEnd + "-" + semester.name + "-" + idclass + "-" + course.id + "-Students.txt";
+	fo.open(pathfile.c_str());
+	if (!fo.is_open())
+	{
+		cout << "can't save file" << endl;
+		return 0;
+	}
+	nodePar* cur = course.participant.head;
+	fo << course.participant.numPar << endl;
+	while (cur!=NULL)
+	{
+		fo << cur->dataPar.classId << endl;
+		fo << cur->dataPar.fullname << endl;
+		fo << cur->dataPar.year << " " << cur->dataPar.month << " " << cur->dataPar.day << endl;
+		fo << cur->dataPar.classId << endl;
+		fo << cur->dataPar.status << endl;
+		fo << cur->dataPar.mid << endl;//midterm
+		fo << cur->dataPar.final << endl;//final
+		fo << cur->dataPar.bonus << endl;//bonus
+		fo << cur->dataPar.total << endl;//total
+		nodeSche* cur_course = course.schedule.head;
+		while (cur_course != NULL)
+		{
+			fo << cur_course->data.year << " " << cur_course->data.month << " " << cur_course->data.day << " " << -1 << endl;
+			cur_course = cur_course->next;
+		}
+		fo << cur->dataPar.status_course << endl;
+		cur = cur->next;
+	}
+	fo.close();
+	return 1;
+}

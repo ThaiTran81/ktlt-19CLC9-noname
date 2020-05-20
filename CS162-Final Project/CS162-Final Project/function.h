@@ -144,10 +144,11 @@ void AnalysisDate(Schedule start, Schedule end, LinkedListSche& lst, int firstda
 void AddACourse(LinkedListSemes lstSemes, LinkedListLec& lstLec);//add a course to a class in a specific semester<done>
 bool LoadCourseSemes(Semester semester,LinkedListCourse& lstCourse);//load courses of a specific semester
 bool SaveCourseSemes(Semester semester, LinkedListCourse lstCourse);// save courses of a specific semester
+bool SaveStuCourse(Semester semester, Course& course, string idclass);
 void RemoveACourse(LinkedListSemes lst);
 void ViewListAttendence(LinkedListSemes lst);
-void Viewsemester(LinkedListSemes lst);
-void RemoveStuCourse(LinkedListSemes lst);
+void ViewSemester(LinkedListSemes lst);// Mac Tin
+void RemoveStuCourse(LinkedListSemes lst);//Gia Huy
 void AddStuCourse(LinkedListSemes lst);
 void ViewListCourseSemes(LinkedListSemes lst);
 void ViewAttendence(LinkedListSemes lst);

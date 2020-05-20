@@ -138,6 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Course.cpp" />
     <ClCompile Include="function.cpp" />
     <ClCompile Include="Lecturer.cpp" />
     <ClCompile Include="Main.cpp" />
