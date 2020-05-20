@@ -36,5 +36,7 @@ void ViewProfileLecturer(LinkedListLec& lst, string userid );//Anh Tuan <Done>
 void ViewAllLecturer(LinkedListLec lst);//Anh Tuan<Done>
 void CreateLecturer(LinkedListLec& lst);//Gia Huy
 void DeleteLecturer(LinkedListLec& lst);//Gia Huy<Done>
+nodeLec* FindLecturer(LinkedListLec lst, string id);
+
 #endif // !_LECTURER_H_
 

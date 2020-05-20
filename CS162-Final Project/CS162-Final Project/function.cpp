@@ -150,20 +150,23 @@ void CreateSemester(LinkedListSemes& lst)
 }
 
 //import course
-void ImportCourse(LinkedListSemes& lst)
+void ImportCourse(LinkedListSemes& lstSem, LinkedListLec& lstLec)
 {
 	Semester semester;
 	Course course;
 	string idclass, pathfile;
 	ifstream fi;
 	nodeSemes* cur;
+	LinkedListCourse lstCourse;//to update courses to "courses of a specific semester" file
 	cout << "Enter academic years(ex: 2019 2020):";
 	cin >> semester.yearBeg >> semester.yearEnd;
 	cout << "Enter semester:";
 	cin >> semester.name;
-	cur = FindSemester(lst, semester.name, semester.yearBeg, semester.yearEnd);
+	cur = FindSemester(lstSem, semester.name, semester.yearBeg, semester.yearEnd);
 	if (cur != NULL)
 	{
+		LoadCourseSemes(semester, lstCourse);//load data to push new node linked list course semester
+
 		cout << "Enter class:";
 		cin >> idclass;
 		if (!FileClass_Exist(idclass))
@@ -171,7 +174,7 @@ void ImportCourse(LinkedListSemes& lst)
 			cout << "FAILED: NOT FOUND DATA OF CLASS " << idclass << endl;
 			return;
 		}
-		LoadDataCourseClass(semester, idclass);
+		LoadDataCourseClass(semester, idclass);//load data to push new node linked list course of a class
 		cout << "Enter file csv:";
 		cin.ignore();
 		getline(cin, pathfile);
@@ -194,6 +197,12 @@ void ImportCourse(LinkedListSemes& lst)
 				getline(fi, course.lec.name, ',');
 				getline(fi, course.lec.degree, ',');
 				fi >> course.lec.sex;
+				if (FindLecturer(lstLec, course.lec.id) == NULL)
+				{
+					course.lec.password = course.lec.id;
+					lstLec.numLec++;
+					PushNodeLecturer(lstLec.head, course.lec);
+				}
 				fi.ignore();
 				getline(fi, course.day_start, '/');
 				getline(fi, course.month_start, '/');
@@ -217,10 +226,13 @@ void ImportCourse(LinkedListSemes& lst)
 					cout << "Failed!!!" << endl;
 					return;
 				}
-				semester.course.numCourse++;
-				PushNodeCourse(semester.course.head, course);
+				semester.course.numCourse++;//update number of courses of class
+				lstCourse.numCourse++;// update number of courses of class
+				PushNodeCourse(semester.course.head, course);// push node to linked list course of class
+				PushNodeCourse(lstCourse.head, course);// push node to linked list course of semester
 			}
-			SaveFileCourseClass(semester, idclass);
+			SaveFileCourseClass(semester, idclass);// save linked list course of class
+			SaveCourseSemes(semester, lstCourse);//save linked list course of semester
 			fi.close();
 			cout << "Successful!!!" << endl;
 		}
@@ -628,23 +640,25 @@ void ViewStuCourseClass(LinkedListSemes lst)
 }
 
 //Add a new course
-void AddACourse(LinkedListSemes lst)
+void AddACourse(LinkedListSemes lstSemes, LinkedListLec& lstLec)
 {
 	Semester semester;
 	Course course;
 	string idclass;
+	LinkedListCourse lstCourse;// to push node to "courses of a specific semester" file
 	int choice;
 	cout << "Enter years(ex:2019 2020,...)";
 	cin >> semester.yearBeg >> semester.yearEnd;
 	cout << "Enter semester:";
 	cin.ignore();
 	getline(cin, semester.name);
-	nodeSemes* check = FindSemester(lst, semester.name, semester.yearBeg, semester.yearEnd);
+	nodeSemes* check = FindSemester(lstSemes, semester.name, semester.yearBeg, semester.yearEnd);
 	if (check == NULL)
 	{
 		cout << "ERROR: not found data of semester" << endl;
 		return;
 	}
+	LoadCourseSemes(semester, lstCourse);//load linked list to push node <file course semester>
 	cout << "Enter class:";
 	cin >> idclass;
 	cout << "There are courses of class " << idclass << " in " << semester.name << "(" << semester.yearBeg << "-" << semester.yearEnd << ") semester" << endl;
@@ -661,5 +675,97 @@ void AddACourse(LinkedListSemes lst)
 	course.classId = idclass;
 	cout << "Enter id of the lecturer in this course: ";
 	getline(cin, course.lec.id);
-	//find lecturer
+	nodeLec* lecturer = FindLecturer(lstLec, course.lec.id);
+
+	if (lecturer == NULL)
+	{
+		course.lec.password = course.lec.id;
+		cout << "Enter full name of lecturer:";
+		getline(cin, course.lec.name);
+		cout << "Enter degree of lecturer:";
+		getline(cin, course.lec.degree);
+		cout << "Enter gender of lecturer(0:male/1:female):";
+		cin >> course.lec.sex;
+		lstLec.numLec++;
+		PushNodeLecturer(lstLec.head, course.lec);
+	}
+	else
+	{
+		course.lec = lecturer->dataLec;
+	}
+	cout << "Enter start date(ex 2020 06 01...):";
+	cin >> course.year_start >> course.month_start >> course.day_start;
+	cout << "Enter end date(ex 2020 06 01...):";
+	cin >> course.year_end >> course.month_end >> course.day_end;
+	cout << "Enter day of week:";
+	cin >> course.firstday;
+	cout << "Enter start time(ex: 7 30...)";
+	cin >> course.hour_start >> course.minute_start;
+	cout << "Enter end time(ex: 7 30...)";
+	cin >> course.hour_end >> course.minute_end;
+	cout << "Enter room:";
+	cin.ignore();
+	getline(cin, course.room);
+
+	// update data
+	semester.course.numCourse++;// update number linked list course class
+	lstCourse.numCourse++;//update number linked list course semester
+	ScheduleCourse(course);
+	PushNodeCourse(lstCourse.head, course);// add new data <semester>
+	PushNodeCourse(semester.course.head, course);//add new data <class>
+	EnrollStuClassToCourse(idclass, semester, course);
+	SaveFileCourseClass(semester, idclass);// save file class
+	SaveCourseSemes(semester, lstCourse);// save file semester
+	cout << "Successful!!!" << endl;
+}
+
+//load all courses in a specific semester
+bool LoadCourseSemes(Semester semester, LinkedListCourse& lstCourse)
+{
+	ifstream fi;
+	string pathfile;
+	Course course;
+	pathfile = semester.yearBeg + "-" + semester.yearEnd + "-" + semester.name + "-Courses.txt";
+	fi.open(pathfile.c_str());
+	if (!fi.is_open())
+	{
+		//cout << "ERROR: please try later." << endl;
+		return 0;
+	}
+	fi >> lstCourse.numCourse;
+	fi.ignore();
+	for (int i = 0; i < lstCourse.numCourse; i++)
+	{
+		getline(fi, course.id);
+		getline(fi, course.name);
+		getline(fi, course.classId);
+		PushNodeCourse(lstCourse.head, course);
+	}
+	fi.close();
+	return 1;
+}
+
+// save all courses in a specific semester
+bool SaveCourseSemes(Semester semester, LinkedListCourse lstCourse)
+{
+	ofstream fo;
+	string pathfile;
+	pathfile = semester.yearBeg + "-" + semester.yearEnd + "-" + semester.name + "-Courses.txt";
+	fo.open(pathfile.c_str());
+	if (!fo.is_open())
+	{
+		cout << "Can't create file save" << endl;
+		return 0;
+	}
+	nodeCourse* cur = lstCourse.head;
+	fo << lstCourse.numCourse << endl;
+	while (cur != NULL)
+	{
+		fo << cur->data.id << endl;
+		fo << cur->data.name << endl;
+		fo << cur->data.classId << endl;
+		cur = cur->next;
+	}
+	fo.close();
+	return 1;
 }

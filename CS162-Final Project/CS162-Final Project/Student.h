@@ -58,11 +58,11 @@ string CreatePwdStu(string year, string month, string day);// tao mat khau cho s
 void LoadListOfClass(LinkedListCla& lst);//Lay du lieu tu file class.txt
 void ViewListOfClass(LinkedListCla& lst);//cout ra man hinh du lieu lay tu file class.txt<done>
 void ViewStuOfClass(string classid);// cout students of a specific class <Done>
-void ImportStudentCsv(LinkedListStu& lst);//import file csv <Done>
+void ImportStudentCsv(LinkedListStu& lstStu);//import file csv <Done>
 bool LoadDataStudentFromClassFile(Class& cla);
 void EditStudent(LinkedListCla& cla, LinkedListStu& stu);
 nodeStu* FindStuInClass(LinkedListCla& lst, nodeCla*& cur_cla);// tim sinh vien tu 1 mot lop cu the
-nodeStu* FindStu(LinkedListStu lst, string id);//tim sinh vien tu file student.txt
+nodeStu* FindStu(LinkedListStu& lst, string id);//tim sinh vien tu file student.txt
 void RemoveStudent(LinkedListCla& cla, LinkedListStu& stu);// Delete student(status=0)
 void PushStuClassNode(nodeStu*& head, Student new_data);// creat a linkedlist student for a class
 bool FileClass_Exist(string idclass);//check the existance of class file

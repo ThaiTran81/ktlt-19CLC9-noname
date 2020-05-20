@@ -19,14 +19,21 @@ int main()
 	cout << "Your choice:"<<endl;
 	LoadDataStudent(fi_stu, lstStu);
 	LoadDataStaff(fi_sta,lstSta);
+	LoadListOfClass(lstCla);
+	LoadDataLecturer(lstLec);
 	LoadSemester(lstSem);
-	//CreateSemester(lstSem);
-	//ImportCourse(lstSem);
-	ViewStuCourseClass(lstSem);
-	SaveSemester(lstSem);
+	/*ImportCourse(lstSem,lstLec);
+	ViewStuCourseClass(lstSem);*/
+	AddACourse(lstSem, lstLec);
+	
+	
+
+	
 	fo_stu.open("Student.txt");
 	SaveDataStudent(fo_stu, lstStu);
 	fo_sta.open("Staff.txt");
 	SaveDataStaff(fo_sta, lstSta);
+	SaveDataLecturer(lstLec);
+	SaveSemester(lstSem);
 	return 0;
 }
