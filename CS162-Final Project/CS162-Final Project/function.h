@@ -2,6 +2,8 @@
 #define _FUNCTION_H_
 
 #include<iostream>
+#include<stdlib.h>
+#include <windows.h>
 #include<fstream>
 #include<cstring>
 #include<string>
@@ -115,7 +117,7 @@ struct LinkedListSemes {
 };
 
 
-bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec lstLec);
+bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec lstLec,int &level);
 void DeleteNodeCourse(nodeCourse*& head, string idCourse);//Mac Tin
 void PushNodeParticipant(nodePar*& head, Participant new_data);//Gia Huy<done>
 void PushNodeSemester(nodeSemes*& head, Semester new_data);//Gia Huy<done>
