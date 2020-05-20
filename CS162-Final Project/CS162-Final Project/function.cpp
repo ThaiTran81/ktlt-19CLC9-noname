@@ -12,16 +12,28 @@ bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec
 	cout << "Id: ";
 	cin >> user.id;
 	cout << "Password: ";
+	user.password ="";
 	int buffer;
 	do
 	{
 		buffer = _getch();
-		cout << "*";
-		if(buffer != 13)
+		char temp;
+		if (buffer != 13 && buffer != 8)
+		{
+			cout << "*";
+			temp = char(buffer);
+		}
+		if (buffer == 8)
+		{
+			user.password.erase(user.password.end()-1, user.password.end());
+			cout << "\b";
+			cout << " ";
+			cout << "\b";
+		}
+		if (buffer != 13 && buffer != 8)
 		{
 			user.password += char(buffer);
 		}
-		
 	} while (buffer != 13);
 	cout << endl;
 	nodeSta* curSta = lstSta.head;
