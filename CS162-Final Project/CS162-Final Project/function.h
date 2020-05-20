@@ -1,6 +1,7 @@
 #ifndef _FUNCTION_H_
 #define _FUNCTION_H_
-
+#include <conio.h>
+#include <stdio.h>
 #include<iostream>
 #include<stdlib.h>
 #include <windows.h>

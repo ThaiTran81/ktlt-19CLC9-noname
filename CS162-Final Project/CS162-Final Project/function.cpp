@@ -1,4 +1,5 @@
 #include"function.h"
+
 #define RESET   "\033[0m"
 #define BOLDGREEN   "\033[1m\033[32m"      /* Bold Green */
 #define RED     "\033[31m"      /* Red */
@@ -11,7 +12,18 @@ bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec
 	cout << "Id: ";
 	cin >> user.id;
 	cout << "Password: ";
-	cin >> user.password;
+	int buffer;
+	do
+	{
+		buffer = _getch();
+		cout << "*";
+		if(buffer != 13)
+		{
+			user.password += char(buffer);
+		}
+		
+	} while (buffer != 13);
+	cout << endl;
 	nodeSta* curSta = lstSta.head;
 	nodeStu* curStu = lstStu.head;
 	nodeLec* curLec = lstLec.head;
