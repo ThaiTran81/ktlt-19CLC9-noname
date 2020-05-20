@@ -24,7 +24,7 @@ bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec
 				user.sex = curSta->dataStaf.sex;
 				Changecolor(4);
 				cout << "SUCCESSFUL!!!!" << endl;
-				cout << "WELCOME! " << user.name << "- Staff" << endl;
+				Sleep(1000);
 				Changecolor(15);
 				LoadingEffect();
 				return true;
@@ -41,7 +41,7 @@ bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec
 				user.sex = curStu->dataStud.sex;
 				Changecolor(4);
 				cout << "SUCCESSFUL!!!!" << endl;
-				cout << "WELCOME! " << user.name << "- Student" << endl;
+				Sleep(1000);
 				Changecolor(15);
 				LoadingEffect();
 				return true;
@@ -58,7 +58,7 @@ bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec
 				user.sex = curLec->dataLec.sex;
 				Changecolor(4);
 				cout << "SUCCESSFUL!!!!" << endl;
-				cout << "WELCOME! " << user.name << "- Lecturer" << endl;
+				Sleep(1000);
 				Changecolor(15);
 				LoadingEffect();
 				return true;

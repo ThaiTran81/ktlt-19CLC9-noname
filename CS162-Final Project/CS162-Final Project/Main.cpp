@@ -12,10 +12,12 @@ int main()
 	LinkedListSemes lstSem;
 	User user;
 	int user_menu=10;
-	int choice,level,choice1;
+	int choice, level, choice1, choice2;
 	bool log;
 	LoadDataStudent(fi_stu, lstStu);
+	fi_stu.close();
 	LoadDataStaff(fi_sta,lstSta);
+	fi_sta.close();
 	LoadListOfClass(lstCla);
 	LoadDataLecturer(lstLec);
 	LoadSemester(lstSem);
@@ -53,8 +55,8 @@ int main()
 			do
 			{
 				system("cls");
+				cout << "WELCOME! " << user.name << "- Student" << endl;
 				Main_menu();
-				ShowMenu_Student();
 				cin >> choice1;
 				if (choice1 == 1)
 				{
@@ -68,6 +70,17 @@ int main()
 					ChangePasswordStudent(lstStu,user.id);
 					system("pause");
 				}
+				if (choice1 == 3)
+				{
+
+					do
+					{
+						system("cls");
+						ShowMenu_Student();
+						cin >> choice2;
+						system("pause");
+					} while (choice2 != 0);
+				}
 			
 			} while (choice1 != 0);
 		}
@@ -76,8 +89,8 @@ int main()
 			do
 			{
 				system("cls");
+				cout << "WELCOME! " << user.name << "- Lecturer" << endl;
 				Main_menu();
-				ShowMenu_Lecturer();
 				cin >> choice1;
 				if (choice1 == 1)
 				{
@@ -91,6 +104,17 @@ int main()
 					ChangePasswordLecturer(lstLec, user.id);
 					system("pause");
 				}
+				if (choice1 == 3)
+				{
+
+					do
+					{
+						system("cls");
+						ShowMenu_Lecturer();
+						cin >> choice2;
+						system("pause");
+					} while (choice2 != 0);
+				}
 			} while (choice1 != 0);
 		}
 		if (level == 2)////Staff
@@ -98,8 +122,8 @@ int main()
 			do
 			{
 				system("cls");
+				cout << "WELCOME! " << user.name << "- Staff" << endl;
 				Main_menu();
-				ShowMenu_Staff();
 				cin >> choice1;
 				if (choice1 == 1)
 				{
@@ -112,6 +136,17 @@ int main()
 					system("cls");
 					ChangePasswordStaff(lstSta, user.id);
 					system("pause");
+				}
+				if (choice1 == 3)
+				{
+
+					do
+					{
+						system("cls");
+						ShowMenu_Staff();
+						cin >> choice2;
+						system("pause");
+					} while (choice2 != 0);
 				}
 			} while (choice1 != 0);
 		}
