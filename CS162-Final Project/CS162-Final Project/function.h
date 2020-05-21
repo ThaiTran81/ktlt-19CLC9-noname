@@ -47,7 +47,7 @@ struct Participant {
 	string classId;
 	string year, month, day;
 	bool status;// in university
-	bool status_course;// in course
+	bool status_course=1;// in course
 	float mid=-1, final=-1, bonus=-1, total=-1;
 	LinkedListDat timeCheck;
 };
@@ -142,23 +142,26 @@ void defineDate(int month, int year, int& daymax);
 int dayofweek(int d, int m, int y);
 void AnalysisDate(Schedule start, Schedule end, LinkedListSche& lst, int firstday);// creat linkedlist schedule<done>
 void AddACourse(LinkedListSemes lstSemes, LinkedListLec& lstLec);//add a course to a class in a specific semester<done>
-bool LoadCourseSemes(Semester semester,LinkedListCourse& lstCourse);//load courses of a specific semester
-bool SaveCourseSemes(Semester semester, LinkedListCourse lstCourse);// save courses of a specific semester
-void RemoveACourse(LinkedListSemes lst);
-void ViewListAttendence(LinkedListSemes lst);
-void Viewsemester(LinkedListSemes lst);
-void RemoveStuCourse(LinkedListSemes lst);
-void AddStuCourse(LinkedListSemes lst);
-void ViewListCourseSemes(LinkedListSemes lst);
-void ViewAttendence(LinkedListSemes lst);
-void ViewScoreCourse(LinkedListSemes lst);
+bool LoadCourseSemes(Semester semester,LinkedListCourse& lstCourse);//load courses of a specific semester<done>
+bool SaveCourseSemes(Semester semester, LinkedListCourse lstCourse);// save courses of a specific semester<done>
+bool SaveStuCourse(Semester semester, Course& course, string idclass);//save student in course<doen>
+void RemoveACourse(LinkedListSemes lst);//remove a course<done>
+void ViewListAttendence(LinkedListSemes lst);//view list of attendence of a course<done>
+void ViewSemester(LinkedListSemes lst);// Mac Tin
+void RemoveStuCourse(LinkedListSemes lst);//Gia Huy
+void AddStuCourse(LinkedListSemes lstSemes, LinkedListStu lstStu);// add a student to a course<done>
+void ViewListCourseSemes(LinkedListSemes lst);// view list of courses of a semester<Done>
+void ViewScoreCourse(LinkedListSemes lst);//view scoreboard of a course<done>
+void EditCourse(LinkedListSemes lstSem, LinkedListLec& lstLec);//edit a course 
+void ViewProfileCourse(Course course);
+void ChoiceEditCourse();
+void AssignScheduleStu(LinkedListPar& lst, LinkedListSche lstSche);
 
 //for lecturer<lecturer.cpp>
 void ViewStuCourseClassLec(LinkedListSemes lst);
 void ViewAttendenceLec(LinkedListSemes lst);
 void ImportScore(LinkedListSemes lst);
 void EditGradeStu(LinkedListSemes lst);
-void ViewScoreBoard(LinkedListSemes lst);
 void EditAttendence(LinkedListSemes lst);
 
 #endif // !_FUNCTION_H_

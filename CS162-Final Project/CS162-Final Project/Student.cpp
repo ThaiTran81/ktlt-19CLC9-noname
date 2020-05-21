@@ -370,7 +370,8 @@ void EditStudent(LinkedListCla& cla, LinkedListStu& stu)
 	student = FindStuInClass(cla, cur_cla);
 	if (student == NULL)
 	{
-		//back to main menu
+		cout << "FAILED: not found student" << endl;
+		return;
 	}
 	else
 	{
