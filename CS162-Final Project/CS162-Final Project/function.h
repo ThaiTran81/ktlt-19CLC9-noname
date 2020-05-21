@@ -148,7 +148,7 @@ bool SaveStuCourse(Semester semester, Course& course, string idclass);//save stu
 void RemoveACourse(LinkedListSemes lst);//remove a course<done>
 void ViewListAttendence(LinkedListSemes lst);//view list of attendence of a course<done>
 void ViewSemester(LinkedListSemes lst);// Mac Tin
-void RemoveStuCourse(LinkedListSemes lst);//Gia Huy
+void RemoveStuCourse(LinkedListSemes lst);//Gia Huy<done>
 void AddStuCourse(LinkedListSemes lstSemes, LinkedListStu lstStu);// add a student to a course<done>
 void ViewListCourseSemes(LinkedListSemes lst);// view list of courses of a semester<Done>
 void ViewScoreCourse(LinkedListSemes lst);//view scoreboard of a course<done>

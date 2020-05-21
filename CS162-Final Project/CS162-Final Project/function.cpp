@@ -1322,3 +1322,42 @@ void AssignScheduleStu(LinkedListPar& lst, LinkedListSche lstSche)
 		curPar = curPar->next;
 	}
 }
+//Remove student
+void RemoveStuCourse(LinkedListSemes lst) {
+	string idclass;
+	Semester semester;
+	int choice;
+	choice = ChoiceCourseClass(lst, semester, idclass);
+	if (choice == -1)
+	{
+		cout << "ERROR: please try later!!!" << endl;
+		return;
+	}
+	nodeCourse* cur = semester.course.head;
+	while (--choice)
+	{
+		if (cur <= 0) break;
+		cur = cur->next;
+	}
+	LoadStuCourseClass(semester, cur->data, idclass);
+	nodePar* cur_par = cur->data.participant.head;
+	Participant participant;
+	cout << "Enter id of participant:" << endl;
+	cin >> participant.id;
+	while (cur_par != NULL)
+	{
+		if (cur_par->dataPar.id == participant.id)
+		{
+			cur_par->dataPar.status_course = 0;
+			cout << "the student has been removed" << endl;
+			break;
+		}
+		cur_par = cur_par->next;
+	}
+	if (cur_par == NULL)
+	{
+		cout << "Failed:not found student";
+		return;
+	}
+	SaveStuCourse(semester, cur->data, idclass);
+}
