@@ -56,7 +56,7 @@ void ShowMenu_Staff()
 }
 void ShowMenu_Lecturer()
 {
-	cout << "1. View list of courses in the current semester." << endl;
+	cout << "1. View list of courses in a semester." << endl;
 	cout << "2. View list of students of a course." << endl;
 	cout << "3. View attendance list of a course." << endl;
 	cout << "4. Edit an attendance." << endl;
