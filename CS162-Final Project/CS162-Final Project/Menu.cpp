@@ -8,10 +8,16 @@ void Changecolor(int n)
 }
 void LoadingEffect()
 {
-	cout << "Waiting";
-	for (int i = 0; i < 4; i++)
+	
+	for (int i = 0; i < 1; i++)
 	{
-		cout << ".";
+		system("cls");
+		cout << "Waiting";
+		cout << ". ";
+		Sleep(1000);
+		cout << ". ";
+		Sleep(1000);
+		cout << ". ";
 		Sleep(1000);
 	}
 	cout << endl;
@@ -21,6 +27,8 @@ void Main_menu()
 	cout << "0. Logout" << endl;
 	cout << "1. View profile info" << endl;
 	cout << "2. Change password" << endl;	
+	cout << "3. Show menu" << endl;
+	cout << "Your choice: ";
 }
 void ShowMenu_Staff()
 {

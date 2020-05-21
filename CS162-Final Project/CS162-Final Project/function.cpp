@@ -1,4 +1,5 @@
 #include"function.h"
+
 #define RESET   "\033[0m"
 #define BOLDGREEN   "\033[1m\033[32m"      /* Bold Green */
 #define RED     "\033[31m"      /* Red */
@@ -11,7 +12,18 @@ bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec
 	cout << "Id: ";
 	cin >> user.id;
 	cout << "Password: ";
-	cin >> user.password;
+	int buffer;
+	do
+	{
+		buffer = _getch();
+		cout << "*";
+		if(buffer != 13)
+		{
+			user.password += char(buffer);
+		}
+		
+	} while (buffer != 13);
+	cout << endl;
 	nodeSta* curSta = lstSta.head;
 	nodeStu* curStu = lstStu.head;
 	nodeLec* curLec = lstLec.head;
@@ -24,7 +36,7 @@ bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec
 				user.sex = curSta->dataStaf.sex;
 				Changecolor(4);
 				cout << "SUCCESSFUL!!!!" << endl;
-				cout << "WELCOME! " << user.name << "- Staff" << endl;
+				Sleep(1000);
 				Changecolor(15);
 				LoadingEffect();
 				return true;
@@ -41,7 +53,7 @@ bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec
 				user.sex = curStu->dataStud.sex;
 				Changecolor(4);
 				cout << "SUCCESSFUL!!!!" << endl;
-				cout << "WELCOME! " << user.name << "- Student" << endl;
+				Sleep(1000);
 				Changecolor(15);
 				LoadingEffect();
 				return true;
@@ -58,7 +70,7 @@ bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec
 				user.sex = curLec->dataLec.sex;
 				Changecolor(4);
 				cout << "SUCCESSFUL!!!!" << endl;
-				cout << "WELCOME! " << user.name << "- Lecturer" << endl;
+				Sleep(1000);
 				Changecolor(15);
 				LoadingEffect();
 				return true;
@@ -789,5 +801,26 @@ bool SaveCourseSemes(Semester semester, LinkedListCourse lstCourse)
 	fo.close();
 	return 1;
 }
+void RemoveStuCourse(LinkedListSemes lst) {
+	string idclass;
+	Semester semester;
+	int choice;
+	choice = ChoiceCourseClass(lst, semester, idclass);
+	if (choice == -1)
+	{
+		cout << "ERROR: please try later!!!" << endl;
+		return;
+	}
+	nodeCourse* cur = semester.course.head;
+	while (--choice)
+	{
+		if (cur <= 0) break;
+		cur = cur->next;
+	}
+	LoadStuCourseClass(semester, cur->data, idclass);
+	nodePar* cur_par = cur->data.participant.head;
+
+}
+
 
 
