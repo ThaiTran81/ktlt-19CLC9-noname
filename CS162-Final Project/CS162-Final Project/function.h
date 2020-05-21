@@ -152,10 +152,11 @@ void RemoveStuCourse(LinkedListSemes lst);//Gia Huy
 void AddStuCourse(LinkedListSemes lstSemes, LinkedListStu lstStu);// add a student to a course<done>
 void ViewListCourseSemes(LinkedListSemes lst);// view list of courses of a semester<Done>
 void ViewScoreCourse(LinkedListSemes lst);//view scoreboard of a course<done>
-void EditCourse(LinkedListSemes lstSem, LinkedListLec& lstLec);//edit a course 
+void EditCourse(LinkedListSemes lstSem, LinkedListLec& lstLec);//edit a course <done>
 void ViewProfileCourse(Course course);
 void ChoiceEditCourse();
 void AssignScheduleStu(LinkedListPar& lst, LinkedListSche lstSche);
+nodePar* FindParticipant(LinkedListPar lst, string id);//find participant
 
 //for lecturer<lecturer.cpp>
 void ViewStuCourseClassLec(LinkedListSemes lst);

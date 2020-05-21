@@ -23,7 +23,6 @@ int main()
 	LoadSemester(lstSem);
 	
 
-	EditCourse(lstSem, lstLec);
 	
 //lOGING------------------------------------------
 	cout << "1. Login" << endl;

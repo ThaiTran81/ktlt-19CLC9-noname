@@ -1303,3 +1303,18 @@ void AssignScheduleStu(LinkedListPar& lst, LinkedListSche lstSche)
 		curPar = curPar->next;
 	}
 }
+
+//find participant
+nodePar* FindParticipant(LinkedListPar lst, string id)
+{
+	nodePar* cur = lst.head;
+	while (cur!=NULL)
+	{
+		if (cur->dataPar.id == id)
+		{
+			return cur;
+		}
+		cur = cur->next;
+	}
+	return NULL;
+}
