@@ -4,6 +4,7 @@
 #define BOLDGREEN   "\033[1m\033[32m"      /* Bold Green */
 #define RED     "\033[31m"      /* Red */
 #define GREEN   "\033[32m"      /* Green */
+#define BLUE    "\033[34m"      /* Blue */
 
 // Login
 bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec lstLec, int& level)
@@ -155,7 +156,6 @@ void DeleteNodeCourse(nodeCourse*& head, string idCourse)
 	if (temp != NULL && temp->data.id == idCourse)
 	{
 		head = temp->next;
-		delete temp;
 		return;
 	}
 	while (temp != NULL && temp->data.id != idCourse)
@@ -820,7 +820,7 @@ bool SaveStuCourse(Semester semester, Course& course, string idclass)
 	fo << course.participant.numPar << endl;
 	while (cur!=NULL)
 	{
-		fo << cur->dataPar.classId << endl;
+		fo << cur->dataPar.id << endl;
 		fo << cur->dataPar.fullname << endl;
 		fo << cur->dataPar.year << " " << cur->dataPar.month << " " << cur->dataPar.day << endl;
 		fo << cur->dataPar.classId << endl;
@@ -829,15 +829,465 @@ bool SaveStuCourse(Semester semester, Course& course, string idclass)
 		fo << cur->dataPar.final << endl;//final
 		fo << cur->dataPar.bonus << endl;//bonus
 		fo << cur->dataPar.total << endl;//total
-		nodeSche* cur_course = course.schedule.head;
-		while (cur_course != NULL)
+		nodeDat* cur_dat = cur->dataPar.timeCheck.head;
+		while (cur_dat != NULL)
 		{
-			fo << cur_course->data.year << " " << cur_course->data.month << " " << cur_course->data.day << " " << -1 << endl;
-			cur_course = cur_course->next;
+			fo << cur_dat->dataDat.year << " " << cur_dat->dataDat.month << " " << cur_dat->dataDat.day << " " << cur_dat->dataDat.checking << endl;
+			cur_dat = cur_dat->next;
 		}
 		fo << cur->dataPar.status_course << endl;
 		cur = cur->next;
 	}
 	fo.close();
 	return 1;
+}
+
+// remove a course
+void RemoveACourse(LinkedListSemes lst)
+{
+	LinkedListCourse lstCourse;
+	Semester semester;
+	string idclass;
+	int choice;
+
+	cout << RED << "---Remove Course---" << RESET << endl;
+	choice=ChoiceCourseClass(lst, semester, idclass);
+	if (choice == -1)
+	{
+		cout << "ERROR: please try later!!!" << endl;
+		return;
+	}
+	LoadCourseSemes(semester, lstCourse);
+	nodeCourse* cur_course = semester.course.head;
+	while (--choice)
+	{
+		if (choice == 0) break;
+		cur_course = cur_course->next;
+	}
+	
+	//delete file
+	string namefile;
+	namefile = semester.yearBeg + "-" + semester.yearEnd + "-" + semester.name + "-" + idclass + "-" + cur_course->data.id + "-Students.txt";
+	remove(namefile.c_str());
+
+	//update file
+	semester.course.numCourse--;
+	lstCourse.numCourse--;
+	DeleteNodeCourse(semester.course.head, cur_course->data.id);
+	DeleteNodeCourse(lstCourse.head, cur_course->data.id);
+	SaveFileCourseClass(semester, idclass);
+	SaveCourseSemes(semester, lstCourse);
+	
+}
+
+//view list of attendence of a course
+void ViewListAttendence(LinkedListSemes lst)
+{
+	string idclass;
+	Semester semester;
+	int choice;
+	choice = ChoiceCourseClass(lst, semester, idclass);
+	if (choice == -1)
+	{
+		cout << "ERROR: please try later!!!" << endl;
+		return;
+	}
+	nodeCourse* cur_course = semester.course.head;
+	while (--choice)
+	{
+		if (choice == 0) break;
+		cur_course = cur_course->next;
+	}
+	LoadStuCourseClass(semester, cur_course->data, idclass);
+	cout << "\t\t\t\t\t\t LIST OF ATTENDENCE-" << cur_course->data.name
+		<< "(" << cur_course->data.id << ")- "<<cur_course->data.classId<<"_"
+		<< semester.name << "(" << semester.yearBeg << "-" << semester.yearEnd << ")" << endl;
+	cout << endl;
+	nodePar* cur_par = cur_course->data.participant.head;
+	cout << "NO.";
+	cout << setw(15) << "Full name";
+	cout << setw(10) << "Class";
+	cout << "   ";
+	nodeDat* cur_dat = cur_par->dataPar.timeCheck.head;
+	while (cur_dat!=NULL)
+	{
+		cout << cur_dat->dataDat.day << "-" << cur_dat->dataDat.month << "-" << cur_dat->dataDat.year << "   ";
+		cur_dat = cur_dat->next;
+	}
+	cout << endl;
+	cout << "===============================================================================================================================================================" << endl;
+	int i = 0;
+	while (cur_par!=NULL)
+	{
+		cout << ++i;
+		cout << setw(20) << cur_par->dataPar.fullname;
+		cout << setw(8) << cur_par->dataPar.classId;
+		cur_dat = cur_par->dataPar.timeCheck.head;
+		while (cur_dat != NULL)
+		{
+			if (cur_dat->dataDat.checking == -1)
+				cout << setw(9) << RED<< "Absent" << RESET;
+			else cout << setw(9) << GREEN << "Present" << RESET;
+			cout << "   ";
+			cur_dat = cur_dat->next;
+		}
+		cout<<endl;
+		cout << "---------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		cur_par = cur_par->next;
+	}
+}
+
+//add a student to a course
+void AddStuCourse(LinkedListSemes lstSemes, LinkedListStu lstStu)
+{
+	Student student;
+	Participant participant;
+	Class cla;
+	Semester semester;
+	string idclass;
+	nodeStu* stu;
+	int choice;
+	bool check;
+	cout << GREEN << "---Add a student to Course---" << RESET << endl;
+	cout << endl;
+	choice = ChoiceCourseClass(lstSemes, semester, idclass);
+	if (choice == -1)
+	{
+		cout << "ERROR: please try later!!!" << endl;
+		return;
+	}
+	nodeCourse* cur_course = semester.course.head;
+	while (--choice)
+	{
+		if (choice == 0) break;
+		cur_course = cur_course->next;
+	}
+	cout << "Enter Class which student in:";
+	cin.ignore();
+	getline(cin, student.classId);
+	cla.classID = student.classId;
+	check = LoadDataStudentFromClassFile(cla);
+	if (check == false)
+	{
+		cout << "FAIL: not found data of class" << endl;
+		return;
+	}
+	LoadStuCourseClass(semester, cur_course->data, idclass);
+	cout << "Enter id of student:";
+	getline(cin, student.id);
+	stu = FindStu(cla.stu, student.id);
+	if (stu == NULL)
+	{
+		cout << "FAILED: not found data of student" << endl;
+		return;
+	}
+	ViewProfileStudent(lstStu, student.id);
+	cout << "Do you want to add this student???[yes(1)/no(0)] ";
+	cin >> choice;
+	if (choice == 0)
+	{
+		return;
+	}
+	participant.classId = stu->dataStud.classId;
+	participant.fullname = stu->dataStud.fullname;
+	participant.status = stu->dataStud.status;
+	participant.day = stu->dataStud.day;
+	participant.month = stu->dataStud.month;
+	participant.year = stu->dataStud.year;
+	participant.id = stu->dataStud.id;
+	participant.timeCheck = cur_course->data.participant.head->dataPar.timeCheck;
+	nodeDat* cur_dat = participant.timeCheck.head;
+	while (cur_dat!=NULL)
+	{
+		cur_dat->dataDat.checking = -1;
+		cur_dat = cur_dat->next;
+	}
+	cur_course->data.participant.numPar++;
+	PushNodeParticipant(cur_course->data.participant.head, participant);
+	SaveStuCourse(semester, cur_course->data, idclass);
+	cout << GREEN << "Done!!!" << RESET << endl;
+}
+
+// view list of courses of a semester
+void ViewListCourseSemes(LinkedListSemes lst)
+{
+	Semester semester;
+	LinkedListCourse lstCourse;
+	cout << "Enter years(ex 2019 2020...):";
+	cin >> semester.yearBeg >> semester.yearEnd;
+	cout << "Enter semester:";
+	cin.ignore();
+	getline(cin, semester.name);
+	
+	bool check;
+	check = LoadCourseSemes(semester, lstCourse);
+	if (check == false)
+	{
+		cout << "FAILED: not found data of semester" << endl;
+		return;
+	}
+
+	nodeCourse* cur = lstCourse.head;
+	int i = 1;
+	cout << GREEN << "\tLIST OF COURSES-" << semester.name << "(" << semester.yearBeg << "-" << semester.yearEnd << ")" << RESET << endl;
+	cout << "NO.";
+	cout << setw(10) <<"ID     ";
+	cout << setw(25) << "Name course                   ";
+	cout << setw(8) << "Class " << endl;
+	cout << "=====================================================" << endl;
+	while (cur!=NULL)
+	{
+		cout << i;
+		cout << setw(10) << cur->data.id << "  ";
+		cout << setw(24) << cur->data.name << "   ";
+		cout << setw(8) << cur->data.classId << endl;
+		i++;
+		cur = cur->next;
+		cout << "-----------------------------------------------------" << endl;
+	}
+	if (i == 1) cout << "(emptry)" << endl;
+}
+
+
+void ViewScoreCourse(LinkedListSemes lst)
+{
+	string idclass;
+	Semester semester;
+	int choice;
+	choice = ChoiceCourseClass(lst, semester, idclass);
+	if (choice == -1)
+	{
+		cout << "ERROR: please try later!!!" << endl;
+		return;
+	}
+	nodeCourse* cur_course = semester.course.head;
+	while (--choice)
+	{
+		if (choice == 0) break;
+		cur_course = cur_course->next;
+	}
+	LoadStuCourseClass(semester, cur_course->data, idclass);
+	cout << RED << "\t -----SCOREBOARD_" << cur_course->data.name << "(" << cur_course->data.id << ")_" 
+		<< cur_course->data.classId << "_" << semester.name << "(" << semester.yearBeg << "-" << semester.yearEnd << ")-----"<< RESET << endl;
+
+	nodePar* cur_par = cur_course->data.participant.head;
+	int i = 1;
+	cout << "===================================================================================================" << endl;
+	cout <<setw(4) << "NO.";
+	cout << setw(10) << "  ID student";
+	cout << setw(15) << "Full name";
+	cout << setw(14) << "ID Class";
+	cout << setw(15) << "Study status";
+	cout << setw(6) << "Mid ";
+	cout << setw(5) << "Final ";
+	cout << setw(5) << "Bonus ";
+	cout << setw(5) << "Total ";
+	cout << setw(15) << "Course status" << endl;
+	cout << "===================================================================================================" << endl;
+	while (cur_par!=NULL)
+	{
+		cout << setw(3) << i;
+		cout << setw(12) << cur_par->dataPar.id;
+		cout << setw(20) << cur_par->dataPar.fullname;
+		cout << setw(9) << cur_par->dataPar.classId;
+		if (cur_par->dataPar.status == 1) cout << setw(12) << GREEN << "ACTIVE"<<RESET;
+		else cout << setw(12) << RED << "DROPPED" << RESET;
+		if(cur_par->dataPar.mid==-1) cout << setw(11) << RED<<"-"<<RESET;
+		else cout << setw(8) << cur_par->dataPar.mid;
+
+		if (cur_par->dataPar.final == -1) cout << setw(9) << RED << "-" << RESET;
+		else cout << setw(5) << cur_par->dataPar.final;
+
+		if (cur_par->dataPar.bonus == -1) cout << setw(10) << RED << "-" << RESET;
+		else cout << setw(6) << cur_par->dataPar.bonus;
+
+		if (cur_par->dataPar.total == -1) cout << setw(10) << RED << "-" << RESET;
+		else cout << setw(5) << cur_par->dataPar.total;
+
+		if (cur_par->dataPar.status_course == 1) cout << setw(12) << GREEN << " ACTIVE" << RESET << endl;
+		else cout << setw(12) << RED << " DROPPED" << RESET << endl;
+		cout << "---------------------------------------------------------------------------------------------------" << endl;
+		i++;
+		cur_par = cur_par->next;
+	}
+
+} 
+
+//edit a course
+void EditCourse(LinkedListSemes lstSem, LinkedListLec& lstLec)
+{
+	string idclass;
+	Semester semester;
+	LinkedListCourse lstCourse;
+	int choice;
+	choice = ChoiceCourseClass(lstSem, semester, idclass);
+	if (choice == -1)
+	{
+		cout << "ERROR: please try later!!!" << endl;
+		return;
+	}
+
+
+	nodeCourse* cur_course = semester.course.head;
+	while (--choice)
+	{
+		if (choice == 0) break;
+		cur_course = cur_course->next;
+	}
+	
+	LoadStuCourseClass(semester, cur_course->data, idclass);
+	ViewProfileCourse(cur_course->data);
+	cout << "Do you want to edit this course? [yes(1)/no(0)] ";
+	cin >> choice;
+	if (choice == 0) return;
+	do
+	{
+		ChoiceEditCourse();
+		cin >> choice;
+		if (choice == 1)
+		{
+			LoadCourseSemes(semester, lstCourse);
+			nodeCourse* cur1 = lstCourse.head;
+			while (cur1!=NULL)
+			{
+				if (cur1->data.id == cur_course->data.id) break;
+				cur1 = cur1->next;
+			}
+
+			string namefile;
+			namefile = semester.yearBeg + "-" + semester.yearEnd + "-" + semester.name + "-" + idclass + "-" + cur_course->data.id + "-Students.txt";
+			remove(namefile.c_str());//delete file have old name id
+
+			cout << "Enter new id of this course:";
+			cin.ignore();
+			getline(cin, cur_course->data.id);
+			cout << "Enter new name of this course:";
+			getline(cin, cur_course->data.name);
+			cur1->data = cur_course->data;
+
+			
+			SaveCourseSemes(semester, lstCourse);
+			SaveStuCourse(semester, cur_course->data, idclass);
+			SaveFileCourseClass(semester, idclass);
+			cout << "Done" << endl;
+		}
+		else if (choice == 2)
+		{
+			cin.ignore();
+			cout << "Enter id of the new lecturer for this course: ";
+			getline(cin, cur_course->data.lec.id);
+			nodeLec* lecturer = FindLecturer(lstLec, cur_course->data.lec.id);
+
+			if (lecturer == NULL)
+			{
+				cur_course->data.lec.password = cur_course->data.lec.id;
+				cout << "Enter full name of lecturer:";
+				getline(cin, cur_course->data.lec.name);
+				cout << "Enter degree of lecturer:";
+				getline(cin, cur_course->data.lec.degree);
+				cout << "Enter gender of lecturer(0:male/1:female):";
+				cin >> cur_course->data.lec.sex;
+				lstLec.numLec++;
+				PushNodeLecturer(lstLec.head, cur_course->data.lec);
+			}
+			else
+			{
+				cur_course->data.lec = lecturer->dataLec;
+			}
+			SaveFileCourseClass(semester, idclass);
+			cout << "Done" << endl;
+		}
+		else if (choice == 3)
+		{
+			LinkedListSche lstSche;
+			Schedule start, end;
+			cout << "Enter start date(ex 2020 06 01...):";
+			cin >> cur_course->data.year_start >> cur_course->data.month_start >> cur_course->data.day_start;
+			cout << "Enter end date(ex 2020 06 01...):";
+			cin >> cur_course->data.year_end >> cur_course->data.month_end >> cur_course->data.day_end;
+			cout << "Enter day of week:";
+			cin >> cur_course->data.firstday;
+			cout << "Enter start time(ex: 7 30...)";
+			cin >> cur_course->data.hour_start >> cur_course->data.minute_start;
+			cout << "Enter end time(ex: 7 30...)";
+			cin >> cur_course->data.hour_end >> cur_course->data.minute_end;
+
+			start.day = cur_course->data.day_start;
+			start.month = cur_course->data.month_start;
+			start.year = cur_course->data.year_start;
+
+			end.day = cur_course->data.day_end;
+			end.month = cur_course->data.month_end;
+			end.year = cur_course->data.year_end;
+			AnalysisDate(start,end,lstSche,cur_course->data.firstday);
+			AssignScheduleStu(cur_course->data.participant, lstSche);
+			SaveStuCourse(semester, cur_course->data, idclass);
+			SaveFileCourseClass(semester, idclass);
+			cout << "Done" << endl;
+		}
+		else if (choice == 4)
+		{
+			cout << "Enter room:";
+			cin.ignore();
+			getline(cin, cur_course->data.room);
+			SaveFileCourseClass(semester, idclass);
+			cout << "Done" << endl;
+		}
+	} while (choice!=0);
+} 
+
+// view information of a course
+void ViewProfileCourse(Course course)
+{
+	cout << BLUE << course.name << "- " << course.id << "(" << course.classId << ")" << RESET << endl;
+	cout << "Lecturer: " << course.lec.name << "(" << course.lec.id << ")" << endl;
+	cout << "Start date: " << course.day_start << "-" << course.month_start << "-" << course.year_start << endl;
+	cout << "End date: " << course.day_end << "-" << course.month_end << "-" << course.year_end << endl;
+	cout << "Day of week: " << course.firstday << endl;
+	cout << "Time start from " << course.hour_start << ":" << course.minute_start << " to " << course.hour_end << ":" << course.minute_end << endl;
+	cout << "Room: " << course.room << endl;
+}
+
+//menu choice for edit course
+void ChoiceEditCourse()
+{
+	cout << BLUE << "what do you want to edit in this course?" << RESET << endl;
+	cout << "1. Name and id of this course" << endl;
+	cout << "2. Lecturer of this course" << endl;
+	cout << "3. Date and time of this course" << endl;
+	cout << "4. Room" << endl;
+	cout << "0. Nothing" << endl;
+	cout << "Enter your choice: ";
+}
+
+void AssignScheduleStu(LinkedListPar& lst, LinkedListSche lstSche)
+{
+	nodePar* curPar = lst.head;
+	nodeSche* curSche = lstSche.head;
+	
+	Date date;
+
+	date.day = curSche->data.day;
+	date.month = curSche->data.month;
+	date.year = curSche->data.year;
+	lst.head->dataPar.timeCheck.head = CreateNodeDate(date);
+	nodeDat* curDat = lst.head->dataPar.timeCheck.head;
+	curSche = curSche->next;
+
+	while (curSche!=NULL)
+	{
+		date.day = curSche->data.day;
+		date.month = curSche->data.month;
+		date.year = curSche->data.year;
+		curDat->next = CreateNodeDate(date);
+		curDat = curDat->next;
+		curSche = curSche->next;
+	}
+
+	curPar = curPar->next;
+	while (curPar!=NULL)
+	{
+		curPar->dataPar.timeCheck = lst.head->dataPar.timeCheck;
+		curPar = curPar->next;
+	}
 }
