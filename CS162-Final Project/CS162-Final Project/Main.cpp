@@ -21,9 +21,6 @@ int main()
 	LoadListOfClass(lstCla);
 	LoadDataLecturer(lstLec);
 	LoadSemester(lstSem);
-	
-
-	
 //lOGING------------------------------------------
 	cout << "1. Login" << endl;
 	cout << "0. Exit" << endl;
