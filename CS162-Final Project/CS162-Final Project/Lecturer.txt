@@ -1,26 +1,26 @@
 5
-ththai
-ththai
-tran hoang thai
-tien si
+ltr1
+ltr1
+lecturer 1
+Tien si
 0
-nmhuy
-abcdef
-Nguyen Minh Huy
-Thac si
-0
-nhminh
-abcdef
-Nguyen Hai Minh
-Thac si
-1
 dnvu
 dnvu
 Duong Nguyen Vu
 Giao su
 1
-ltr1
-ltr1
-lecturer 1
-Tien si
+nhminh
+123456
+Nguyen Hai Minh
+Thac si
+1
+nmhuy
+abcdef
+Nguyen Minh Huy
+Thac si
+0
+ththai
+ththai
+tran hoang thai
+tien si
 0

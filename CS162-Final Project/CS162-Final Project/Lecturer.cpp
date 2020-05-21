@@ -105,6 +105,7 @@ void ChangePasswordLecturer(LinkedListLec& lst, string userid)
 		{
 			while (condition == false)
 			{
+				system("cls");
 				cin.ignore();
 				cout << "Current Password: ";
 				getline(cin, curPass);

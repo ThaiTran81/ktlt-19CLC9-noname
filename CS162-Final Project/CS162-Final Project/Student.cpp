@@ -138,8 +138,8 @@ bool LoadDataStudentFromClassFile(Class& cla)
 			PushStuClassNode(cla.stu.head, stu);
 		}
 		fi.close();
-		return 1;
 	}
+	return 1;
 }
 
 
@@ -176,6 +176,7 @@ void ImportStudentCsv(LinkedListStu& lstStu)
 	nodeStu* flag;
 	Student stu;
 	cout << "Enter the local path to your Csv file:" << endl;
+	cin.ignore();
 	getline(cin, pathfile, '\n');
 	fi.open(pathfile.c_str());
 	if (!fi.is_open())
@@ -256,6 +257,7 @@ void ChangePasswordStudent(LinkedListStu& lst, string userid)
 			cla.classID = cur->dataStud.classId;
 			while (condition == false)
 			{
+				system("cls");
 				cin.ignore();
 				cout << "Current Password: ";
 				getline(cin, curPass);
@@ -272,7 +274,7 @@ void ChangePasswordStudent(LinkedListStu& lst, string userid)
 					nodeStu* cur2;
 					LoadDataStudentFromClassFile(cla);
 					cur2 = FindStu(cla.stu, userid);
-					cur2->dataStud.password = cur->dataStud.password;
+					cur2->dataStud.password = newPass1;
 					SaveDataClassFile(cla);
 				}
 				else
@@ -284,7 +286,6 @@ void ChangePasswordStudent(LinkedListStu& lst, string userid)
 					cin >> choice;
 					if (choice == 0)
 						return;
-					cin.ignore();
 				}
 			}
 		}
@@ -480,7 +481,8 @@ nodeStu* FindStu(LinkedListStu& lst, string id)
 			return cur;
 		cur = cur->next;
 	}
-	if (cur == NULL) return NULL;
+	if (cur == NULL) 
+		return NULL;
 }
 
 //----------------------Remove Student from a class---------------------------
@@ -639,7 +641,8 @@ void AddAStu(LinkedListStu& lst, LinkedListCla cla)
 	Student student;
 	Class class_;
 	ViewListOfClass(cla);
-	cout << "Enter Class(19CLC9,...)";
+	cout << "Enter Class(19CLC9,...): ";
+	cin.ignore();
 	getline(cin, student.classId);
 	if (FileClass_Exist(student.classId) == 0)
 	{
@@ -650,13 +653,13 @@ void AddAStu(LinkedListStu& lst, LinkedListCla cla)
 	{
 		class_.classID = student.classId;
 		LoadDataStudentFromClassFile(class_);
-		cout << "Enter id(ex:19127001....):";
+		cout << "Enter id(ex:19127001....): ";
 		getline(cin, student.id);
-		cout << "Enter full name:";
+		cout << "Enter full name: ";
 		getline(cin, student.fullname);
-		cout << "Gender[0(male)/1(female)]:";
+		cout << "Gender[0(male)/1(female)]: ";
 		cin >> student.sex;
-		cout << "Enter date of birth(2001 01 28,...):";
+		cout << "Enter date of birth(2001 01 28,...): ";
 		cin >> student.year >> student.month >> student.day;
 		student.password = CreatePwdStu(student.year, student.month, student.day);
 		class_.stu.NumStu++;

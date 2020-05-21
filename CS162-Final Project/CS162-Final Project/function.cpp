@@ -813,28 +813,6 @@ bool SaveCourseSemes(Semester semester, LinkedListCourse lstCourse)
 	fo.close();
 	return 1;
 }
-void RemoveStuCourse(LinkedListSemes lst) {
-	string idclass;
-	Semester semester;
-	int choice;
-	choice = ChoiceCourseClass(lst, semester, idclass);
-	if (choice == -1)
-	{
-		cout << "ERROR: please try later!!!" << endl;
-		return;
-	}
-	nodeCourse* cur = semester.course.head;
-	while (--choice)
-	{
-		if (cur <= 0) break;
-		cur = cur->next;
-	}
-	LoadStuCourseClass(semester, cur->data, idclass);
-	nodePar* cur_par = cur->data.participant.head;
-
-}
-
-
 //save data student in a course
 bool SaveStuCourse(Semester semester, Course& course, string idclass)
 {
