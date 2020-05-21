@@ -22,9 +22,6 @@ int main()
 	LoadDataLecturer(lstLec);
 	LoadSemester(lstSem);
 	
-
-	EditCourse(lstSem, lstLec);
-	
 //lOGING------------------------------------------
 	cout << "1. Login" << endl;
 	cout << "0. Exit" << endl;
