@@ -1379,6 +1379,7 @@ void RemoveStuCourse(LinkedListSemes lst) {
 	SaveStuCourse(semester, cur->data, idclass);
 }
 
+
 //check whether the lecturer is in course 
 bool CheckLecCourse(Semester semester, string idCourse, string idClass, string idLec)
 {
@@ -1394,4 +1395,24 @@ bool CheckLecCourse(Semester semester, string idCourse, string idClass, string i
 		return 0;
 	}
 	return 1;
+
+//Viewsemester 
+void ViewSemester(LinkedListSemes lst)
+{
+	if (lst.head == NULL)
+	{
+		cout << "Data Not Found" << endl;
+		return;
+	}
+	int i = 1;
+	nodeSemes* cur = lst.head;
+	while (cur != NULL)
+	{
+	
+		cout << setw(4) << i++ << ". ";
+		cout << setw(21) << cur->data.name;
+		cout << setw(33) << cur->data.yearBeg;
+		cout << setw(37) << cur->data.yearEnd << endl;
+		cur = cur->next;
+
 }

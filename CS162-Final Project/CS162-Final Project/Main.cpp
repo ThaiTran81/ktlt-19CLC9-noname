@@ -41,7 +41,7 @@ int main()
 				cout << "Your choice: ";
 				cin >> choice;
 				if (choice == 0)
-					return 0;
+					break;
 			}
 		} while (log != true);
 //CHUC NANG-------------------------------------------------
@@ -73,7 +73,30 @@ int main()
 						system("cls");
 						ShowMenu_Student();
 						cin >> choice2;
-						system("pause");
+						if (choice2 == 1)//Check-in
+						{
+							system("cls");
+							
+							system("pause");
+						}
+						if (choice2 == 2)//View check-in result
+						{
+							system("cls");
+							
+							system("pause");
+						}
+						if (choice2 == 3)//View schedules
+						{
+							system("cls");
+							
+							system("pause");
+						}
+						if (choice2 == 4)//View scores of a course
+						{
+							system("cls");
+							
+							system("pause");
+						}
 					} while (choice2 != 0);
 				}
 			
@@ -107,7 +130,48 @@ int main()
 						system("cls");
 						ShowMenu_Lecturer();
 						cin >> choice2;
-						system("pause");
+						if (choice2 == 1)//View list of courses in the current semester
+						{
+							system("cls");
+							ViewListCourseSemes(lstSem);
+							system("pause");
+						}
+						if (choice2 == 2)//View list of students of a course
+						{
+							system("cls");
+	
+							system("pause");
+						}
+						if (choice2 == 3)//View attendance list of a course
+						{
+							system("cls");
+							ViewListAttendence(lstSem);
+							system("pause");
+						}
+						if (choice2 == 4)//Edit an attendance
+						{
+							system("cls");
+						
+							system("pause");
+						}
+						if (choice2 == 5)//Import scoreboard of a course(midterm, final, lab, bonus) from a csv file
+						{
+							system("cls");
+							
+							system("pause");
+						}
+						if (choice2 == 6)//Edit grade of a student
+						{
+							system("cls");
+							
+							system("pause");
+						}
+						if (choice2 == 7)//View Score Board
+						{
+							system("cls");
+							ViewScoreCourse(lstSem);
+							system("pause");
+						}
 					} while (choice2 != 0);
 				}
 			} while (choice1 != 0);
@@ -140,7 +204,48 @@ int main()
 						system("cls");
 						ShowMenu_Staff();
 						cin >> choice2;
-						system("pause");
+						if (choice2 == 1)//Import Student from a csv file 
+						{
+							system("cls");
+							ImportStudentCsv(lstStu);
+							system("pause");
+						}
+						if (choice2 == 2)//Manually add a new student to a class
+						{
+							system("cls");
+							AddAStu(lstStu, lstCla);
+							system("pause");
+						}
+						if (choice2 == 3)//Edit an existing student(!)
+						{
+							system("cls");
+							EditStudent(lstCla, lstStu);
+							system("pause");
+						}
+						if (choice2==4)// Remove a Student
+						{
+							system("cls");
+							RemoveStudent(lstCla, lstStu);
+							system("pause");
+						}
+						if (choice2 == 5)//Change students from class A to class B
+						{
+							system("cls");
+							ChangeClassStudent(lstStu,lstCla);
+							system("pause");
+						}
+						if (choice2 == 6)//View list of classes
+						{
+							system("cls");
+							ViewListOfClass(lstCla);
+							system("pause");
+						}
+						if (choice2 == 7)//View list of students in a class.(!)
+						{
+							system("cls");
+							
+							system("pause");
+						}
 					} while (choice2 != 0);
 				}
 			} while (choice1 != 0);

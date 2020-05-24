@@ -10,7 +10,7 @@ Nguyen Minh Huy
 Thac si
 0
 nhminh
-abcdef
+123456
 Nguyen Hai Minh
 Thac si
 1
