@@ -136,7 +136,7 @@ bool LoadDataCourseClass(Semester& semester, string idclass);// load data course
 int ChoiceCourseClass(LinkedListSemes lst,Semester& semester, string& idclass);//=-1(failed)<done>
 nodeSche* CreatNodeShe(Schedule data);//<done>
 nodeDat* CreateNodeDate(Date data);//create date checking for student<done>
-void ViewStuCourseClass(LinkedListSemes lst);// view students of a course in a class
+void ViewStuCourseClass(LinkedListSemes lst, string idLec="");// view students of a course in a class
 void PrintListCourseOfClass(Semester& semester, string idclass);//cout list of courses of a class in a semester<done>
 void defineDate(int month, int year, int& daymax);
 int dayofweek(int d, int m, int y);
@@ -146,23 +146,22 @@ bool LoadCourseSemes(Semester semester,LinkedListCourse& lstCourse);//load cours
 bool SaveCourseSemes(Semester semester, LinkedListCourse lstCourse);// save courses of a specific semester<done>
 bool SaveStuCourse(Semester semester, Course& course, string idclass);//save student in course<doen>
 void RemoveACourse(LinkedListSemes lst);//remove a course<done>
-void ViewListAttendence(LinkedListSemes lst);//view list of attendence of a course<done>
+void ViewListAttendence(LinkedListSemes lst, string idLec="");//view list of attendence of a course<done>
 void ViewSemester(LinkedListSemes lst);// Mac Tin
 void RemoveStuCourse(LinkedListSemes lst);//Gia Huy<done>
 void AddStuCourse(LinkedListSemes lstSemes, LinkedListStu lstStu);// add a student to a course<done>
 void ViewListCourseSemes(LinkedListSemes lst);// view list of courses of a semester<Done>
-void ViewScoreCourse(LinkedListSemes lst);//view scoreboard of a course<done>
+void ViewScoreCourse(LinkedListSemes lst, string idLec);//view scoreboard of a course<done>
 void EditCourse(LinkedListSemes lstSem, LinkedListLec& lstLec);//edit a course <done>
-void ViewProfileCourse(Course course);
-void ChoiceEditCourse();
-void AssignScheduleStu(LinkedListPar& lst, LinkedListSche lstSche);
-nodePar* FindParticipant(LinkedListPar lst, string id);//find participant
+void ViewProfileCourse(Course course);//<done>
+void ChoiceEditCourse();//<done>
+void AssignScheduleStu(LinkedListPar& lst, LinkedListSche lstSche);//<done>
+nodePar* FindParticipant(LinkedListPar lst, string id);//find participant<done>
+bool CheckLecCourse(Semester semester, string idCourse, string idClass, string idLec);//check whether the lecturer is in course<done>
 
-//for lecturer<lecturer.cpp>
-void ViewStuCourseClassLec(LinkedListSemes lst);
-void ViewAttendenceLec(LinkedListSemes lst);
+//for lecturer
 void ImportScore(LinkedListSemes lst);
 void EditGradeStu(LinkedListSemes lst);
-void EditAttendence(LinkedListSemes lst);
+void EditAttendence(LinkedListSemes lst);// edit checking attendence
 
 #endif // !_FUNCTION_H_
