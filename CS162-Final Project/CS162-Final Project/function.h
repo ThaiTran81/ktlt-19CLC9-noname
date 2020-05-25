@@ -118,6 +118,7 @@ struct LinkedListSemes {
 };
 
 
+string printProg(int x);
 bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec lstLec,int &level);
 void DeleteNodeCourse(nodeCourse*& head, string idCourse);//Mac Tin
 void PushNodeParticipant(nodePar*& head, Participant new_data);//Gia Huy<done>
@@ -151,13 +152,15 @@ void ViewSemester(LinkedListSemes lst);// Mac Tin
 void RemoveStuCourse(LinkedListSemes lst);//Gia Huy<done>
 void AddStuCourse(LinkedListSemes lstSemes, LinkedListStu lstStu);// add a student to a course<done>
 void ViewListCourseSemes(LinkedListSemes lst);// view list of courses of a semester<Done>
-void ViewScoreCourse(LinkedListSemes lst, string idLec);//view scoreboard of a course<done>
+void ViewScoreCourse(LinkedListSemes lst, string idLec="");//view scoreboard of a course<done>
 void EditCourse(LinkedListSemes lstSem, LinkedListLec& lstLec);//edit a course <done>
 void ViewProfileCourse(Course course);//<done>
 void ChoiceEditCourse();//<done>
 void AssignScheduleStu(LinkedListPar& lst, LinkedListSche lstSche);//<done>
 nodePar* FindParticipant(LinkedListPar lst, string id);//find participant<done>
 bool CheckLecCourse(Semester semester, string idCourse, string idClass, string idLec);//check whether the lecturer is in course<done>
+void ExportScore(LinkedListSemes lst);//Gia Huy
+void ExportAttendence(LinkedListSemes lst);//Anh Tuan
 
 //for lecturer
 void ImportScore(LinkedListSemes lst);

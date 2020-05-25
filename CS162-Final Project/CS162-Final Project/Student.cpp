@@ -1,4 +1,9 @@
 #include"function.h"
+#define RESET   "\033[0m"
+#define BOLDGREEN   "\033[1m\033[32m"      /* Bold Green */
+#define RED     "\033[31m"      /* Red */
+#define GREEN   "\033[32m"      /* Green */
+#define BLUE    "\033[34m"      /* Blue */
 //SAVE AND LOAD STUDENT
 nodeStu* createNodeStudent(Student stud) {
 	nodeStu* p = new nodeStu;
@@ -623,8 +628,8 @@ void ViewStuOfClass(string classid)
 			if (cur->dataStud.sex == 0) cout << setw(8) << "Male";
 			else cout << setw(8) << "Female";
 			cout << setw(5) << cur->dataStud.day << "-" << cur->dataStud.month << "-" << cur->dataStud.year;
-			if (cur->dataStud.status == 0) cout << setw(8) << "Dropped";
-			else cout << setw(10) << "Active" << endl;
+			if (cur->dataStud.status == 0) cout << setw(8) << RED << "Dropped" << RESET << endl;
+			else cout << setw(10) << GREEN << "Active" << RESET << endl;
 			cur = cur->next;
 		}
 	}

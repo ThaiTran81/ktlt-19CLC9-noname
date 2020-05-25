@@ -8,25 +8,33 @@ void Changecolor(int n)
 }
 void LoadingEffect()
 {
-	
-	for (int i = 0; i < 1; i++)
-	{
-		system("cls");
-		cout << "Waiting";
-		cout << ". ";
-		Sleep(1000);
-		cout << ". ";
-		Sleep(1000);
-		cout << ". ";
-		Sleep(1000);
+
+	srand(time(0));
+	int x = 0;
+	cout << "Logging ..." << endl;
+	for (int i = 0; i < 100; i++) {
+		int r = rand() % 1000;
+		x++;
+		cout << "\r" << setw(-20) << printProg(x) << " " << x << "% completed." << flush;
+		if (i < 43) {
+			Sleep(r / 16);
+		}
+		else if (i > 43 && i < 74) {
+			Sleep(r / 18);
+		}
+		else if (i < 98) {
+			Sleep(r / 15);
+		}
+		else if (i > 97 && i != 99) {
+			Sleep(1000);
+		}
 	}
-	cout << endl;
 }
 void Main_menu()
-{  
+{
 	cout << "0. Logout" << endl;
 	cout << "1. View profile info" << endl;
-	cout << "2. Change password" << endl;	
+	cout << "2. Change password" << endl;
 	cout << "3. Show menu" << endl;
 	cout << "Your choice: ";
 }
@@ -39,18 +47,27 @@ void ShowMenu_Staff()
 	cout << "5. Change students from class A to class B" << endl;
 	cout << "6. View list of classes." << endl;
 	cout << "7. View list of students in a class." << endl;
-	cout << "8. Create / update / delete / view academic years, and semesters."<<endl;
-	cout << "9. From a semester, import courses" << endl;
-	cout << "10. Edit an existing course." << endl;
-	cout << "11. Remove a course." << endl;
-	cout << "12. Remove a specific student from a course." << endl;
-	cout << "13. Add a specific student to a course." << endl;
-	cout << "14. View list of courses in the current semester." << endl;
-	cout << "15. View list of students of a course." << endl;
-	cout << "16. View attendance list of a course." << endl;
-	cout << "17. Create / update / delete / view all lecturers." << endl;
-	cout << "18. Search and view the scoreboard of a course." << endl;
-	cout << "19. Export a scoreboard to a csv file." << endl;
+	cout << endl;
+	cout << "8. Create semesters." << endl;
+	cout << "9. Delete semesters." << endl;
+	cout << "10. View semester." << endl;
+	cout << "11. From a semester, import courses" << endl;
+	cout << "12. Edit an existing course." << endl;
+	cout << endl;
+	cout << "13. Remove a course." << endl;
+	cout << "14. Remove a specific student from a course." << endl;
+	cout << "15. Add a specific student to a course." << endl;
+	cout << "16. View list of courses in the current semester." << endl;
+	cout << "17. View list of students of a course." << endl;
+	cout << "18. View attendance list of a course." << endl;
+	cout << endl;
+	cout << "19. Create lecturers." << endl;
+	cout << "20. Delete all lecturers." << endl;
+	cout << "21. View All lecturer" << endl;
+	cout << endl;
+	cout << "22. Search and view the scoreboard of a course." << endl;
+	cout << "23. Export a scoreboard to a csv file." << endl;
+	cout << endl;
 	cout << "0. Back." << endl;
 	cout << "Your choice: ";
 }

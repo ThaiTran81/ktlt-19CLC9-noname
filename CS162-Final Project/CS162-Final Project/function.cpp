@@ -6,6 +6,22 @@
 #define GREEN   "\033[32m"      /* Green */
 #define BLUE    "\033[34m"      /* Blue */
 
+string printProg(int x) {
+	string s;
+	s = "[";
+	for (int i = 1; i <= (100 / 2); i++) {
+		if (i <= (x / 2) || x == 100)
+			s += "=";
+		else if (i == (x / 2))
+			s += ">";
+		else
+			s += " ";
+	}
+
+	s += "]";
+	return s;
+}
+
 // Login
 bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec lstLec, int& level)
 {
@@ -931,6 +947,7 @@ void ViewListAttendence(LinkedListSemes lst, string idLec)
 	cout << endl;
 	nodePar* cur_par = cur_course->data.participant.head;
 	cout << "NO.";
+	cout << setw(12) << "Student ID";
 	cout << setw(15) << "Full name";
 	cout << setw(10) << "Class";
 	cout << "   ";
@@ -941,11 +958,12 @@ void ViewListAttendence(LinkedListSemes lst, string idLec)
 		cur_dat = cur_dat->next;
 	}
 	cout << endl;
-	cout << "===============================================================================================================================================================" << endl;
+	cout << "===========================================================================================================================================================================" << endl;
 	int i = 0;
 	while (cur_par != NULL)
 	{
 		cout << ++i;
+		cout << setw(12) << cur_par->dataPar.id;
 		cout << setw(20) << cur_par->dataPar.fullname;
 		cout << setw(8) << cur_par->dataPar.classId;
 		cur_dat = cur_par->dataPar.timeCheck.head;
@@ -958,7 +976,7 @@ void ViewListAttendence(LinkedListSemes lst, string idLec)
 			cur_dat = cur_dat->next;
 		}
 		cout << endl;
-		cout << "---------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		cout << "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
 		cur_par = cur_par->next;
 	}
 }
@@ -1079,6 +1097,8 @@ void ViewScoreCourse(LinkedListSemes lst, string idLec)
 {
 	string idclass;
 	Semester semester;
+
+	//get data
 	int choice;
 	choice = ChoiceCourseClass(lst, semester, idclass);
 	if (choice == -1)
@@ -1100,6 +1120,8 @@ void ViewScoreCourse(LinkedListSemes lst, string idLec)
 			return;
 	}
 	LoadStuCourseClass(semester, cur_course->data, idclass);
+
+	//print out
 	cout << RED << "\t -----SCOREBOARD_" << cur_course->data.name << "(" << cur_course->data.id << ")_"
 		<< cur_course->data.classId << "_" << semester.name << "(" << semester.yearBeg << "-" << semester.yearEnd << ")-----" << RESET << endl;
 
@@ -1395,6 +1417,7 @@ bool CheckLecCourse(Semester semester, string idCourse, string idClass, string i
 		return 0;
 	}
 	return 1;
+}
 
 //Viewsemester 
 void ViewSemester(LinkedListSemes lst)
@@ -1408,11 +1431,9 @@ void ViewSemester(LinkedListSemes lst)
 	nodeSemes* cur = lst.head;
 	while (cur != NULL)
 	{
-	
-		cout << setw(4) << i++ << ". ";
-		cout << setw(21) << cur->data.name;
-		cout << setw(33) << cur->data.yearBeg;
-		cout << setw(37) << cur->data.yearEnd << endl;
-		cur = cur->next;
 
+		cout << setw(4) << i++ << ". ";
+		cout << cur->data.name<<" ("<< cur->data.yearBeg<<"-"<<cur->data.yearEnd<<")" << endl;
+		cur = cur->next;
+	}
 }
