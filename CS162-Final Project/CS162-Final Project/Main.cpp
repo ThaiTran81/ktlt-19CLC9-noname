@@ -76,7 +76,7 @@ int main()
 						if (choice2 == 1)//Check-in
 						{
 							system("cls");
-
+							CheckingStu(lstSem, user.id);
 							system("pause");
 						}
 						if (choice2 == 2)//View check-in result
@@ -151,7 +151,7 @@ int main()
 						if (choice2 == 4)//Edit an attendance
 						{
 							system("cls");
-
+							EditAttendence(lstSem);
 							system("pause");
 						}
 						if (choice2 == 5)//Import scoreboard of a course(midterm, final, lab, bonus) from a csv file
@@ -163,7 +163,7 @@ int main()
 						if (choice2 == 6)//Edit grade of a student
 						{
 							system("cls");
-
+							EditGradeStu(lstSem);
 							system("pause");
 						}
 						if (choice2 == 7)//View Score Board

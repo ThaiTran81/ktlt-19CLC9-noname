@@ -1348,7 +1348,7 @@ void AssignScheduleStu(LinkedListPar& lst, LinkedListSche lstSche)
 }
 
 //find participant
-nodePar* FindParticipant(LinkedListPar lst, string id)
+nodePar* FindParticipant(LinkedListPar& lst, string id)
 {
 	nodePar* cur = lst.head;
 	while (cur != NULL)

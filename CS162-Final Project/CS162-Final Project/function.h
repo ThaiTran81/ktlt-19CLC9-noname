@@ -1,5 +1,6 @@
 #ifndef _FUNCTION_H_
 #define _FUNCTION_H_
+#include<ctime>
 #include <conio.h>
 #include <stdio.h>
 #include<iostream>
@@ -157,14 +158,16 @@ void EditCourse(LinkedListSemes lstSem, LinkedListLec& lstLec);//edit a course <
 void ViewProfileCourse(Course course);//<done>
 void ChoiceEditCourse();//<done>
 void AssignScheduleStu(LinkedListPar& lst, LinkedListSche lstSche);//<done>
-nodePar* FindParticipant(LinkedListPar lst, string id);//find participant<done>
+nodePar* FindParticipant(LinkedListPar& lst, string id);//find participant<done>
 bool CheckLecCourse(Semester semester, string idCourse, string idClass, string idLec);//check whether the lecturer is in course<done>
 void ExportScore(LinkedListSemes lst);//Gia Huy
 void ExportAttendence(LinkedListSemes lst);//Anh Tuan
+void CheckingStu(LinkedListSemes lstSem, string id_user);
+nodeDat* CheckDay(Participant& participant, Course course);
 
 //for lecturer
 void ImportScore(LinkedListSemes lst);
-void EditGradeStu(LinkedListSemes lst);
-void EditAttendence(LinkedListSemes lst);// edit checking attendence
+void EditGradeStu(LinkedListSemes lstSem);// edit grade<done>
+void EditAttendence(LinkedListSemes lstSem);// edit checking attendence<done>
 
 #endif // !_FUNCTION_H_
