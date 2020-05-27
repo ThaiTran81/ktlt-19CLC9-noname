@@ -1437,3 +1437,64 @@ void ViewSemester(LinkedListSemes lst)
 		cur = cur->next;
 	}
 }
+//Export Attendence
+void ExportAttendence(LinkedListSemes lst)
+{
+	string idclass;
+	Semester semester;
+
+	//get data
+	int choice;
+	choice = ChoiceCourseClass(lst, semester, idclass);
+	if (choice == -1)
+	{
+		cout << "ERROR: please try later!!!" << endl;
+		return;
+	}
+	nodeCourse* cur_course = semester.course.head;
+	while (--choice)
+	{
+		if (choice == 0) break;
+		cur_course = cur_course->next;
+	}
+	LoadStuCourseClass(semester, cur_course->data, idclass);
+//print out
+	nodePar* cur_par = cur_course->data.participant.head;
+	ofstream f;
+	string temp = idclass + ".csv";
+	f.open(temp);
+	if (!f.is_open())
+	{
+		cout << "Can not open file" << endl;
+	}
+	else
+	{
+		f << "No.,Studen ID,Full name,Class,";
+		nodeDat* cur_dat = cur_par->dataPar.timeCheck.head;
+		while (cur_dat != NULL)
+		{
+			f << cur_dat->dataDat.day << "-" << cur_dat->dataDat.month << "-" << cur_dat->dataDat.year << ",";
+			cur_dat = cur_dat->next;
+		}
+		f << endl;
+		int i = 0;
+		while (cur_par != NULL)
+		{
+			f << ++i<<",";
+			f <<  cur_par->dataPar.id<<",";
+			f <<  cur_par->dataPar.fullname<<",";
+			f <<  cur_par->dataPar.classId<<",";
+			cur_dat = cur_par->dataPar.timeCheck.head;
+			while (cur_dat != NULL)
+			{
+				if (cur_dat->dataDat.checking == -1)
+					f << "Absent,";
+				else f <<  "Present,";
+				cur_dat = cur_dat->next;
+			}
+			f << endl;
+			cur_par = cur_par->next;
+		}
+		f.close();
+	}
+}
