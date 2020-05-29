@@ -82,19 +82,19 @@ int main()
 						if (choice2 == 2)//View check-in result
 						{
 							system("cls");
-
+							ViewMyAttendence(lstSem, user.id);
 							system("pause");
 						}
 						if (choice2 == 3)//View schedules
 						{
 							system("cls");
-
+							ViewMySchedule(lstSem, user.id);
 							system("pause");
 						}
 						if (choice2 == 4)//View scores of a course
 						{
 							system("cls");
-
+							ViewMyScore(lstSem, user.id);
 							system("pause");
 						}
 					} while (choice2 != 0);
@@ -145,19 +145,19 @@ int main()
 						if (choice2 == 3)//View attendance list of a course
 						{
 							system("cls");
-							ViewListAttendence(lstSem);
+							ViewListAttendence(lstSem,user.id);
 							system("pause");
 						}
 						if (choice2 == 4)//Edit an attendance
 						{
 							system("cls");
-							EditAttendence(lstSem);
+							EditAttendence(lstSem,user.id);
 							system("pause");
 						}
 						if (choice2 == 5)//Import scoreboard of a course(midterm, final, lab, bonus) from a csv file
 						{
 							system("cls");
-
+							ImportScoreBoard(lstSem, user.id);
 							system("pause");
 						}
 						if (choice2 == 6)//Edit grade of a student

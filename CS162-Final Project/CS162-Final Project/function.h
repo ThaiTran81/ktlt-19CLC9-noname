@@ -164,10 +164,18 @@ void ExportScore(LinkedListSemes lst);//Gia Huy
 void ExportAttendence(LinkedListSemes lst);//Anh Tuan
 void CheckingStu(LinkedListSemes lstSem, string id_user);
 nodeDat* CheckDay(Participant& participant, Course course);
+void ViewAScore(nodePar* attendence);// view score of a student<done>
+void ViewAAtendence(nodePar* attendence);//view check in of a student<done>
+void ViewMyScore(LinkedListSemes lst, string id);//for student view his score<done>
+void ViewMyAttendence(LinkedListSemes lst, string id);//for student view his attendence<done>
+void ViewMySchedule(LinkedListSemes lst, string id);//for student view his schedule<done>
+nodeCourse* FindCourse(LinkedListCourse lst, string id);//find course in a class<done>
+
+
 
 //for lecturer
-void ImportScore(LinkedListSemes lst);
+void ImportScoreBoard(LinkedListSemes lst, string idLec = "");//import score
 void EditGradeStu(LinkedListSemes lstSem);// edit grade<done>
-void EditAttendence(LinkedListSemes lstSem);// edit checking attendence<done>
+void EditAttendence(LinkedListSemes lstSem, string idLec="");// edit checking attendence<done>
 
 #endif // !_FUNCTION_H_
