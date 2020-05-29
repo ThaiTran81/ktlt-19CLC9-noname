@@ -75,7 +75,8 @@ bool SaveDataStaff(ofstream& fo, LinkedListSta& lst)
 // view profile staff
 void ViewProfileStaff(const LinkedListSta& lst, string userid)
 {
-	cout << "id: " << userid << endl;
+	cout << "Staff" << endl;
+	cout << "Id: " << userid << endl;
 	nodeSta* cur = lst.head;
 	while (cur != NULL)
 	{
@@ -94,7 +95,6 @@ void ViewProfileStaff(const LinkedListSta& lst, string userid)
 		}
 		cur = cur->next;
 	}
-	cout << "Press any key to back to Menu" << endl;
 }
 
 //-------------------Doi mat khau---------------------------
@@ -113,6 +113,9 @@ void ChangePasswordStaff(LinkedListSta& lst, string userid)
 			while (condition == false)
 			{
 				system("cls");
+				Changecolor(4);
+				cout << "Change Password" << endl;
+				Changecolor(15);
 				cin.ignore();
 				cout << "Current Password: ";
 				getline(cin, curPass);

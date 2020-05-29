@@ -257,6 +257,7 @@ void ImportStudentCsv(LinkedListStu& lstStu)
 //change password Student
 void ChangePasswordStudent(LinkedListStu& lst, string userid)
 {
+	
 	int choice;
 	Class cla;
 	string curPass;
@@ -271,6 +272,9 @@ void ChangePasswordStudent(LinkedListStu& lst, string userid)
 			while (condition == false)
 			{
 				system("cls");
+				Changecolor(4);
+				cout << "Change Password" << endl;
+				Changecolor(15);
 				cin.ignore();
 				cout << "Current Password: ";
 				getline(cin, curPass);
@@ -308,7 +312,7 @@ void ChangePasswordStudent(LinkedListStu& lst, string userid)
 //view profile student
 void ViewProfileStudent(const LinkedListStu& lst, string userid)
 {
-	cout << ">Profile of student:" << endl;
+	cout << ">>Student" << endl;
 	nodeStu* cur = lst.head;
 	while (cur != NULL)
 	{
