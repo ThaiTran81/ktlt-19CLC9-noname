@@ -47,7 +47,7 @@ struct Participant {
 	string fullname;
 	string classId;
 	string year, month, day;
-	bool status;// in university
+	bool status=-1;// in university
 	bool status_course=1;// in course
 	float mid=-1, final=-1, bonus=-1, total=-1;
 	LinkedListDat timeCheck;
@@ -160,7 +160,7 @@ void ChoiceEditCourse();//<done>
 void AssignScheduleStu(LinkedListPar& lst, LinkedListSche lstSche);//<done>
 nodePar* FindParticipant(LinkedListPar& lst, string id);//find participant<done>
 bool CheckLecCourse(Semester semester, string idCourse, string idClass, string idLec);//check whether the lecturer is in course<done>
-void ExportScore(LinkedListSemes lst);//Gia Huy
+void ExportScore(LinkedListSemes lst);//Gia Huy<done>
 void ExportAttendence(LinkedListSemes lst);//Anh Tuan
 void CheckingStu(LinkedListSemes lstSem, string id_user);
 nodeDat* CheckDay(Participant& participant, Course course);
