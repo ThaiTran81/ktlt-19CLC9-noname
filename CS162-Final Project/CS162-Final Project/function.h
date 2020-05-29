@@ -47,7 +47,7 @@ struct Participant {
 	string fullname;
 	string classId;
 	string year, month, day;
-	bool status;// in university
+	bool status=-1;// in university
 	bool status_course=1;// in course
 	float mid=-1, final=-1, bonus=-1, total=-1;
 	LinkedListDat timeCheck;

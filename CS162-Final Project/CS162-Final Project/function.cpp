@@ -1528,6 +1528,7 @@ void ExportScore(LinkedListSemes lst) {
 		cout << "Can not open file" << endl;
 	}
 	else {
+		
 		f << "No.,ID Student,Full name,ID Class,Study status,Mid,Final,Bonus,Total,Course status";
 		int i = 0;
 		while (cur_par != NULL)
@@ -1536,14 +1537,30 @@ void ExportScore(LinkedListSemes lst) {
 			f << cur_par->dataPar.id << ",";
 			f << cur_par->dataPar.fullname << ",";
 			f << cur_par->dataPar.classId << ",";
-			f << cur_par->dataPar.status << ",";
+			if (cur_par->dataPar.status == -1)
+				f << "INACTIVE,";
+			else
+				f << "ACTIVE,";
+			if (cur_par->dataPar.mid == -1)
+				f << "-,";
+			else
 			f << cur_par->dataPar.mid << ",";
+			if (cur_par->dataPar.final == -1)
+				f << "-,";
+			else
 			f << cur_par->dataPar.final << ",";
+			if (cur_par->dataPar.bonus == -1)
+				f << "-,";
+			else
 			f << cur_par->dataPar.bonus << ",";
+			if (cur_par->dataPar.total == -1)
+				f << "-,";
+			else
 			f << cur_par->dataPar.total << ",";
-			f << cur_par->dataPar.status_course << ",";
-			f << endl;
-			cur_par = cur_par->next;
+			if (cur_par->dataPar.status_course == -1)
+				f << "INACTIVE,";
+			else
+			f <<"ACTIVE,";
 		}
 		f.close();
 	}
