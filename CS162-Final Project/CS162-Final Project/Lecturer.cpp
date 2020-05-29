@@ -202,6 +202,7 @@ void DeleteLecturer(LinkedListLec& lst)
 		lst.numLec--;
 		lst.head = temp1->next;
 		delete temp1;
+		cout << GREEN << "Done" << RESET << endl;
 		return;
 	}
 	while (temp2 != NULL)
@@ -211,6 +212,7 @@ void DeleteLecturer(LinkedListLec& lst)
 			lst.numLec--;
 			temp1->next = temp2->next;
 			delete temp2;
+			cout << GREEN << "Done" << RESET << endl;
 			return;
 		}
 		else {
@@ -218,6 +220,7 @@ void DeleteLecturer(LinkedListLec& lst)
 			temp2 = temp2->next;
 		}
 	}
+	cout << RED << "Not found lecturer with id " << idlec << RESET << endl;
 }
 //Create new lecturer
 void CreateLecturer(LinkedListLec& lst)
@@ -236,7 +239,6 @@ void CreateLecturer(LinkedListLec& lst)
 	getline(cin, name);
 	cout << "Enter degree of lecturer" << endl;
 	getline(cin, degree);
-	cin.ignore();
 	cout << "Enter sex of lecturer" << endl;
 	cin >> sex;
 	nodeLec* temp = new nodeLec();
@@ -247,6 +249,7 @@ void CreateLecturer(LinkedListLec& lst)
 	temp->dataLec.sex = sex;
 	temp->next = lst.head;
 	lst.head = temp;
+	cout << GREEN << "Done!!!" << RESET << endl;
 }
 
 //Find lecturer in linked list

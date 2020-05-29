@@ -14,6 +14,12 @@
 #include"Student.h"
 #include"Staff.h"
 #include"Menu.h"
+#define RESET   "\033[0m"
+#define BOLDGREEN   "\033[1m\033[32m"      /* Bold Green */
+#define RED     "\033[31m"      /* Red */
+#define GREEN   "\033[32m"      /* Green */
+#define BLUE    "\033[34m"      /* Blue */
+#define YELLOW  "\033[33m"      /* Yellow */
 using namespace std;
 
 

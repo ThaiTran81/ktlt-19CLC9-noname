@@ -1,10 +1,4 @@
 #include"function.h"
-#define RESET   "\033[0m"
-#define BOLDGREEN   "\033[1m\033[32m"      /* Bold Green */
-#define RED     "\033[31m"      /* Red */
-#define GREEN   "\033[32m"      /* Green */
-#define BLUE    "\033[34m"      /* Blue */
-#define YELLOW  "\033[33m"      /* Yellow */
 
 // Checking student 
 void CheckingStu(LinkedListSemes lstSem, string id_user)
@@ -436,7 +430,7 @@ void ViewMySchedule(LinkedListSemes lst, string id)
 	cout << setw(8) << "|Room|";
 	cout << endl;
 	cout << "======================================================================================" << endl;
-	while (cur!=NULL)
+	while (cur != NULL)
 	{
 		Semester temp_semes;
 		temp_semes.name = semester.name;
@@ -519,7 +513,7 @@ void ImportScoreBoard(LinkedListSemes lst, string idLec)
 		if (check1 == 0)
 			return;
 	}
-	check=LoadStuCourseClass(semester, cur_course->data, idclass);
+	check = LoadStuCourseClass(semester, cur_course->data, idclass);
 	if (check == 0) return;
 
 	//open file and update score
@@ -533,7 +527,7 @@ void ImportScoreBoard(LinkedListSemes lst, string idLec)
 	{
 		Participant par;
 		fi.ignore(2);
-		getline(fi, par.id,',');
+		getline(fi, par.id, ',');
 		getline(fi, par.fullname, ',');
 		fi >> par.mid;
 		fi.ignore();

@@ -314,34 +314,42 @@ int main()
 							ViewListAttendence(lstSem);
 							system("pause");
 						}
-						else if (choice2 == 19)//creat lecturer
+						else if (choice2 == 19)//Export attendance list of a course.
+						{
+							system("cls");
+							ExportAttendence(lstSem);
+							system("pause");
+						}
+						else if (choice2 == 20)//creat lecturer
 						{
 							system("cls");
 							cin.ignore();
 							CreateLecturer(lstLec);
 							system("pause");
 						}
-						else if (choice2 == 20)//delete Lecturer
+						else if (choice2 == 21)//delete Lecturer
 						{
 							system("cls");
 							cin.ignore();
 							DeleteLecturer(lstLec);
 							system("pause");
 						}
-						else if (choice2 == 21)//view Lecturer
+						else if (choice2 == 22)//view Lecturer
 						{
 							system("cls");
 							ViewAllLecturer(lstLec);
 							system("pause");
 						}
-						else if (choice2 == 22)//view scoreboard
+						else if (choice2 == 23)//view scoreboard
 						{
 							system("cls");
 							ViewScoreCourse(lstSem);
 							system("pause");
 						}
-						else if (choice2 == 23)//export score
+						else if (choice2 == 24)//export score
 						{
+							system("cls");
+							ExportScore(lstSem);
 							system("pause");
 						}
 					} while (choice2 != 0);

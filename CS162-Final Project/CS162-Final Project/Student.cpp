@@ -1,9 +1,5 @@
 #include"function.h"
-#define RESET   "\033[0m"
-#define BOLDGREEN   "\033[1m\033[32m"      /* Bold Green */
-#define RED     "\033[31m"      /* Red */
-#define GREEN   "\033[32m"      /* Green */
-#define BLUE    "\033[34m"      /* Blue */
+
 //SAVE AND LOAD STUDENT
 nodeStu* createNodeStudent(Student stud) {
 	nodeStu* p = new nodeStu;
@@ -180,6 +176,8 @@ void ImportStudentCsv(LinkedListStu& lstStu)
 	nodeStu* cur = lstStu.head;
 	nodeStu* flag;
 	Student stu;
+	int success = 0, fail = 0;
+	bool check;
 	cout << "Enter the local path to your Csv file:" << endl;
 	cin.ignore();
 	getline(cin, pathfile, '\n');
@@ -208,6 +206,15 @@ void ImportStudentCsv(LinkedListStu& lstStu)
 			getline(fi, stu.day, ',');
 			getline(fi, stu.classId, '\n');
 			if (fi.eof()) break;
+			//check whether student had existed before 
+			check = FindStu(lstStu, stu.id);
+			if (check!=NULL)
+			{
+				fail++;
+				continue;
+			}
+			success++;
+
 			if (lstStu.head == NULL)
 			{
 				lstStu.head = createNodeStudent(stu);
@@ -241,7 +248,8 @@ void ImportStudentCsv(LinkedListStu& lstStu)
 		}
 		SaveDataClassFile(cla);
 		//done
-		cout << "Done!" << endl;
+		cout << GREEN << "Done!" << RESET << endl;
+		cout << YELLOW << "***Import: " << GREEN << success << " success, " << RED << fail << " fail" << RESET << endl;
 		//Back to main menu
 	}
 }

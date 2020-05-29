@@ -1,11 +1,5 @@
 #include"function.h"
 
-#define RESET   "\033[0m"
-#define BOLDGREEN   "\033[1m\033[32m"      /* Bold Green */
-#define RED     "\033[31m"      /* Red */
-#define GREEN   "\033[32m"      /* Green */
-#define BLUE    "\033[34m"      /* Blue */
-
 string printProg(int x) {
 	string s;
 	s = "[";
@@ -1458,11 +1452,17 @@ void ExportAttendence(LinkedListSemes lst)
 		cur_course = cur_course->next;
 	}
 	LoadStuCourseClass(semester, cur_course->data, idclass);
-//print out
+	//print out
 	nodePar* cur_par = cur_course->data.participant.head;
 	ofstream f;
-	string temp = idclass + ".csv";
-	f.open(temp);
+	string temp = idclass + "-Attendence.csv";
+	string pathfile;
+
+	cout << "Enter the local path to save file:";
+	cin.ignore();
+	getline(cin, pathfile);
+	pathfile = pathfile + "\\" + temp;
+	f.open(pathfile.c_str());
 	if (!f.is_open())
 	{
 		cout << "Can not open file" << endl;
@@ -1495,6 +1495,7 @@ void ExportAttendence(LinkedListSemes lst)
 			f << endl;
 			cur_par = cur_par->next;
 		}
+		cout << GREEN << "Successfully!! Your exported file is " << temp << RESET << endl;
 		f.close();
 	}
 }
@@ -1521,15 +1522,21 @@ void ExportScore(LinkedListSemes lst) {
 	//print out
 	nodePar* cur_par = cur_course->data.participant.head;
 	ofstream f;
-	string temp = idclass + ".csv";
-	f.open(temp);
+	string temp = idclass + "-Score.csv";
+	string pathfile;
+
+	cout << "Enter the local path to save file:";
+	cin.ignore();
+	getline(cin, pathfile);
+	pathfile = pathfile + "\\" + temp;
+	f.open(pathfile.c_str());
 	if (!f.is_open())
 	{
 		cout << "Can not open file" << endl;
 	}
 	else {
 		
-		f << "No.,ID Student,Full name,ID Class,Study status,Mid,Final,Bonus,Total,Course status";
+		f << "No.,ID Student,Full name,ID Class,Study status,Mid,Final,Bonus,Total,Course status" << endl;
 		int i = 0;
 		while (cur_par != NULL)
 		{
@@ -1537,7 +1544,7 @@ void ExportScore(LinkedListSemes lst) {
 			f << cur_par->dataPar.id << ",";
 			f << cur_par->dataPar.fullname << ",";
 			f << cur_par->dataPar.classId << ",";
-			if (cur_par->dataPar.status == -1)
+			if (cur_par->dataPar.status == 0)
 				f << "INACTIVE,";
 			else
 				f << "ACTIVE,";
@@ -1557,11 +1564,14 @@ void ExportScore(LinkedListSemes lst) {
 				f << "-,";
 			else
 			f << cur_par->dataPar.total << ",";
-			if (cur_par->dataPar.status_course == -1)
+			if (cur_par->dataPar.status_course == 0)
 				f << "INACTIVE,";
 			else
 			f <<"ACTIVE,";
+			cur_par = cur_par->next;
+			f << endl;
 		}
+		cout << GREEN << "Successfully!! Your exported file is "<< temp << RESET << endl;
 		f.close();
 	}
 }
