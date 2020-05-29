@@ -1498,3 +1498,54 @@ void ExportAttendence(LinkedListSemes lst)
 		f.close();
 	}
 }
+//export score to csv file
+void ExportScore(LinkedListSemes lst) {
+	string idclass;
+	Semester semester;
+
+	//get data
+	int choice;
+	choice = ChoiceCourseClass(lst, semester, idclass);
+	if (choice == -1)
+	{
+		cout << "ERROR: please try later!!!" << endl;
+		return;
+	}
+	nodeCourse* cur_course = semester.course.head;
+	while (--choice)
+	{
+		if (choice == 0) break;
+		cur_course = cur_course->next;
+	}
+	LoadStuCourseClass(semester, cur_course->data, idclass);
+	//print out
+	nodePar* cur_par = cur_course->data.participant.head;
+	ofstream f;
+	string temp = idclass + ".csv";
+	f.open(temp);
+	if (!f.is_open())
+	{
+		cout << "Can not open file" << endl;
+	}
+	else {
+		f << "No.,ID Student,Full name,ID Class,Study status,Mid,Final,Bonus,Total,Course status";
+		int i = 0;
+		while (cur_par != NULL)
+		{
+			f << ++i << ",";
+			f << cur_par->dataPar.id << ",";
+			f << cur_par->dataPar.fullname << ",";
+			f << cur_par->dataPar.classId << ",";
+			f << cur_par->dataPar.status << ",";
+			f << cur_par->dataPar.mid << ",";
+			f << cur_par->dataPar.final << ",";
+			f << cur_par->dataPar.bonus << ",";
+			f << cur_par->dataPar.total << ",";
+			f << cur_par->dataPar.status_course << ",";
+			f << endl;
+			cur_par = cur_par->next;
+		}
+		f.close();
+	}
+}
+

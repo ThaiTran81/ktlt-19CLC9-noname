@@ -160,7 +160,7 @@ void ChoiceEditCourse();//<done>
 void AssignScheduleStu(LinkedListPar& lst, LinkedListSche lstSche);//<done>
 nodePar* FindParticipant(LinkedListPar& lst, string id);//find participant<done>
 bool CheckLecCourse(Semester semester, string idCourse, string idClass, string idLec);//check whether the lecturer is in course<done>
-void ExportScore(LinkedListSemes lst);//Gia Huy
+void ExportScore(LinkedListSemes lst);//Gia Huy<done>
 void ExportAttendence(LinkedListSemes lst);//Anh Tuan
 void CheckingStu(LinkedListSemes lstSem, string id_user);
 nodeDat* CheckDay(Participant& participant, Course course);
