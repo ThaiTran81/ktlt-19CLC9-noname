@@ -327,6 +327,7 @@ int main()
 							Changecolor(4);
 							cout << "Delete Semester " << endl;
 							Changecolor(15);
+							DeleteSemes(lstSem);
 							system("pause");
 						}
 						else if (choice2 == 10)//view semester
