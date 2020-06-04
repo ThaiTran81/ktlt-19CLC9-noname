@@ -802,6 +802,17 @@ bool LoadCourseSemes(Semester semester, LinkedListCourse& lstCourse)
 		getline(fi, course.id);
 		getline(fi, course.name);
 		getline(fi, course.classId);
+		getline(fi, course.lec.id);
+		getline(fi, course.lec.name);
+		getline(fi, course.lec.degree);
+		fi >> course.lec.sex;
+		fi >> course.year_start >> course.month_start >> course.day_start;
+		fi >> course.year_end >> course.month_end >> course.day_end;
+		fi >> course.firstday;
+		fi >> course.hour_start >> course.minute_start;
+		fi >> course.hour_end >> course.minute_end;
+		fi.ignore();
+		getline(fi, course.room);
 		PushNodeCourse(lstCourse.head, course);
 	}
 	fi.close();
@@ -827,6 +838,16 @@ bool SaveCourseSemes(Semester semester, LinkedListCourse lstCourse)
 		fo << cur->data.id << endl;
 		fo << cur->data.name << endl;
 		fo << cur->data.classId << endl;
+		fo << cur->data.lec.id << endl;
+		fo << cur->data.lec.name << endl;
+		fo << cur->data.lec.degree << endl;
+		fo << cur->data.lec.sex << endl;
+		fo << cur->data.year_start << " " << cur->data.month_start << " " << cur->data.day_start << endl;
+		fo << cur->data.year_end << " " << cur->data.month_end << " " << cur->data.day_end << endl;
+		fo << cur->data.firstday << endl;
+		fo << cur->data.hour_start << " " << cur->data.minute_start << endl;
+		fo << cur->data.hour_end << " " << cur->data.minute_end << endl;
+		fo << cur->data.room << endl;
 		cur = cur->next;
 	}
 	fo.close();
@@ -1066,24 +1087,34 @@ void ViewListCourseSemes(LinkedListSemes lst)
 	}
 
 	nodeCourse* cur = lstCourse.head;
-	int i = 1;
-	cout << GREEN << "\tLIST OF COURSES-" << semester.name << "(" << semester.yearBeg << "-" << semester.yearEnd << ")" << RESET << endl;
-	cout << "NO.";
-	cout << setw(10) << "ID     ";
-	cout << setw(25) << "Name course                   ";
-	cout << setw(8) << "Class " << endl;
-	cout << "=====================================================" << endl;
+	int count = 1;
+	cout << GREEN << "\t\t\t\tLIST OF COURSES-" << semester.name << "(" << semester.yearBeg << "-" << semester.yearEnd << ")" << RESET << endl;
+	cout << "No.";
+	cout << setw(36) << " |Course|            ";
+	cout << setw(13) << "|ID Class|";
+	cout << setw(25) << "|Date|       ";
+	cout << setw(8) << "|Room|";
+	cout << endl;
+	cout << "======================================================================================" << endl;
 	while (cur != NULL)
 	{
-		cout << i;
-		cout << setw(10) << cur->data.id << "  ";
-		cout << setw(24) << cur->data.name << "   ";
-		cout << setw(8) << cur->data.classId << endl;
-		i++;
+		cout << setw(2) << count << " ";
+		cout << GREEN << setw(30) << cur->data.name << " (" << cur->data.id << ")" << RESET;
+		cout << setw(8) << cur->data.classId;
+		if (cur->data.firstday == 1) cout << setw(14) << "Sunday";
+		else if (cur->data.firstday == 2) cout << setw(14) << "Monday";
+		else if (cur->data.firstday == 3) cout << setw(14) << "Tuesday";
+		else if (cur->data.firstday == 4) cout << setw(14) << "Wednesday";
+		else if (cur->data.firstday == 5) cout << setw(14) << "Thursday";
+		else if (cur->data.firstday == 6) cout << setw(14) << "Friday";
+		else if (cur->data.firstday == 7) cout << setw(14) << "Saturday";
+		cout << " (" << cur->data.hour_start << ":" << cur->data.minute_start << " - " << cur->data.hour_end << ":" << cur->data.minute_end << ")";
+		cout << setw(6) << cur->data.room << endl;
+		cout << "--------------------------------------------------------------------------------------" << endl;
+		count++;
 		cur = cur->next;
-		cout << "-----------------------------------------------------" << endl;
 	}
-	if (i == 1) cout << "(emptry)" << endl;
+	if (count == 1) cout << RED << "(emptry)" << RESET << endl;
 }
 
 
