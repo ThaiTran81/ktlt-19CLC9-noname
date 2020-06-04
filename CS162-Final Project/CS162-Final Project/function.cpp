@@ -1606,4 +1606,36 @@ void ExportScore(LinkedListSemes lst) {
 		f.close();
 	}
 }
+void DeleteSemes(LinkedListSemes& lst)
+{
+
+	int choice;
+	nodeSemes* cur = lst.head;
+	nodeSemes* prev = lst.head;
+	cout << "Which semester do you want to delete ?" << endl;
+	ViewSemester(lst);
+	cout << "Your choice:";
+	cin >> choice;
+	if (choice > lst.numSemes)
+	{
+		cout << RED << "FAILED: please try later!!!" << RESET << endl;
+		return;
+	}
+	if (choice == 1 && lst.numSemes > 0)
+	{
+		lst.numSemes--;
+		lst.head = lst.head->next;
+		cout << GREEN << "Successfully!!!" << RESET << endl;
+		return;
+	}
+	while (choice--)
+	{
+		if (choice == 0) break;
+		prev = cur;
+		cur = cur->next;
+	}
+	lst.numSemes--;
+	prev->next = cur->next;
+	cout << GREEN << "Successfully!!!" << RESET << endl;
+}
 

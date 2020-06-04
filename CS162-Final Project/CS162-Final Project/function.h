@@ -176,7 +176,7 @@ void ViewMyScore(LinkedListSemes lst, string id);//for student view his score<do
 void ViewMyAttendence(LinkedListSemes lst, string id);//for student view his attendence<done>
 void ViewMySchedule(LinkedListSemes lst, string id);//for student view his schedule<done>
 nodeCourse* FindCourse(LinkedListCourse lst, string id);//find course in a class<done>
-
+void DeleteSemes(LinkedListSemes& lst);// Delete a semester<done>
 
 
 //for lecturer
