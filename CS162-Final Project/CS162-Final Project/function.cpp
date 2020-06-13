@@ -927,7 +927,7 @@ void RemoveACourse(LinkedListSemes lst)
 	DeleteNodeCourse(lstCourse.head, cur_course->data.id);
 	SaveFileCourseClass(semester, idclass);
 	SaveCourseSemes(semester, lstCourse);
-
+	cout << GREEN << "Done" << RESET << endl;
 }
 
 //view list of attendence of a course
@@ -1094,8 +1094,9 @@ void ViewListCourseSemes(LinkedListSemes lst)
 	cout << setw(13) << "|ID Class|";
 	cout << setw(25) << "|Date|       ";
 	cout << setw(8) << "|Room|";
+	cout << setw(22) << "|Lecturer|";
 	cout << endl;
-	cout << "======================================================================================" << endl;
+	cout << "========================================================================================================================" << endl;
 	while (cur != NULL)
 	{
 		cout << setw(2) << count << " ";
@@ -1109,8 +1110,9 @@ void ViewListCourseSemes(LinkedListSemes lst)
 		else if (cur->data.firstday == 6) cout << setw(14) << "Friday";
 		else if (cur->data.firstday == 7) cout << setw(14) << "Saturday";
 		cout << " (" << cur->data.hour_start << ":" << cur->data.minute_start << " - " << cur->data.hour_end << ":" << cur->data.minute_end << ")";
-		cout << setw(6) << cur->data.room << endl;
-		cout << "--------------------------------------------------------------------------------------" << endl;
+		cout << setw(6) << cur->data.room;
+		cout << setw(22) << cur->data.lec.name << "-" << cur->data.lec.id << endl;
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 		count++;
 		cur = cur->next;
 	}
@@ -1230,7 +1232,7 @@ void EditCourse(LinkedListSemes lstSem, LinkedListLec& lstLec)
 			nodeCourse* cur1 = lstCourse.head;
 			while (cur1 != NULL)
 			{
-				if (cur1->data.id == cur_course->data.id) break;
+				if (cur1->data.id == cur_course->data.id && cur1->data.classId==cur_course->data.classId) break;
 				cur1 = cur1->next;
 			}
 
@@ -1253,6 +1255,13 @@ void EditCourse(LinkedListSemes lstSem, LinkedListLec& lstLec)
 		}
 		else if (choice == 2)
 		{
+			LoadCourseSemes(semester, lstCourse);
+			nodeCourse* cur1 = lstCourse.head;
+			while (cur1 != NULL)
+			{
+				if (cur1->data.id == cur_course->data.id && cur1->data.classId == cur_course->data.classId) break;
+				cur1 = cur1->next;
+			}
 			cin.ignore();
 			cout << "Enter id of the new lecturer for this course: ";
 			getline(cin, cur_course->data.lec.id);
@@ -1274,11 +1283,20 @@ void EditCourse(LinkedListSemes lstSem, LinkedListLec& lstLec)
 			{
 				cur_course->data.lec = lecturer->dataLec;
 			}
+			cur1->data = cur_course->data;
+			SaveCourseSemes(semester, lstCourse);
 			SaveFileCourseClass(semester, idclass);
 			cout << "Done" << endl;
 		}
 		else if (choice == 3)
 		{
+			LoadCourseSemes(semester, lstCourse);
+			nodeCourse* cur1 = lstCourse.head;
+			while (cur1 != NULL)
+			{
+				if (cur1->data.id == cur_course->data.id && cur1->data.classId == cur_course->data.classId) break;
+				cur1 = cur1->next;
+			}
 			LinkedListSche lstSche;
 			Schedule start, end;
 			cout << "Enter start date(ex 2020 06 01...):";
@@ -1301,15 +1319,28 @@ void EditCourse(LinkedListSemes lstSem, LinkedListLec& lstLec)
 			end.year = cur_course->data.year_end;
 			AnalysisDate(start, end, lstSche, cur_course->data.firstday);
 			AssignScheduleStu(cur_course->data.participant, lstSche);
+
+			cur1->data = cur_course->data;
+			SaveCourseSemes(semester, lstCourse);
 			SaveStuCourse(semester, cur_course->data, idclass);
 			SaveFileCourseClass(semester, idclass);
 			cout << "Done" << endl;
 		}
 		else if (choice == 4)
 		{
+			LoadCourseSemes(semester, lstCourse);
+			nodeCourse* cur1 = lstCourse.head;
+			while (cur1 != NULL)
+			{
+				if (cur1->data.id == cur_course->data.id && cur1->data.classId == cur_course->data.classId) break;
+				cur1 = cur1->next;
+			}
 			cout << "Enter room:";
 			cin.ignore();
 			getline(cin, cur_course->data.room);
+
+			cur1->data = cur_course->data;
+			SaveCourseSemes(semester, lstCourse);
 			SaveFileCourseClass(semester, idclass);
 			cout << "Done" << endl;
 		}

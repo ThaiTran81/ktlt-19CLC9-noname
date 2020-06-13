@@ -35,7 +35,7 @@ void CheckingStu(LinkedListSemes lstSem, string id_user)
 	cur_dat = CheckDay(par_user->dataPar, cur_course->data);
 	if (cur_dat == NULL)
 	{
-		cout << RED << "FAILED: You're late" << RESET << endl;
+		cout << RED << "FAILED: You're late or You checked in too early" << RESET << endl;
 		return;
 	}
 	cur_dat->dataDat.checking = 1;
@@ -438,7 +438,11 @@ void ViewMySchedule(LinkedListSemes lst, string id)
 		temp_semes.yearEnd = semester.yearEnd;
 		LoadStuCourseClass(semester, cur->data, cur->data.classId);
 		nodePar* participant = FindParticipant(cur->data.participant, id);
-		if (participant == NULL) continue;
+		if (participant == NULL)
+		{
+			cur = cur->next;
+			continue;
+		}
 		LoadDataCourseClass(temp_semes, cur->data.classId);
 		nodeCourse* course = FindCourse(temp_semes.course, cur->data.id);
 		if (course == NULL)

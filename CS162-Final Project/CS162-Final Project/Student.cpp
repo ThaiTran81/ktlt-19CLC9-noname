@@ -611,6 +611,7 @@ void ChangeClassStudent(LinkedListStu& lst, LinkedListCla lstCla)
 			SaveDataClassFile(cla2);
 		}
 	}
+	cout << GREEN << "Done" << RESET << endl;
 }
 
 
