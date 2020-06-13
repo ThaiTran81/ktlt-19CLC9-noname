@@ -28,6 +28,10 @@ bool Login(User& user, LinkedListSta lstSta, LinkedListStu lstStu, LinkedListLec
 	do
 	{
 		buffer = _getch();
+		if (buffer == 8)
+		{
+			continue;
+		}
 		if (buffer != 13 && buffer != 8)
 		{
 			cout << "*";
